@@ -30,6 +30,7 @@
     self.window.rootViewController = [STTabBarViewController new];
     
     [self.window makeKeyAndVisible];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

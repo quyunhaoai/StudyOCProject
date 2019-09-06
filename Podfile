@@ -6,8 +6,9 @@ pod 'AFNetworking', '~> 3.1.0'
 pod 'MJRefresh', '~> 3.1.15.1'
 pod 'Masonry', '~> 1.1.0'
 pod 'MBProgressHUD', '~> 1.1.0'
-pod 'YYKit'
-pod 'SDWebImage/WebP'
+pod 'SDWebImage'
+pod 'MJExtension'
+
 end
 
 
