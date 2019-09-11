@@ -8,6 +8,9 @@ pod 'Masonry', '~> 1.1.0'
 pod 'MBProgressHUD', '~> 1.1.0'
 pod 'SDWebImage'
 pod 'MJExtension'
+pod 'BGFMDB', '~> 2.0.9'
+pod 'SDCycleScrollView','>=1.80'
+
 
 end
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,11 +16,21 @@
 		A51FB86A231F3DDA00D818A8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A51FB869231F3DDA00D818A8 /* main.m */; };
 		A51FB877231F438B00D818A8 /* STBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A51FB876231F438B00D818A8 /* STBaseViewController.m */; };
 		A51FB87E231F46A900D818A8 /* STTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A51FB87D231F46A900D818A8 /* STTabBarViewController.m */; };
+		A51FD1AB2322641400C125C9 /* STKWWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A51FD1AA2322641300C125C9 /* STKWWebViewController.m */; };
 		A52232282320E0F800DE413E /* NSObject+EverGesturePath.m in Sources */ = {isa = PBXBuildFile; fileRef = A52232222320E0F800DE413E /* NSObject+EverGesturePath.m */; };
 		A52232292320E0F800DE413E /* UIViewController+EverPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A52232232320E0F800DE413E /* UIViewController+EverPath.m */; };
 		A522322A2320E0F800DE413E /* UIControl+EverPath.m in Sources */ = {isa = PBXBuildFile; fileRef = A52232272320E0F800DE413E /* UIControl+EverPath.m */; };
 		A558B074CADECEFF2AEBCCE7 /* libPods-StudyOC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3307BE2BB098774673DD9F24 /* libPods-StudyOC.a */; };
 		A59FEC372320A9AE00C60BB5 /* STHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A59FEC362320A9AE00C60BB5 /* STHomeViewController.m */; };
+		A5A17DD023288EDB000B707B /* STChildrenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A17DCF23288EDB000B707B /* STChildrenViewController.m */; };
+		A5A17DD32328A152000B707B /* STBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A17DD22328A152000B707B /* STBaseModel.m */; };
+		A5A17DD72328A1EB000B707B /* STChildrenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A17DD62328A1EB000B707B /* STChildrenModel.m */; };
+		A5EEFE5A2323449B0039F25C /* STTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EEFE592323449B0039F25C /* STTwoViewController.m */; };
+		A5EEFE5D232344AF0039F25C /* STThreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EEFE5C232344AF0039F25C /* STThreeViewController.m */; };
+		A5FA18242326335C00FEB9D3 /* STHttpResquest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FA18232326335C00FEB9D3 /* STHttpResquest.m */; };
+		A5FA18282326353800FEB9D3 /* MBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FA18262326353800FEB9D3 /* MBManager.m */; };
+		A5FA18302326432500FEB9D3 /* FSSegmentTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FA182B2326432400FEB9D3 /* FSSegmentTitleView.m */; };
+		A5FA18312326432500FEB9D3 /* FSPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FA182E2326432400FEB9D3 /* FSPageContentView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +54,8 @@
 		A51FB876231F438B00D818A8 /* STBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STBaseViewController.m; sourceTree = "<group>"; };
 		A51FB87C231F46A900D818A8 /* STTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STTabBarViewController.h; sourceTree = "<group>"; };
 		A51FB87D231F46A900D818A8 /* STTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STTabBarViewController.m; sourceTree = "<group>"; };
+		A51FD1A92322641300C125C9 /* STKWWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STKWWebViewController.h; sourceTree = "<group>"; };
+		A51FD1AA2322641300C125C9 /* STKWWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STKWWebViewController.m; sourceTree = "<group>"; };
 		A52232172320B64700DE413E /* StudyOC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StudyOC.entitlements; sourceTree = "<group>"; };
 		A52232222320E0F800DE413E /* NSObject+EverGesturePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+EverGesturePath.m"; sourceTree = "<group>"; };
 		A52232232320E0F800DE413E /* UIViewController+EverPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+EverPath.m"; sourceTree = "<group>"; };
@@ -54,6 +66,25 @@
 		A5860789231FABDF00D8094B /* STPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STPrefixHeader.pch; sourceTree = "<group>"; };
 		A59FEC352320A9AE00C60BB5 /* STHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STHomeViewController.h; sourceTree = "<group>"; };
 		A59FEC362320A9AE00C60BB5 /* STHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STHomeViewController.m; sourceTree = "<group>"; };
+		A5A17DCE23288EDB000B707B /* STChildrenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STChildrenViewController.h; sourceTree = "<group>"; };
+		A5A17DCF23288EDB000B707B /* STChildrenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STChildrenViewController.m; sourceTree = "<group>"; };
+		A5A17DD12328A152000B707B /* STBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STBaseModel.h; sourceTree = "<group>"; };
+		A5A17DD22328A152000B707B /* STBaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STBaseModel.m; sourceTree = "<group>"; };
+		A5A17DD52328A1EB000B707B /* STChildrenModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STChildrenModel.h; sourceTree = "<group>"; };
+		A5A17DD62328A1EB000B707B /* STChildrenModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STChildrenModel.m; sourceTree = "<group>"; };
+		A5EEFE582323449B0039F25C /* STTwoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STTwoViewController.h; sourceTree = "<group>"; };
+		A5EEFE592323449B0039F25C /* STTwoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STTwoViewController.m; sourceTree = "<group>"; };
+		A5EEFE5B232344AF0039F25C /* STThreeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STThreeViewController.h; sourceTree = "<group>"; };
+		A5EEFE5C232344AF0039F25C /* STThreeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STThreeViewController.m; sourceTree = "<group>"; };
+		A5FA18222326335C00FEB9D3 /* STHttpResquest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STHttpResquest.h; sourceTree = "<group>"; };
+		A5FA18232326335C00FEB9D3 /* STHttpResquest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STHttpResquest.m; sourceTree = "<group>"; };
+		A5FA18262326353800FEB9D3 /* MBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBManager.m; sourceTree = "<group>"; };
+		A5FA18272326353800FEB9D3 /* MBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBManager.h; sourceTree = "<group>"; };
+		A5FA182B2326432400FEB9D3 /* FSSegmentTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSSegmentTitleView.m; sourceTree = "<group>"; };
+		A5FA182C2326432400FEB9D3 /* FSPageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPageContentView.h; sourceTree = "<group>"; };
+		A5FA182D2326432400FEB9D3 /* FSScrollContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSScrollContentView.h; sourceTree = "<group>"; };
+		A5FA182E2326432400FEB9D3 /* FSPageContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPageContentView.m; sourceTree = "<group>"; };
+		A5FA182F2326432400FEB9D3 /* FSSegmentTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSSegmentTitleView.h; sourceTree = "<group>"; };
 		A6BBE460DEA79AF3415BF643 /* Pods-StudyOC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyOC.release.xcconfig"; path = "Target Support Files/Pods-StudyOC/Pods-StudyOC.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +120,7 @@
 		A5039CBF232094A400B69CED /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				A5FA18212326331200FEB9D3 /* HttpResquest */,
 				A5039CBE2320948B00B69CED /* STheader.h */,
 				A5860789231FABDF00D8094B /* STPrefixHeader.pch */,
 				A5039CC623209E4500B69CED /* STDefineMacros.h */,
@@ -131,6 +163,7 @@
 		A51FB870231F3EA100D818A8 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A5FA18292326430000FEB9D3 /* Third */,
 				A52232202320E0EE00DE413E /* Tools */,
 				A522321F2320DF4700DE413E /* Home */,
 				A5039CBF232094A400B69CED /* Global */,
@@ -145,12 +178,16 @@
 		A51FB871231F42E800D818A8 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				A51FD1A92322641300C125C9 /* STKWWebViewController.h */,
+				A51FD1AA2322641300C125C9 /* STKWWebViewController.m */,
 				A5039CC3232095FA00B69CED /* STBaseTableViewController.h */,
 				A5039CC4232095FA00B69CED /* STBaseTableViewController.m */,
 				A51FB875231F438B00D818A8 /* STBaseViewController.h */,
 				A51FB876231F438B00D818A8 /* STBaseViewController.m */,
 				A5039CC02320958F00B69CED /* STBaseNav.h */,
 				A5039CC12320958F00B69CED /* STBaseNav.m */,
+				A5A17DD12328A152000B707B /* STBaseModel.h */,
+				A5A17DD22328A152000B707B /* STBaseModel.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -167,8 +204,14 @@
 		A522321F2320DF4700DE413E /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				A5A17DD42328A196000B707B /* Model */,
+				A5A17DCD23288E2D000B707B /* ViewController */,
 				A59FEC352320A9AE00C60BB5 /* STHomeViewController.h */,
 				A59FEC362320A9AE00C60BB5 /* STHomeViewController.m */,
+				A5EEFE582323449B0039F25C /* STTwoViewController.h */,
+				A5EEFE592323449B0039F25C /* STTwoViewController.m */,
+				A5EEFE5B232344AF0039F25C /* STThreeViewController.h */,
+				A5EEFE5C232344AF0039F25C /* STThreeViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -176,6 +219,7 @@
 		A52232202320E0EE00DE413E /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A5FA1825232634DC00FEB9D3 /* MBProgressHUD(ST) */,
 				A52232212320E0F800DE413E /* PrintPathTools */,
 			);
 			path = Tools;
@@ -192,6 +236,62 @@
 				A52232272320E0F800DE413E /* UIControl+EverPath.m */,
 			);
 			path = PrintPathTools;
+			sourceTree = "<group>";
+		};
+		A5A17DCD23288E2D000B707B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A5A17DCE23288EDB000B707B /* STChildrenViewController.h */,
+				A5A17DCF23288EDB000B707B /* STChildrenViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		A5A17DD42328A196000B707B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A5A17DD52328A1EB000B707B /* STChildrenModel.h */,
+				A5A17DD62328A1EB000B707B /* STChildrenModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A5FA18212326331200FEB9D3 /* HttpResquest */ = {
+			isa = PBXGroup;
+			children = (
+				A5FA18222326335C00FEB9D3 /* STHttpResquest.h */,
+				A5FA18232326335C00FEB9D3 /* STHttpResquest.m */,
+			);
+			path = HttpResquest;
+			sourceTree = "<group>";
+		};
+		A5FA1825232634DC00FEB9D3 /* MBProgressHUD(ST) */ = {
+			isa = PBXGroup;
+			children = (
+				A5FA18272326353800FEB9D3 /* MBManager.h */,
+				A5FA18262326353800FEB9D3 /* MBManager.m */,
+			);
+			path = "MBProgressHUD(ST)";
+			sourceTree = "<group>";
+		};
+		A5FA18292326430000FEB9D3 /* Third */ = {
+			isa = PBXGroup;
+			children = (
+				A5FA182A2326432400FEB9D3 /* FSScrollContentViewLib */,
+			);
+			path = Third;
+			sourceTree = "<group>";
+		};
+		A5FA182A2326432400FEB9D3 /* FSScrollContentViewLib */ = {
+			isa = PBXGroup;
+			children = (
+				A5FA182D2326432400FEB9D3 /* FSScrollContentView.h */,
+				A5FA182C2326432400FEB9D3 /* FSPageContentView.h */,
+				A5FA182E2326432400FEB9D3 /* FSPageContentView.m */,
+				A5FA182F2326432400FEB9D3 /* FSSegmentTitleView.h */,
+				A5FA182B2326432400FEB9D3 /* FSSegmentTitleView.m */,
+			);
+			path = FSScrollContentViewLib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,11 +416,21 @@
 			files = (
 				A522322A2320E0F800DE413E /* UIControl+EverPath.m in Sources */,
 				A51FB86A231F3DDA00D818A8 /* main.m in Sources */,
+				A5FA18282326353800FEB9D3 /* MBManager.m in Sources */,
+				A5FA18242326335C00FEB9D3 /* STHttpResquest.m in Sources */,
 				A51FB87E231F46A900D818A8 /* STTabBarViewController.m in Sources */,
+				A5EEFE5D232344AF0039F25C /* STThreeViewController.m in Sources */,
 				A51FB85C231F3DD900D818A8 /* AppDelegate.m in Sources */,
+				A5EEFE5A2323449B0039F25C /* STTwoViewController.m in Sources */,
+				A5FA18302326432500FEB9D3 /* FSSegmentTitleView.m in Sources */,
+				A5A17DD32328A152000B707B /* STBaseModel.m in Sources */,
+				A51FD1AB2322641400C125C9 /* STKWWebViewController.m in Sources */,
 				A5039CC5232095FA00B69CED /* STBaseTableViewController.m in Sources */,
+				A5FA18312326432500FEB9D3 /* FSPageContentView.m in Sources */,
+				A5A17DD72328A1EB000B707B /* STChildrenModel.m in Sources */,
 				A5039CC22320958F00B69CED /* STBaseNav.m in Sources */,
 				A59FEC372320A9AE00C60BB5 /* STHomeViewController.m in Sources */,
+				A5A17DD023288EDB000B707B /* STChildrenViewController.m in Sources */,
 				A52232292320E0F800DE413E /* UIViewController+EverPath.m in Sources */,
 				A52232282320E0F800DE413E /* NSObject+EverGesturePath.m in Sources */,
 				A51FB877231F438B00D818A8 /* STBaseViewController.m in Sources */,

@@ -11,6 +11,9 @@
 #import "STBaseNav.h"
 
 #import "STHomeViewController.h"
+#import "STKWWebViewController.h"
+#import "STTwoViewController.h"
+#import "STThreeViewController.h"
 @interface STTabBarViewController ()<UITabBarDelegate,UITabBarControllerDelegate,UINavigationControllerDelegate>
 
 @end
@@ -39,25 +42,25 @@
     navTabVC.view.backgroundColor = kRedColor;
     navTabVC.tabBarItem
     = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"首页"]
-                                    image:[[UIImage imageNamed:@"tabbar_home_black"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                            selectedImage:[[UIImage imageNamed:@"tabbar_home_white"]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                            selectedImage:[[UIImage imageNamed:@""]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    STBaseViewController *collectionFoundVC = [[STBaseViewController alloc] init];
+    STTwoViewController *collectionFoundVC = [[STTwoViewController alloc] init];
     collectionFoundVC.view.backgroundColor = kOrangeColor;
     
     collectionFoundVC.tabBarItem
     = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"服务"]
-                                    image:[[UIImage imageNamed:@"icon_tab_bar_playgoing_white"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                            selectedImage:[[UIImage imageNamed:@"icon_tab_bar_playgoing_red"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    STBaseViewController *singVC = [[STBaseViewController alloc] init];
+    STThreeViewController *singVC = [[STThreeViewController alloc] init];
     singVC.view.backgroundColor = kYellowColor;
     singVC.tabBarItem
     = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"发现"]
-                                    image:[[UIImage imageNamed:@"tabbar_find_white"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                            selectedImage:[[UIImage imageNamed:@"tabbar_find_red"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    STBaseViewController *personalCenterVC = [[STBaseViewController alloc] init];
+    STKWWebViewController *personalCenterVC = [[STKWWebViewController alloc] init];
     personalCenterVC.view.backgroundColor = kWhiteColor;
     personalCenterVC.tabBarItem
     = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"我"]

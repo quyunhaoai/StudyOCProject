@@ -28,19 +28,16 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
         [self setEdgesForExtendedLayout:UIRectEdgeNone];
     }
-    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT, self.view.frame.size.width, self.view.frame.size.height-NAVIGATION_BAR_HEIGHT) style:self.style];
     _tableView.accessibilityIdentifier = @"table_view";
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-//    _tableView.tableFooterView = self.defaultFooterView;
     _tableView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:_tableView];
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
-//    self.baseTableView = self.tableView;
 }
 
 #pragma mark - Table view data source
