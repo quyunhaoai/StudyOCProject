@@ -38,41 +38,42 @@
 
 - (void)builderTabbarView {
     self.delegate = self;
+    self.tabBar.backgroundColor = kWhiteColor;
     STHomeViewController *navTabVC = [STHomeViewController alloc];
-    navTabVC.view.backgroundColor = kRedColor;
-    navTabVC.tabBarItem
-    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"首页"]
-                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                            selectedImage:[[UIImage imageNamed:@""]  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+//    navTabVC.view.backgroundColor = kRedColor;
+//    navTabVC.tabBarItem
+//    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"首页"]
+//                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     STTwoViewController *collectionFoundVC = [[STTwoViewController alloc] init];
-    collectionFoundVC.view.backgroundColor = kOrangeColor;
+//    collectionFoundVC.view.backgroundColor = kOrangeColor;
     
-    collectionFoundVC.tabBarItem
-    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"服务"]
-                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+//    collectionFoundVC.tabBarItem
+//    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"服务"]
+//                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     STThreeViewController *singVC = [[STThreeViewController alloc] init];
-    singVC.view.backgroundColor = kYellowColor;
-    singVC.tabBarItem
-    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"发现"]
-                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+//    singVC.view.backgroundColor = kYellowColor;
+//    singVC.tabBarItem
+//    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"发现"]
+//                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     STKWWebViewController *personalCenterVC = [[STKWWebViewController alloc] init];
-    personalCenterVC.view.backgroundColor = kWhiteColor;
-    personalCenterVC.tabBarItem
-    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"我"]
-                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+//    personalCenterVC.view.backgroundColor = kWhiteColor;
+//    personalCenterVC.tabBarItem
+//    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"我"]
+//                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+//                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     // 设置文字的样式
-    NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
-    textAttrs[NSForegroundColorAttributeName] = COLOR_666666;
-    
-    NSMutableDictionary *selectTextAttrs = [NSMutableDictionary dictionary];
-    selectTextAttrs[NSForegroundColorAttributeName] = COLOR_F42415;
+//    NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
+//    textAttrs[NSForegroundColorAttributeName] = COLOR_666666;
+//
+//    NSMutableDictionary *selectTextAttrs = [NSMutableDictionary dictionary];
+//    selectTextAttrs[NSForegroundColorAttributeName] = COLOR_F42415;
     
     
     NSArray *viewCtrlArray = @[navTabVC, collectionFoundVC, singVC, personalCenterVC];
@@ -82,8 +83,8 @@
     @autoreleasepool {
         for (UIViewController *viewCtrl in viewCtrlArray) {
             // 为视图控制器添加导航栏
-            [viewCtrl.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
-            [viewCtrl.tabBarItem setTitleTextAttributes:selectTextAttrs forState:UIControlStateSelected];
+//            [viewCtrl.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
+//            [viewCtrl.tabBarItem setTitleTextAttributes:selectTextAttrs forState:UIControlStateSelected];
             STBaseNav *navCtrl = [[STBaseNav alloc] initWithRootViewController:viewCtrl];
             navCtrl.delegate = self;
             [navCtrls addObject:navCtrl];

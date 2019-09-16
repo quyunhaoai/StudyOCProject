@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"第二页";
     // ###细节二:判断设备是否支持区域监听(指定区域类型,一般是圆形区域)
     if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
         return;

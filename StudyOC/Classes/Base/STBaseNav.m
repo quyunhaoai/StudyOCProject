@@ -30,7 +30,10 @@
     
     // 假死状态:程序还在运行,但是界面死了.
     
-    
+//    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    self.navigationController.navigationBar.translucent = NO;
+//  //默认值为“是”。如果导航栏具有自定义背景图像，则如果图像的任何像素的alpha值小于1.0，则默认为“是”，否则为“否”。如果在具有不透明自定义背景图像的导航栏上将此属性设置为“是”，则导航栏将对图像应用小于1.0的系统定义不透明度。如果在具有半透明自定义背景图像的导航栏上将此属性设置为“否”，则如果导航栏具有uibarstyleblack样式，导航栏将使用黑色为图像提供不透明的背景；如果导航栏具有uibarstyledefault，导航栏将使用白色；或者如果定义了自定义值，则为tintcolor。
+//    self.navigationController.navigationBar.tintColor = kWhiteColor;//uiview的所有子类都从基类派生其tintcolor行为
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,7 +53,10 @@
     [navBar setTitleTextAttributes:attrs];
     
     // 设置导航条背景图片
-//    [navBar setBackgroundImage:[UIImage imageNamed:@"navigationbarBackgroundWhite"] forBarMetrics:UIBarMetricsDefault];
+    [navBar setBackgroundImage:[UIImage imageNamed:@"navigationbarBackgroundWhite"] forBarMetrics:UIBarMetricsDefault];
+//    [navBar setBackgroundColor:kRedColor];
+//    [navBar setAlpha:1.0f];
+//    [navBar setTintColor:kYellowColor];
 }
 #pragma mark - UIGestureRecognizerDelegate
 // 决定是否触发手势

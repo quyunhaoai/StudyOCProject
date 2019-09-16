@@ -10,7 +10,7 @@ pod 'SDWebImage'
 pod 'MJExtension'
 pod 'BGFMDB', '~> 2.0.9'
 pod 'SDCycleScrollView','>=1.80'
-
+pod 'SuperPlayer'
 
 end
 

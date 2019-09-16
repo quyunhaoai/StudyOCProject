@@ -24,7 +24,9 @@
 - (void)loadWindows {
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [STTabBarViewController new];
+    self.window.backgroundColor = kWhiteColor;
     [self.window makeKeyAndVisible];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {//- 程序失去焦点

@@ -10,7 +10,7 @@
 #ifndef STDefineMacros_h
 #define STDefineMacros_h
 
-
+#define kPrintPathLog (1)           //  打印页面path debug 模式下
 /*================================常用宏===============================*/
 //定义窗口大小
 #define Window_Bounds   [UIScreen mainScreen].bounds
@@ -594,14 +594,14 @@ return shared##className; \
 #define kClearColor         [UIColor clearColor]
 
 //  FONT_ + 所属PT    参照：XIYUAN-5.0-UI 戏缘ui 通用规范
-//#define FONT_18 [UIFont systemFontOfSize:RationEnlarge(18.f)]    //  T1  用在导航栏标题
-//#define FONT_16 [UIFont systemFontOfSize:RationEnlarge(16.f)]    //  T2  用于筛选标题或戏曲标题
-//#define FONT_15 [UIFont systemFontOfSize:RationEnlarge(15.f)]
-//#define FONT_14 [UIFont systemFontOfSize:RationEnlarge(14.f)]    //  T3  用于小标题
-//#define FONT_13 [UIFont systemFontOfSize:RationEnlarge(13.f)]    //  T4  用于辅助性文字（如唱过人数、歌曲大小、时间等）
-//#define FONT_12 [UIFont systemFontOfSize:RationEnlarge(12.f)]
-//#define FONT_11 [UIFont systemFontOfSize:RationEnlarge(11.f)]    //
-//#define FONT_10 [UIFont systemFontOfSize:RationEnlarge(10.f)]    //  T5  用于辅助性文字（如底部导航栏字体大小或需要特殊说明地方）
+#define FONT_18 [UIFont systemFontOfSize:RationEnlarge(18.f)]    //  T1  用在导航栏标题
+#define FONT_16 [UIFont systemFontOfSize:RationEnlarge(16.f)]    //  T2  用于筛选标题或戏曲标题
+#define FONT_15 [UIFont systemFontOfSize:RationEnlarge(15.f)]
+#define FONT_14 [UIFont systemFontOfSize:RationEnlarge(14.f)]    //  T3  用于小标题
+#define FONT_13 [UIFont systemFontOfSize:RationEnlarge(13.f)]    //  T4  用于辅助性文字（如唱过人数、歌曲大小、时间等）
+#define FONT_12 [UIFont systemFontOfSize:RationEnlarge(12.f)]
+#define FONT_11 [UIFont systemFontOfSize:RationEnlarge(11.f)]    //
+#define FONT_10 [UIFont systemFontOfSize:RationEnlarge(10.f)]    //  T5  用于辅助性文字（如底部导航栏字体大小或需要特殊说明地方）
 
 #define ColorWhiteAlpha10 RGBA(255.0, 255.0, 255.0, 0.1)
 #define ColorWhiteAlpha20 RGBA(255.0, 255.0, 255.0, 0.2)

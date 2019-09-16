@@ -8,6 +8,7 @@
 
 #import "STThreeViewController.h"
 #import "STChildrenViewController.h"
+#import "UIButton+RepeatEventInterval.h"
 @interface STThreeViewController ()
 
 @end
@@ -17,14 +18,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.navigationItem.title = @"第三页";
+//    self.tabBarItem.title = @"123";
+//    self.tabBarController.tabBarItem.title = @"第三页";
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    static int i = 0;
+    UIButton *button = [UIButton buttonWithClickBlock:^(UIButton *btn) {
+        NSLog(@"%d", i++);
+        [self sugeToChilderVC:btn];
+    }];
     [self.view addSubview:button];
-    
+    button.repeatEventInterval = 1;
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     
     [button setTitle:@"跳转" forState:UIControlStateNormal];
+    [button setTitleColor:kBlackColor forState:UIControlStateNormal];
     [button addTarget:self action:@selector(sugeToChilderVC:) forControlEvents:UIControlEventTouchUpInside];
 }
 

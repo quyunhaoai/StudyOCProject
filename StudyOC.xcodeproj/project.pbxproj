@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A5039CC22320958F00B69CED /* STBaseNav.m in Sources */ = {isa = PBXBuildFile; fileRef = A5039CC12320958F00B69CED /* STBaseNav.m */; };
 		A5039CC5232095FA00B69CED /* STBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5039CC4232095FA00B69CED /* STBaseTableViewController.m */; };
+		A509BCE0232A4ABC00C6CAE1 /* UIButton+RepeatEventInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = A509BCDE232A4ABC00C6CAE1 /* UIButton+RepeatEventInterval.m */; };
 		A51FB85C231F3DD900D818A8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A51FB85B231F3DD900D818A8 /* AppDelegate.m */; };
 		A51FB862231F3DD900D818A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A51FB860231F3DD900D818A8 /* Main.storyboard */; };
 		A51FB864231F3DDA00D818A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A51FB863231F3DDA00D818A8 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		A5FA18282326353800FEB9D3 /* MBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FA18262326353800FEB9D3 /* MBManager.m */; };
 		A5FA18302326432500FEB9D3 /* FSSegmentTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FA182B2326432400FEB9D3 /* FSSegmentTitleView.m */; };
 		A5FA18312326432500FEB9D3 /* FSPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FA182E2326432400FEB9D3 /* FSPageContentView.m */; };
+		A5FC1BD22329CEB500431E3A /* XXFileManger.m in Sources */ = {isa = PBXBuildFile; fileRef = A5FC1BD12329CEB500431E3A /* XXFileManger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		A5039CC3232095FA00B69CED /* STBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STBaseTableViewController.h; sourceTree = "<group>"; };
 		A5039CC4232095FA00B69CED /* STBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STBaseTableViewController.m; sourceTree = "<group>"; };
 		A5039CC623209E4500B69CED /* STDefineMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STDefineMacros.h; sourceTree = "<group>"; };
+		A509BCDE232A4ABC00C6CAE1 /* UIButton+RepeatEventInterval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+RepeatEventInterval.m"; sourceTree = "<group>"; };
+		A509BCDF232A4ABC00C6CAE1 /* UIButton+RepeatEventInterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+RepeatEventInterval.h"; sourceTree = "<group>"; };
 		A51FB857231F3DD900D818A8 /* StudyOC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyOC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A51FB85A231F3DD900D818A8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A51FB85B231F3DD900D818A8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 		A5FA182D2326432400FEB9D3 /* FSScrollContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSScrollContentView.h; sourceTree = "<group>"; };
 		A5FA182E2326432400FEB9D3 /* FSPageContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPageContentView.m; sourceTree = "<group>"; };
 		A5FA182F2326432400FEB9D3 /* FSSegmentTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSSegmentTitleView.h; sourceTree = "<group>"; };
+		A5FC1BD02329CEB500431E3A /* XXFileManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXFileManger.h; sourceTree = "<group>"; };
+		A5FC1BD12329CEB500431E3A /* XXFileManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXFileManger.m; sourceTree = "<group>"; };
 		A6BBE460DEA79AF3415BF643 /* Pods-StudyOC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StudyOC.release.xcconfig"; path = "Target Support Files/Pods-StudyOC/Pods-StudyOC.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +132,15 @@
 				A5039CC623209E4500B69CED /* STDefineMacros.h */,
 			);
 			path = Global;
+			sourceTree = "<group>";
+		};
+		A509BCDD232A4AA300C6CAE1 /* ButtonRepeatEventInterval */ = {
+			isa = PBXGroup;
+			children = (
+				A509BCDF232A4ABC00C6CAE1 /* UIButton+RepeatEventInterval.h */,
+				A509BCDE232A4ABC00C6CAE1 /* UIButton+RepeatEventInterval.m */,
+			);
+			path = ButtonRepeatEventInterval;
 			sourceTree = "<group>";
 		};
 		A51FB84E231F3DD900D818A8 = {
@@ -219,6 +234,8 @@
 		A52232202320E0EE00DE413E /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A509BCDD232A4AA300C6CAE1 /* ButtonRepeatEventInterval */,
+				A5FC1BCF2329CEB500431E3A /* PlistManager */,
 				A5FA1825232634DC00FEB9D3 /* MBProgressHUD(ST) */,
 				A52232212320E0F800DE413E /* PrintPathTools */,
 			);
@@ -228,11 +245,11 @@
 		A52232212320E0F800DE413E /* PrintPathTools */ = {
 			isa = PBXGroup;
 			children = (
+				A52232252320E0F800DE413E /* NSObject+EverGesturePath.h */,
 				A52232222320E0F800DE413E /* NSObject+EverGesturePath.m */,
+				A52232262320E0F800DE413E /* UIViewController+EverPath.h */,
 				A52232232320E0F800DE413E /* UIViewController+EverPath.m */,
 				A52232242320E0F800DE413E /* UIControl+EverPath.h */,
-				A52232252320E0F800DE413E /* NSObject+EverGesturePath.h */,
-				A52232262320E0F800DE413E /* UIViewController+EverPath.h */,
 				A52232272320E0F800DE413E /* UIControl+EverPath.m */,
 			);
 			path = PrintPathTools;
@@ -292,6 +309,16 @@
 				A5FA182B2326432400FEB9D3 /* FSSegmentTitleView.m */,
 			);
 			path = FSScrollContentViewLib;
+			sourceTree = "<group>";
+		};
+		A5FC1BCF2329CEB500431E3A /* PlistManager */ = {
+			isa = PBXGroup;
+			children = (
+				A5FC1BD02329CEB500431E3A /* XXFileManger.h */,
+				A5FC1BD12329CEB500431E3A /* XXFileManger.m */,
+			);
+			name = PlistManager;
+			path = ../../../../../../Downloads/YuJianPro/YuJianPro/Tools/PlistManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,6 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5FC1BD22329CEB500431E3A /* XXFileManger.m in Sources */,
 				A522322A2320E0F800DE413E /* UIControl+EverPath.m in Sources */,
 				A51FB86A231F3DDA00D818A8 /* main.m in Sources */,
 				A5FA18282326353800FEB9D3 /* MBManager.m in Sources */,
@@ -429,6 +457,7 @@
 				A5FA18312326432500FEB9D3 /* FSPageContentView.m in Sources */,
 				A5A17DD72328A1EB000B707B /* STChildrenModel.m in Sources */,
 				A5039CC22320958F00B69CED /* STBaseNav.m in Sources */,
+				A509BCE0232A4ABC00C6CAE1 /* UIButton+RepeatEventInterval.m in Sources */,
 				A59FEC372320A9AE00C60BB5 /* STHomeViewController.m in Sources */,
 				A5A17DD023288EDB000B707B /* STChildrenViewController.m in Sources */,
 				A52232292320E0F800DE413E /* UIViewController+EverPath.m in Sources */,
@@ -589,7 +618,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dy.StudyOC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -611,7 +640,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dy.StudyOC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
