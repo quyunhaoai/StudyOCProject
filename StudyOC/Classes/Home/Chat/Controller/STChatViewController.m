@@ -1,27 +1,23 @@
 //
-//  STThreeViewController.m
+//  STChatViewController
 //  StudyOC
 //
 //  Created by 研学旅行 on 2019/9/7.
 //  Copyright © 2019 研学旅行. All rights reserved.
 //
 
-#import "STThreeViewController.h"
+#import "STChatViewController.h"
 #import "STChildrenViewController.h"
 #import "UIButton+RepeatEventInterval.h"
-@interface STThreeViewController ()
+@interface STChatViewController ()
 
 @end
 
-@implementation STThreeViewController
+@implementation STChatViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.navigationItem.title = @"第三页";
-//    self.tabBarItem.title = @"123";
-//    self.tabBarController.tabBarItem.title = @"第三页";
-//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     static int i = 0;
     UIButton *button = [UIButton buttonWithClickBlock:^(UIButton *btn) {
         NSLog(@"%d", i++);

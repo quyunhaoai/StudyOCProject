@@ -52,7 +52,7 @@
 #define IS_IPHONE_Xs_Max ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) && !IS_PAD : NO)
 
 
-#define kNavBarHeight 44.0
+//#define kNavBarHeight 44.0
 // 状态栏高度
 #define STATUS_BAR_HEIGHT ((iPhoneX==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 44.0 : 20.0)
 // 导航栏高度
@@ -75,7 +75,8 @@
 
 //弱引用
 #define XYWeakSelf      __weak __typeof(&*self) weakSelf = self
-
+#define __weakify(type) @weakify(type)
+#define __strongify(type) @strongify(type)
 //IntToString
 #define XYIntToString(theInt) ([NSString stringWithFormat:@"%d",theInt])
 
@@ -535,6 +536,10 @@ return shared##className; \
 
 /*================================COLOR/FONT===============================*/
 #pragma mark  -  color
+//颜色相关
+#define KKColor(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+#define randomColorValue arc4random_uniform(256)
+#define KKRandomColor [UIColor colorWithRed:(randomColorValue)/255.0 green:(randomColorValue)/255.0 blue:(randomColorValue)/255.0 alpha:1.0]
 
 /**
  *  十六进制色值转化
@@ -618,14 +623,14 @@ return shared##className; \
 #define ColorBlackAlpha80 RGBA(0.0, 0.0, 0.0, 0.8)
 #define ColorBlackAlpha90 RGBA(0.0, 0.0, 0.0, 0.9)
 
-#define FONT_18 [UIFont systemFontOfSize:18.f]    //  T1  用在导航栏标题
-#define FONT_16 [UIFont systemFontOfSize:16.f]    //  T2  用于筛选标题或戏曲标题
-#define FONT_15 [UIFont systemFontOfSize:15.f]
-#define FONT_14 [UIFont systemFontOfSize:14.f]    //  T3  用于小标题
-#define FONT_13 [UIFont systemFontOfSize:13.f]    //  T4  用于辅助性文字（如唱过人数、歌曲大小、时间等）
-#define FONT_12 [UIFont systemFontOfSize:12.f]
-#define FONT_11 [UIFont systemFontOfSize:11.f]    //
-#define FONT_10 [UIFont systemFontOfSize:10.f]    //  T5  用于辅助性文字（如底部导航栏字体大小或需要特殊说明地方）
+//#define FONT_18 [UIFont systemFontOfSize:18.f]    //  T1  用在导航栏标题
+//#define FONT_16 [UIFont systemFontOfSize:16.f]    //  T2  用于筛选标题或戏曲标题
+//#define FONT_15 [UIFont systemFontOfSize:15.f]
+//#define FONT_14 [UIFont systemFontOfSize:14.f]    //  T3  用于小标题
+//#define FONT_13 [UIFont systemFontOfSize:13.f]    //  T4  用于辅助性文字（如唱过人数、歌曲大小、时间等）
+//#define FONT_12 [UIFont systemFontOfSize:12.f]
+//#define FONT_11 [UIFont systemFontOfSize:11.f]    //
+//#define FONT_10 [UIFont systemFontOfSize:10.f]    //  T5  用于辅助性文字（如底部导航栏字体大小或需要特殊说明地方）
 
 #define FONT_24 [UIFont systemFontOfSize:(24.f)]    //  分数
 #define FONT_22 [UIFont systemFontOfSize:(22.f)]    //  用于商品价格

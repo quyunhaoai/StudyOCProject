@@ -25,11 +25,13 @@
 
 
 - (void)setupView {
-    self.title = @"首页";
+
+    
     self.playerContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Window_W, Window_W*0.56)];
     [self.view addSubview:self.playerContainerView];
     
     _playerView = [[SuperPlayerView alloc] init];
+
     _playerView.fatherView = self.playerContainerView;//b播放器的父视图
     self.playerView.delegate = self;
     SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
@@ -37,7 +39,6 @@
     self.playerView.autoPlay = YES;
     self.playerView.loop = YES;
     [_playerView playWithModel:playerModel];
-    
     
 }
 

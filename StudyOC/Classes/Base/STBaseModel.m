@@ -44,4 +44,30 @@
     NSString *desc = [NSString stringWithFormat:@"%@:{%@}",[self class],attrsDesc];
     return desc;
 }
+
+- (id)initWithCoder:(NSCoder *)decoder{
+    if (self = [super init]) {
+        [self mj_decode:decoder];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder{
+    [self mj_encode:encoder];
+}
+
+- (id)valueForUndefinedKey:(NSString *)key {
+    return @"";
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+}
+
+- (id)mj_newValueFromOldValue:(id)oldValue property:(MJProperty *)property{
+    if ([oldValue isKindOfClass:[NSNull class]]) {
+        return @"";
+    }
+    return oldValue;
+}
+
 @end

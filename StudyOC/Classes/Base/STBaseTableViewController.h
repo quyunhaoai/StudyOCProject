@@ -23,7 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithStyle:(UITableViewStyle)style;
 
-
+/**
+ 添加刷新
+ */
+- (void)addTableViewRefresh;
 
 @end
 

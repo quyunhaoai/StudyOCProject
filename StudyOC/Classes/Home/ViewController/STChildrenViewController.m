@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = KKRandomColor;
     STChildrenModel *model = [[STChildrenModel alloc] init];
     model.name = @"Jack!";
     

@@ -11,9 +11,13 @@
 #import "STBaseNav.h"
 
 #import "STHomeViewController.h"
-#import "STKWWebViewController.h"
-#import "STTwoViewController.h"
-#import "STThreeViewController.h"
+#import "STPersonalCenterViewController.h"
+#import "STSocialViewController.h"
+#import "STChatViewController.h"
+
+#import "STHomeTopBarViewController.h"
+#import "STNewHomeViewController.h"
+#import "STFSHomeTopTabViewController.h"
 @interface STTabBarViewController ()<UITabBarDelegate,UITabBarControllerDelegate,UINavigationControllerDelegate>
 
 @end
@@ -39,14 +43,16 @@
 - (void)builderTabbarView {
     self.delegate = self;
     self.tabBar.backgroundColor = kWhiteColor;
-    STHomeViewController *navTabVC = [STHomeViewController alloc];
+    STFSHomeTopTabViewController *navTabVC = [STFSHomeTopTabViewController new];
+    navTabVC.title = @"首页";
 //    navTabVC.view.backgroundColor = kRedColor;
 //    navTabVC.tabBarItem
 //    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"首页"]
 //                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
 //                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    STTwoViewController *collectionFoundVC = [[STTwoViewController alloc] init];
+    STSocialViewController *collectionFoundVC = [STSocialViewController initWithSocialVC];
+    collectionFoundVC.title = @"粉号";
 //    collectionFoundVC.view.backgroundColor = kOrangeColor;
     
 //    collectionFoundVC.tabBarItem
@@ -54,14 +60,16 @@
 //                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
 //                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    STThreeViewController *singVC = [[STThreeViewController alloc] init];
+    STChatViewController *chatVC = [[STChatViewController alloc] init];
+    chatVC.title = @"消息";
 //    singVC.view.backgroundColor = kYellowColor;
 //    singVC.tabBarItem
 //    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"发现"]
 //                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
 //                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    STKWWebViewController *personalCenterVC = [[STKWWebViewController alloc] init];
+    STPersonalCenterViewController *personalCenterVC = [[STPersonalCenterViewController alloc] init];
+    personalCenterVC.title = @"我的";
 //    personalCenterVC.view.backgroundColor = kWhiteColor;
 //    personalCenterVC.tabBarItem
 //    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"我"]
@@ -76,7 +84,7 @@
 //    selectTextAttrs[NSForegroundColorAttributeName] = COLOR_F42415;
     
     
-    NSArray *viewCtrlArray = @[navTabVC, collectionFoundVC, singVC, personalCenterVC];
+    NSArray *viewCtrlArray = @[navTabVC, collectionFoundVC, chatVC, personalCenterVC];
     // 创建可变数组，存放导航控制器
     NSMutableArray *navCtrls = [NSMutableArray array];
     // 遍历视图控制器数组

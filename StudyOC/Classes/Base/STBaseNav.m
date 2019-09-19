@@ -7,8 +7,8 @@
 //
 
 #import "STBaseNav.h"
-
-@interface STBaseNav ()<UIGestureRecognizerDelegate>
+#import "STBaseViewController.h"
+@interface STBaseNav ()<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 
 @end
 
@@ -17,7 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    /**iOS7之后是有侧滑返回手势功能的。注意，也就是说系统已经定义了一种手势，并且给这个手势已经添加了一个触发方法（重点）。但是，系统的这个手势的触发条件是必须从屏幕左边缘开始滑动。我们取巧的方法是自己写一个支持全屏滑动的手势，而其触发方法系统已经有，没必要自己实现pop的动画，所以直接就把系统的触发处理方法作为我们自己定义的手势的处理方法。**/
+    self.delegate = self;
+/**iOS7之后是有侧滑返回手势功能的。注意，也就是说系统已经定义了一种手势，并且给这个手势已经添加了一个触发方法（重点）。但是，系统的这个手势的触发条件是必须从屏幕左边缘开始滑动。我们取巧的方法是自己写一个支持全屏滑动的手势，而其触发方法系统已经有，没必要自己实现pop的动画，所以直接就把系统的触发处理方法作为我们自己定义的手势的处理方法。**/
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self.interactivePopGestureRecognizer.delegate action:@selector(handleNavigationTransition:)];
     
     [self.view addGestureRecognizer:pan];
@@ -120,4 +121,11 @@
     return nil;
 }
 
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    
+    if ([viewController isKindOfClass:[STBaseViewController class]]) {
+        STBaseViewController * vc = (STBaseViewController *)viewController;
+        [vc.navigationController setNavigationBarHidden:YES animated:animated];
+    }
+}
 @end

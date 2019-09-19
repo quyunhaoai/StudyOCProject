@@ -1,8 +1,8 @@
 //
-//  STTwoViewController.h
+//  STNewHomeViewController.h
 //  StudyOC
 //
-//  Created by 研学旅行 on 2019/9/7.
+//  Created by 研学旅行 on 2019/9/18.
 //  Copyright © 2019 研学旅行. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface STTwoViewController : STBaseViewController
+@interface STNewHomeViewController : STBaseViewController
 
 @end
 
