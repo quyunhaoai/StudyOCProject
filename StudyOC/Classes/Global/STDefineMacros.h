@@ -26,8 +26,6 @@
 //  列表个数
 #define XYPageCount     10
 
-#define scale_width     (Window_W/375.f)
-
 #define KCellDefultHeight 48.0
 //iPhone X适配
 
@@ -51,8 +49,6 @@
 //判断iPhoneXs Max
 #define IS_IPHONE_Xs_Max ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size) && !IS_PAD : NO)
 
-
-//#define kNavBarHeight 44.0
 // 状态栏高度
 #define STATUS_BAR_HEIGHT ((iPhoneX==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 44.0 : 20.0)
 // 导航栏高度
@@ -61,9 +57,7 @@
 #define TAB_BAR_HEIGHT ((iPhoneX==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 34.f + 49.f : 49.0)
 // home indicator
 #define HOME_INDICATOR_HEIGHT ((iPhoneX==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 34.f : 0.f)
-// 首页子视图宽
-#define Live_subView_W (Window_W * 0.41)
-#define bottom_view_width  Window_W *0.35
+
 //获取系统对象
 #define kApplication        [UIApplication sharedApplication]
 #define kAppWindow          [UIApplication sharedApplication].delegate.window
@@ -88,12 +82,9 @@
 
 /*判断是否为nil,如果是,返回空字符串*/
 #define checkNull(__X__)                     [(__X__) isKindOfClass:[NSNull class]] || (__X__) == nil ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
-#define checkNullReplaceZero(__X__)                     [(__X__) isKindOfClass:[NSNull class]] || (__X__) == nil ? @"0" : [NSString stringWithFormat:@"%@", (__X__)]
+#define checkNullReplaceZero(__X__)          [(__X__) isKindOfClass:[NSNull class]] || (__X__) == nil ? @"0" : [NSString stringWithFormat:@"%@", (__X__)]
 /**效果同上,可以自定制返回字符串*/
 #define checkAndReplace(__X__, __Y__)        [(__X__) isKindOfClass:[NSNull class]] || (__X__) == nil ? [NSString stringWithFormat:@"%@", (__Y__)] : [NSString stringWithFormat:@"%@", (__X__)]
-
-#define SH_checkAndReplace(__X__, __Y__)        [(__X__) isKindOfClass:[NSNull class]] || (__X__) == nil ? [NSString stringWithFormat:@"%@", (__Y__)] : [NSString stringWithFormat:@"%@", (__X__)]
-#define YH_checkZero(__X__)                  [(__X__) isKindOfClass:[NSNull class]] || (__X__) == 0 ? @"" : [NSString stringWithFormat:@"%@", (__X__)]
 /**
  *  字符串空判断替换
  *
@@ -271,11 +262,11 @@
 #define XYNewGetFontSize(kcontent,kfont,ksize) [kcontent boundingRectWithSize:ksize options:NSStringDrawingTruncatesLastVisibleLine |NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:kfont} context:nil]
 
 //设置富文本
-#define SetRichTextLabel(showLab,fontNumber,range,textColor)\
+#define SetRichTextLabel(showLab,fontNumber,ccc,textColor)\
 {\
 NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:showLab.text];\
-[str addAttribute:NSFontAttributeName value:fontNumber range:range];\
-[str addAttribute:NSForegroundColorAttributeName value:textColor range:range];\
+[str addAttribute:NSFontAttributeName value:fontNumber range:ccc];\
+[str addAttribute:NSForegroundColorAttributeName value:textColor range:ccc];\
 showLab.attributedText = str;\
 }\
 
@@ -298,10 +289,6 @@ showLab.attributedText = str;\
  */
 #define ImageNamed(str_Name) [UIImage imageNamed:str_Name]
 
-
-
-
-
 /******等比例放大,以iphone6尺寸为基础*******/
 #define RationEnlarge(data) data*[UIScreen mainScreen].bounds.size.width/375.0f
 #define RationEnlarge5s(data) data*[UIScreen mainScreen].bounds.size.width/320.0
@@ -318,7 +305,6 @@ vc.automaticallyAdjustsScrollViewInsets = NO;\
 }\
 _Pragma("clang diagnostic pop") \
 } while (0)
-
 
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 
@@ -434,106 +420,6 @@ return shared##className; \
 //获取一个随机整数，范围在[from,to），包括from，不包括to
 #define kArc4random(from,to) (int)(from + (arc4random() % (to - from + 1)))
 
-//#endif /* XYDefineMacros_h */
-
-//static inline NSString *CBFriendlyUserId(NSString *uid)
-//{
-//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-//    NSString *key = @"tim_table";
-//    NSDictionary *dic = [ud objectForKey:key];
-//    if (uid && [uid isKindOfClass:[NSString class]] && dic) {
-//        NSString *name = nil;
-//        if ((name = [dic objectForKey:uid]) && [name isKindOfClass:[NSString class]] && name.length) {
-//            return name;
-//        }
-//    }
-//
-//    NSString *pref = @"tim_";
-//    if ([uid hasPrefix:pref] && uid.length>pref.length) {
-//        return [uid substringFromIndex:pref.length];
-//    }
-//    for (NSString *sys in kCBAppAdminAccounts) {
-//        if ([sys isEqualToString:uid]) {
-//            return @"管理员";
-//        }
-//    }
-//    return uid;
-//}
-
-//static __inline__ void CBLayerAnimation(void(^animaiton)(void), void(^completion)(void))
-//{
-//    [CATransaction begin];
-//    [CATransaction setAnimationDuration:ZYCB_ANIMATION_DURATION];
-//    if (completion) {
-//        [CATransaction setCompletionBlock:completion];
-//    }
-//    if (animaiton) {
-//        animaiton();
-//    }
-//    [CATransaction commit];
-//}
-//
-//static __inline__ NSString *CBFormatDateString(NSNumber *number)
-//{
-//    NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
-//    if (number && [number isKindOfClass:[NSNumber class]]) {
-//        ti = [number doubleValue];
-//    }else if (number && [number isKindOfClass:[NSString class]]) {
-//        ti = [number doubleValue];
-//    }
-//    if ([[NSString stringWithFormat:@"%.0f", ti] length] > [@"1473241000" length]) {
-//        ti = ti/1000.0;
-//    }
-//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:ti];
-//    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-//    fmt.dateFormat = @"yyyy-MM-dd";
-//    return [fmt stringFromDate:date];
-//}
-//
-//static __inline__ NSString *CBFormatDateDetailString(NSNumber *number)
-//{
-//    NSTimeInterval ti = [[NSDate date] timeIntervalSince1970];
-//    if (number && [number isKindOfClass:[NSNumber class]]) {
-//        ti = [number doubleValue];
-//    }else if (number && [number isKindOfClass:[NSString class]]) {
-//        ti = [number doubleValue];
-//    }
-//    if ([[NSString stringWithFormat:@"%.0f", ti] length] > [@"1473241000" length]) {
-//        ti = ti/1000.0;
-//    }
-//    NSDate *date = [NSDate dateWithTimeIntervalSince1970:ti];
-//    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-//    fmt.dateFormat = @"MM月dd日 HH:mm:ss";
-//    return [fmt stringFromDate:date];
-//}
-//
-//static __inline__ CGSize CBStringFitSize(NSString *str, UIFont *font, CGFloat fitWidth)
-//{
-//    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-//    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-//    return [str boundingRectWithSize:CGSizeMake(fitWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle} context:nil].size;
-//}
-//
-//static inline void CBFriendlyUserIdCache(NSString *uid, NSString *name)
-//{
-//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-//    NSString *key = @"tim_table";
-//    if ([ud objectForKey:key] == nil) {
-//        [ud setObject:[NSMutableDictionary dictionaryWithCapacity:100] forKey:key];
-//        [ud synchronize];
-//    }
-//    NSDictionary *dic = [ud objectForKey:key];
-//    if (uid && [uid isKindOfClass:[NSString class]] &&
-//        name && [name isKindOfClass:[NSString class]] &&
-//        dic && [dic isKindOfClass:[NSDictionary class]])
-//    {
-//        NSMutableDictionary *md = [NSMutableDictionary dictionaryWithDictionary:dic];
-//        [md setObject:name forKey:uid];
-//        [ud setObject:md forKey:key];
-//        [ud synchronize];
-//    }
-//}
-
 /*================================COLOR/FONT===============================*/
 #pragma mark  -  color
 //颜色相关
@@ -623,27 +509,12 @@ return shared##className; \
 #define ColorBlackAlpha80 RGBA(0.0, 0.0, 0.0, 0.8)
 #define ColorBlackAlpha90 RGBA(0.0, 0.0, 0.0, 0.9)
 
-//#define FONT_18 [UIFont systemFontOfSize:18.f]    //  T1  用在导航栏标题
-//#define FONT_16 [UIFont systemFontOfSize:16.f]    //  T2  用于筛选标题或戏曲标题
-//#define FONT_15 [UIFont systemFontOfSize:15.f]
-//#define FONT_14 [UIFont systemFontOfSize:14.f]    //  T3  用于小标题
-//#define FONT_13 [UIFont systemFontOfSize:13.f]    //  T4  用于辅助性文字（如唱过人数、歌曲大小、时间等）
-//#define FONT_12 [UIFont systemFontOfSize:12.f]
-//#define FONT_11 [UIFont systemFontOfSize:11.f]    //
-//#define FONT_10 [UIFont systemFontOfSize:10.f]    //  T5  用于辅助性文字（如底部导航栏字体大小或需要特殊说明地方）
-
-#define FONT_24 [UIFont systemFontOfSize:(24.f)]    //  分数
-#define FONT_22 [UIFont systemFontOfSize:(22.f)]    //  用于商品价格
-#define FONT_20 [UIFont systemFontOfSize:(20.f)]    //  用于商品详情原价格
-
 #define FONT_Medium_18 [UIFont fontWithName:@"PingFangSC-Medium" size:RationEnlarge(18.f)]    //Medium_18加粗
 #define FONT_Medium_16 [UIFont fontWithName:@"PingFangSC-Medium" size:RationEnlarge(16.f)]    //Medium_16加粗
 #define FONT_Medium_15 [UIFont fontWithName:@"PingFangSC-Medium" size:RationEnlarge(15.f)]    //Medium_15加粗
 #define FONT_Medium_14 [UIFont fontWithName:@"PingFangSC-Medium" size:RationEnlarge(14.f)]    //Medium_14加粗
 
-#define SafeAreaTopHeight ((SCREEN_HEIGHT >= 812.0) && [[UIDevice currentDevice].model isEqualToString:@"iPhone"] ? 88 : 64)
-#define SafeAreaBottomHeight ((SCREEN_HEIGHT >= 812.0) && [[UIDevice currentDevice].model isEqualToString:@"iPhone"]  ? 34 : 0)
-#define SCREEN_FRAME [UIScreen mainScreen].bounds
+
 
 
 

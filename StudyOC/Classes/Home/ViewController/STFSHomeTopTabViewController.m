@@ -10,8 +10,13 @@
 #import "STChildrenViewController.h"
 #import "KKSearchBar.h"
 #import "KKNavTitleView.h"
+#import "UIButton+Badge.h"
 
 #import "STRecommendViewController.h"
+#import "STMyHomeViewController.h"
+#import "STZhengZhouViewController.h"
+#import "STRankingListViewController.h"
+#import "STTagHomeTopViewController.h"
 @interface STFSHomeTopTabViewController ()<FSPageContentViewDelegate,FSSegmentTitleViewDelegate>
 @property (strong, nonatomic) NSArray *titleArray;            // 标题数组
 @property (strong, nonatomic) NSArray *viewControllerArray;   // 控制器数组
@@ -34,6 +39,11 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadNavTitleView];
@@ -44,6 +54,23 @@
     _pageView = [[FSPageContentView alloc] initWithFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT+48, Window_W, Window_H-48-NAVIGATION_BAR_HEIGHT-TAB_BAR_HEIGHT) childVCs:self.viewControllerArray parentVC:self delegate:self];
     _pageView.contentViewCurrentIndex = 1;
     [self.view addSubview:_pageView];
+    [kNotificationCenter addObserver:self selector:@selector(homeIconAction) name:STRefreshTableViewTopData object:nil];
+    
+    UIButton *fristItme = (UIButton *)[self.topTitleView viewWithTag:666];
+    fristItme.badgeValue = XYIntToString(20);
+    fristItme.badgeBGColor = [UIColor colorWithRed:0.95 green:0.35 blue:0.35 alpha:1.0];
+    fristItme.badgeOriginY = 5;
+    fristItme.badgeOriginX = WIDTH(fristItme)-20-2;
+}
+
+- (void)homeIconAction {
+    STBaseTableViewController *vc =(STBaseTableViewController *)self.viewControllerArray[self.pageView.contentViewCurrentIndex];
+    
+    [vc refreshTableViewData];
+    
+    UIButton *fristItme = (UIButton *)[self.topTitleView viewWithTag:666];
+    fristItme.badgeValue = XYIntToString(0);
+    [fristItme shouldHideBadgeAtZero];
 }
 
 - (void)loadNavTitleView {
@@ -54,6 +81,13 @@
     }];
     [self.headView setSize:CGSizeMake(27, 27)];
     [self.headView setCornerImageWithURL:[NSURL URLWithString:@""] placeholder:IMAGE_NAME(@"IMG_0096")];
+    XYWeakSelf;
+    [self.headView addTapGestureWithBlock:^(UIView *gestureView) {
+        STChildrenViewController *vc = [STChildrenViewController new];
+        vc.title = @"个人主页";
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+        NSLog(@"点击了头像！");
+    }];
     self.navTitleView.leftBtns = @[self.headView];
     
     self.searchBar.frame = CGRectMake(50, 0, Window_W - 140, 27);
@@ -71,6 +105,7 @@
 }
 
 #pragma mark  -  Get
+
 - (NSArray *)titleArray {
     if (!_titleArray) {
         _titleArray = @[@"我的",
@@ -84,11 +119,11 @@
 
 - (NSArray *)viewControllerArray {
     if (!_viewControllerArray) {
-        _viewControllerArray = @[[STChildrenViewController new],
-                                 [STRecommendViewController new],
-                                 [STChildrenViewController new],
-                                 [STChildrenViewController new],
-                                 [STChildrenViewController new],];
+        _viewControllerArray = @[[STMyHomeViewController new],
+                                 [[STRecommendViewController alloc] initWithStyle:UITableViewStyleGrouped],
+                                 [STZhengZhouViewController new],
+                                 [STRankingListViewController new],
+                                 [STTagHomeTopViewController new],];
     }
     return _viewControllerArray;
 }
@@ -125,22 +160,6 @@
             view.layer.masksToBounds =  YES ;
             view.contentMode = UIViewContentModeScaleAspectFill;
             view.userInteractionEnabled = YES ;
-            
-            //            [view addTapGestureWithBlock:^(UIView *gestureView) {
-            //                KKUserCenterView *centerView = [KKUserCenterView new];
-            //                centerView.topSpace = 0 ;
-            //                centerView.enableFreedomDrag = NO ;
-            //                centerView.enableVerticalDrag = NO ;
-            //                centerView.enableHorizonDrag = YES ;
-            //
-            //                [[UIApplication sharedApplication].keyWindow addSubview:centerView];
-            //                [centerView mas_updateConstraints:^(MASConstraintMaker *make) {
-            //                    make.left.top.mas_equalTo(0);
-            //                    make.size.mas_equalTo(CGSizeMake(UIDeviceScreenWidth, UIDeviceScreenHeight));
-            //                }];
-            //                [centerView pushIn];
-            //            }];
-            
             view;
         });
     }

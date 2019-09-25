@@ -201,7 +201,7 @@
     if(!_splitView){
         _splitView = ({
             UIView *view = [UIView new];
-            view.backgroundColor = kRedColor;
+            view.backgroundColor = KKColor(244, 245, 246, 1.0);;
             view ;
         });
     }

@@ -73,18 +73,18 @@
         // 恢复滑动返回功能 -> 分析:把系统的返回按钮覆盖 -> 1.手势失效(1.手势被清空 2.可能手势代理做了一些事情,导致手势失效)
         viewController.hidesBottomBarWhenPushed = YES;
         
-        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backButton setTitle:@"back" forState:UIControlStateNormal];
-        [backButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
-//        [backButton setImage:@"" forState:UIControlStateNormal];
-//        [backButton setImage:@"" forState:UIControlStateHighlighted];
-        [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [backButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-        [backButton sizeToFit];
-//        backButton.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-        [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *letfItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-        viewController.navigationItem.leftBarButtonItem = letfItem;
+//        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [backButton setTitle:@"back" forState:UIControlStateNormal];
+//        [backButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
+////        [backButton setImage:@"" forState:UIControlStateNormal];
+////        [backButton setImage:@"" forState:UIControlStateHighlighted];
+//        [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [backButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+//        [backButton sizeToFit];
+////        backButton.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+//        [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//        UIBarButtonItem *letfItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+//        viewController.navigationItem.leftBarButtonItem = letfItem;
         // 设置返回按钮,只有非根控制器
 //        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithimage:[UIImage imageNamed:@"navigationButtonReturn"] highImage:[UIImage imageNamed:@"navigationButtonReturnClick"]  target:self action:@selector(back) title:@"返回"];
     }
@@ -93,10 +93,10 @@
     [super pushViewController:viewController animated:animated];
 }
 
-- (void)back
-{
-    [self popViewControllerAnimated:YES];
-}
+//- (void)back
+//{
+//    [self popViewControllerAnimated:YES];
+//}
 
 - (BOOL)popToAppointViewController:(NSString *)ClassName animated:(BOOL)animated {
     

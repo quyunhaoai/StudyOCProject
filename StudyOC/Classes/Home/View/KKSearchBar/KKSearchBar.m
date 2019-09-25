@@ -59,7 +59,7 @@
     if(!_placeholderLabel){
         _placeholderLabel = ({
             UILabel *view = [UILabel new];
-            view.text = @"输入你感兴趣的内容";
+            view.text = @"搜好友，搜视频";
             view.textColor = [UIColor grayColor];
             view.font = [UIFont systemFontOfSize:15];
             view.textAlignment = NSTextAlignmentLeft;

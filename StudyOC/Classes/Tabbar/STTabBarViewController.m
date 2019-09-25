@@ -15,11 +15,10 @@
 #import "STSocialViewController.h"
 #import "STChatViewController.h"
 
-#import "STHomeTopBarViewController.h"
-#import "STNewHomeViewController.h"
 #import "STFSHomeTopTabViewController.h"
+#import "UITabBar+HNTabber.h"
 @interface STTabBarViewController ()<UITabBarDelegate,UITabBarControllerDelegate,UINavigationControllerDelegate>
-
+@property (strong, nonatomic) STBaseNav *navTabVC;
 @end
 
 @implementation STTabBarViewController
@@ -38,8 +37,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self builderTabbarView];
+    
+    [self showBageMethod];
 }
 
+- (void)showBageMethod {
+//    @weakify(self);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        @strongify(self);
+        [self.tabBar showBadgeOnItemIndex:0 andWithBadgeNumber:15];
+    });
+}
 - (void)builderTabbarView {
     self.delegate = self;
     self.tabBar.backgroundColor = kWhiteColor;
@@ -94,12 +102,45 @@
 //            [viewCtrl.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
 //            [viewCtrl.tabBarItem setTitleTextAttributes:selectTextAttrs forState:UIControlStateSelected];
             STBaseNav *navCtrl = [[STBaseNav alloc] initWithRootViewController:viewCtrl];
-            navCtrl.delegate = self;
+//            navCtrl.delegate = self;
             [navCtrls addObject:navCtrl];
         }
     }
+    self.navTabVC = navCtrls[0];
     self.viewControllers = navCtrls;
 }
 
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if (self.selectedViewController == viewController && self.selectedViewController == _navTabVC) {
+//        if ([_swappableImageView.layer animationForKey:@"rotationAnimation"]) {
+//            return YES;
+//        }
+//        _homeNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"home_tabber_loading_32*32_"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        _homeNav.tabBarItem.image = [[UIImage imageNamed:@"home_tabber_loading_32*32_"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        [kNotificationCenter postNotificationName:STRefreshTableViewTopData object:nil];
+        [self addAnnimation];
+        
+    }else {
+//        _homeNav.tabBarItem.image = [[UIImage imageNamed:@"home_tabbar_32x32_"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        _homeNav.tabBarItem.selectedImage = [[UIImage imageNamed:@"home_tabbar_press_32x32_"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//        [_swappableImageView stopRotationAnimation];
+    }
+    
+    if (self.selectedViewController == viewController) {
+//        STBaseNav *nav = (STBaseNav *)viewController;
+//        if ([nav.viewControllers.firstObject respondsToSelector:@selector(needRefreshTableViewData)]) {
+//            [nav.viewControllers.firstObject needRefreshTableViewData];
+//        }
+    }
+    return YES;
+}
 
+- (void)addAnnimation {
+    // 这里使用了 私有API 但是审核仍可以通过 有现成的案例
+//    UIControl *tabBarButton = [_homeNav.tabBarItem valueForKey:@"view"];
+//    UIImageView *tabBarSwappableImageView = [tabBarButton valueForKey:@"info"];
+//    [tabBarSwappableImageView rotationAnimation];
+//    _swappableImageView = tabBarSwappableImageView;
+    [self.tabBar hideBadgeOnItemIndex:0];
+}
 @end

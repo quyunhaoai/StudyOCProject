@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface STChildrenViewController : STBaseViewController
-
+@property (copy, nonatomic) NSString *title;  //导航标题
 @end
 
 NS_ASSUME_NONNULL_END
