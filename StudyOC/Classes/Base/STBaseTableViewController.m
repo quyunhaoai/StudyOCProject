@@ -42,19 +42,20 @@ static NSString *CellIdentifier = @"UITableViewCell";
     [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.mas_equalTo(self.view);
     }];
+    self.tableView.backgroundColor = color_viewBG_1A1929;
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
-    [self addTableViewRefresh];
+//    [self addTableViewRefresh];
 }
 #pragma mark  - Get
 - (UILabel *)refreshTipLabel{
     if(!_refreshTipLabel){
         _refreshTipLabel = ({
             UILabel *view = [UILabel new];
-            view.backgroundColor = KKColor(214, 232, 248, 1.0);
-            view.textColor = KKColor(0, 135, 211, 1);
+            view.backgroundColor = color_tipYellow_FECE24;
+            view.textColor = kWhiteColor;
             view.font = [UIFont systemFontOfSize:15];
             view.textAlignment = NSTextAlignmentCenter;
             view ;
@@ -70,18 +71,15 @@ static NSString *CellIdentifier = @"UITableViewCell";
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.backgroundColor = COLOR_e5e5e5;
+        _tableView.backgroundColor = color_viewBG_1A1929;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         adjustsScrollViewInsets_NO(self.tableView, self);
     }
     return _tableView;
 }
 
-- (NSMutableArray *)dataArray {
-    if (!_dataArray) {
-        _dataArray = [NSMutableArray arrayWithCapacity:5];
-    }
-    return _dataArray;
-}
+
 
 - (void)refreshTableViewData {
     [self.tableView.mj_header beginRefreshing];
@@ -126,24 +124,13 @@ static NSString *CellIdentifier = @"UITableViewCell";
     __weak typeof (self) weakSelf = self;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            for (int i = 0; i < 3; i++) {
-//                [weakSelf.dataArray addObject:@""];
-//            }
             [weakSelf.tableView reloadData];
-//            if (kOpenRefreshHeaderViewHeight) {
-//                [weakSelf suspendTopReloadHeaderViewHeight];
-//            } else {
             [weakSelf.tableView.mj_header endRefreshing];
-//            }
-            [weakSelf refreshData:YES shouldShowTips:YES];
         });
     }];
     
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            for (int i = 0; i < 3; i++) {
-//                [weakSelf.dataArray addObject:@""];
-//            }
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_footer endRefreshing];
         });
@@ -161,6 +148,8 @@ static NSString *CellIdentifier = @"UITableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = kClearColor;
     return cell;
 }
 
@@ -187,7 +176,7 @@ static NSString *CellIdentifier = @"UITableViewCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    STChildrenViewController *vc = [STChildrenViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+//    STChildrenViewController *vc = [STChildrenViewController new];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

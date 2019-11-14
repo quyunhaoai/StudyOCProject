@@ -52,11 +52,11 @@
 //    attrs[NSFontAttributeName] = [UIFont boldSystemFontOfSize:16];//粗体
     attrs[NSFontAttributeName] = [UIFont systemFontOfSize:16];//系统字体
     [navBar setTitleTextAttributes:attrs];
-    
+    navBar.translucent = NO;
     // 设置导航条背景图片
-    [navBar setBackgroundImage:[UIImage imageNamed:@"navigationbarBackgroundWhite"] forBarMetrics:UIBarMetricsDefault];
-//    [navBar setBackgroundColor:kRedColor];
-//    [navBar setAlpha:1.0f];
+    [navBar setBackgroundImage:[UIImage imageWithColor:kBlackColor] forBarMetrics:UIBarMetricsDefault];
+    [navBar setBackgroundColor:kBlackColor];
+    [navBar setAlpha:1.0f];
 //    [navBar setTintColor:kYellowColor];
 }
 #pragma mark - UIGestureRecognizerDelegate
@@ -93,10 +93,11 @@
     [super pushViewController:viewController animated:animated];
 }
 
-//- (void)back
-//{
-//    [self popViewControllerAnimated:YES];
-//}
+- (void)back
+{
+    
+    [self popViewControllerAnimated:YES];
+}
 
 - (BOOL)popToAppointViewController:(NSString *)ClassName animated:(BOOL)animated {
     

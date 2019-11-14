@@ -243,10 +243,10 @@ BOOL isShowGloomy;//是否显示深色背景
 + (void)showProgress:(float)progress
 {
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:gloomyView];
-    //MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view ?:kDefaultView animated:YES];
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kDefaultView animated:YES];
 //    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
 //    hud.bezelView.color = kClearColor;
-  //  hud.contentColor = [UIColor whiteColor];//将转圈和文字设置成白色
+    hud.contentColor = [UIColor blackColor];//将转圈和文字设置成白色
     hud.removeFromSuperViewOnHide = YES;
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     hud.progress = progress;

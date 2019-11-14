@@ -21,15 +21,19 @@
 
 #define kWidth(R)  (R)*(Window_W)/375.0
 //这里的667我是针对6s为标准适配的,如果需要其他标准可以修改
-#define kHeight(R) (R)*(Window_H)/667.0
-
+//#define kHeight(R) (R)*(Window_H)/667.0
+//这里的812我是针对iphoneX为标准适配的,如果需要其他标准可以修改
+#define kHeight(R) (R)*(Window_H)/812.0
 //  列表个数
 #define XYPageCount     10
 
 #define KCellDefultHeight 48.0
-//iPhone X适配
-
+//数据库表名
+#define STBGFMDB_tableName @"messageHistory"
+#define client  @"ios"
+#define STImageViewDefaultImageMacro IMAGE_NAME(STimagDefault)
 ////适配的一些宏定义
+#define IOS11_OR_LATER        ( [[[UIDevice currentDevice] systemVersion] compare:@"11.0" options:NSNumericSearch] != NSOrderedAscending )
 //判断设备类型
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 //判断是否是ipad
@@ -65,7 +69,6 @@
 #define kRootViewController [UIApplication sharedApplication].delegate.window.rootViewController
 #define kUserDefaults       [NSUserDefaults standardUserDefaults]
 #define kNotificationCenter [NSNotificationCenter defaultCenter]
-
 
 //弱引用
 #define XYWeakSelf      __weak __typeof(&*self) weakSelf = self
@@ -306,6 +309,22 @@ vc.automaticallyAdjustsScrollViewInsets = NO;\
 _Pragma("clang diagnostic pop") \
 } while (0)
 
+#define KKAdjustsScrollViewInsets(scrollView)\
+do {\
+_Pragma("clang diagnostic push")\
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"")\
+if ([scrollView respondsToSelector:NSSelectorFromString(@"setContentInsetAdjustmentBehavior:")]) {\
+NSMethodSignature *signature = [UIScrollView instanceMethodSignatureForSelector:@selector(setContentInsetAdjustmentBehavior:)];\
+NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];\
+NSInteger argument = 2;\
+invocation.target = scrollView;\
+invocation.selector = @selector(setContentInsetAdjustmentBehavior:);\
+[invocation setArgument:&argument atIndex:2];\
+[invocation retainArguments];\
+[invocation invoke];\
+}\
+_Pragma("clang diagnostic pop")\
+} while (0)
 #define degreesToRadian(x) (M_PI * (x) / 180.0)
 
 //View 圆角和加边框
@@ -335,14 +354,14 @@ _Pragma("clang diagnostic pop") \
 #define WIDTH(v)           (v).frame.size.width
 #define HEIGHT(v)          (v).frame.size.height
 
-#define MinX(v)            CGRectGetMinX((v).frame) // 获得控件屏幕的x坐标
-#define MinY(v)            CGRectGetMinY((v).frame) // 获得控件屏幕的Y坐标
+//#define MinX(v)            CGRectGetMinX((v).frame) // 获得控件屏幕的x坐标
+//#define MinY(v)            CGRectGetMinY((v).frame) // 获得控件屏幕的Y坐标
 
 #define MidX(v)            CGRectGetMidX((v).frame) //横坐标加上到控件中点坐标
 #define MidY(v)            CGRectGetMidY((v).frame) //纵坐标加上到控件中点坐标
 
-#define MaxX(v)            CGRectGetMaxX((v).frame) //横坐标加上控件的宽度
-#define MaxY(v)            CGRectGetMaxY((v).frame) //纵坐标加上控件的高度
+//#define MaxX(v)            CGRectGetMaxX((v).frame) //横坐标加上控件的宽度
+//#define MaxY(v)            CGRectGetMaxY((v).frame) //纵坐标加上控件的高度
 
 // 日志
 
@@ -468,6 +487,30 @@ return shared##className; \
 #define COLOR_696969 COLOR_HEX_RGB(0x696969)    //  C4  较弱色:？
 #define COLOR_477AAC COLOR_HEX_RGB(0x477AAC)    //  C4  较弱色:？
 
+#define COlOR_EDEDED COLOR_HEX_RGB(0xEDEDED)        //内容区域底色
+#define COlOR_EFEFF4 COLOR_HEX_RGB(0xEFEFF4)        //内容区域底色
+#define COlOR_E5E5EA COLOR_HEX_RGB(0xE5E5EA)        //内容区域底色
+#define COLOR_D1D1D6 COLOR_HEX_RGB(0xD1D1D6)
+#define COLOR_C7C7CC COLOR_HEX_RGB(0xC7C7CC)
+#define COLOR_8E8E93 COLOR_HEX_RGB(0x8E8E93)
+#define COLOR_056377 COLOR_HEX_RGB(0x056377)        //用于特殊字体链接跳转
+#define COLOR_d2d1d1 COLOR_HEX_RGB(0xd2d1d1)
+#define COLOR_13B900 COLOR_HEX_RGB(0x13B900)        //绿色线条y背景色
+#define COLOR_bbbbbb COLOR_HEX_RGB(0xbbbbbb)        //绿色线条y背景色
+#define COLOR_E92101 COLOR_HEX_RGB(0xE92101)        //绿色线条y背景色
+#define COLOR_E1451F COLOR_HEX_RGB(0xE1451F)        //按钮背景色
+#define COLOR_BDBDBD COLOR_HEX_RGB(0xBDBDBD)         //线条x灰色
+
+#define color_010100 COLOR_HEX_RGB(0x010100)
+#define color_viewBG_1A1929 COLOR_HEX_RGB(0x1A1929)
+#define color_B2B2B2 COLOR_HEX_RGB(0xB2B2B2)        //菜单文字底色
+#define color_text_AFAFB1  COLOR_HEX_RGB(0xAFAFB1)  //灰色字体 用于描述 一般色:用于辅助、次要的文字信息,如戏曲选段、时间等相关信息
+#define color_textBg_C7C7D1 COLOR_HEX_RGB(0xC7C7D1)
+#define color_tipYellow_FECE24   COLOR_HEX_RGB(0xFECE24) //提醒色
+#define color_contenBg_1A1A26 COLOR_HEX_RGB(0x1A1A26) //底色
+#define color_button_FC2D57 COLOR_HEX_RGB(0xFC2D57) //订阅按钮色
+#define color_tipRed_FF0000 COLOR_HEX_RGB(0xFF0000)
+#define color_cellBg_151420 COLOR_HEX_RGB(0x151420) //cell背景色
 
 #define kBlackColor         [UIColor blackColor]
 #define kDarkGrayColor      [UIColor darkGrayColor]
@@ -513,14 +556,43 @@ return shared##className; \
 #define FONT_Medium_16 [UIFont fontWithName:@"PingFangSC-Medium" size:RationEnlarge(16.f)]    //Medium_16加粗
 #define FONT_Medium_15 [UIFont fontWithName:@"PingFangSC-Medium" size:RationEnlarge(15.f)]    //Medium_15加粗
 #define FONT_Medium_14 [UIFont fontWithName:@"PingFangSC-Medium" size:RationEnlarge(14.f)]    //Medium_14加粗
+#define STFont(size) [UIFont systemFontOfSize:(size)]
+#define STBoldFont(size) [UIFont boldSystemFontOfSize:(size)]
 
 
 
+//扫一扫
+#define LBXScan_Define_Native  //包含native库
+#define LBXScan_Define_ZXing   //包含ZXing库
+#define LBXScan_Define_ZBar   //包含ZBar库
+#define LBXScan_Define_UI     //包含界面库
 
+//kkTodayNews
+//基本类型
+#define SYNTHESIZE_CATEGORY_VALUE_PROPERTY(valueType, propertyGetter, propertySetter)\
+- (valueType) propertyGetter {\
+valueType ret = {0};\
+[objc_getAssociatedObject(self, @selector( propertyGetter )) getValue:&ret];\
+return ret;\
+}\
+- (void) propertySetter (valueType)value{\
+NSValue *valueObj = [NSValue valueWithBytes:&value objCType:@encode(valueType)];\
+objc_setAssociatedObject(self, @selector( propertyGetter ), valueObj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);\
+}
 
+// block 安全self
+#if __has_feature(objc_arc)
+// arc
+#define WEAKSELF        typeof(self) __weak weakSelf = self
+#define STRONGSELF      typeof(weakSelf) __strong strongSelf = weakSelf
+#else
+// mrc
+#define WEAKSELF     __block typeof(id) weakSelf = self;
+#define WEAKSELF_( __CLASSNAME__ )     __block typeof( __CLASSNAME__ *) weakSelf = self;
+#endif
 
-
-
+#define __weakify(type) @weakify(type)
+#define __strongify(type) @strongify(type)
 
 
 

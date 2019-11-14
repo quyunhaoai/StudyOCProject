@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface STKWWebViewController : STBaseViewController
 
 @property (copy, nonatomic) NSString *urlString;  // 跳转地址
-
+@property (copy, nonatomic) NSString *navTitle;    // 导航标题
 @end
 
 NS_ASSUME_NONNULL_END

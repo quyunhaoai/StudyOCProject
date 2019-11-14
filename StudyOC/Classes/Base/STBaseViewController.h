@@ -11,6 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface STBaseViewController : UIViewController
+@property (strong, nonatomic) KKNavTitleView *navTitleView; //  视图
+@property (nonatomic,strong) NSMutableArray *dataArray;
+@property (assign, nonatomic) BOOL isShowErrorPageView;
+@property (assign, nonatomic) BOOL isShowNoDataPageView; 
+
 
 /**
  初始化导航栏

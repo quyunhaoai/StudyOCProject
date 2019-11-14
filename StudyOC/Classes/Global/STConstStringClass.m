@@ -11,3 +11,6 @@
 
 NSString * const STRefreshTableViewTopData = @"STRefreshTableViewTopData";
 NSString * const STSystemDefaultImageName = @"IMG_0096";
+NSString * const STUserRegisterInfoDict   = @"STUserRegisterInfoDict";
+NSString * const STUserRegisterInfokey   = @"STUserRegisterInfokey";
+NSString *const STimagDefault = @"stimagDefault";

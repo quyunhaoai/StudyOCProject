@@ -6,13 +6,12 @@
 //  Copyright © 2019 研学旅行. All rights reserved.
 //
 
-#import "YNPageViewController.h"
+#import "STSocialBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface  STSocialViewController: YNPageViewController
+@interface  STSocialViewController: STSocialBaseViewController
 
-+ (instancetype)initWithSocialVC;
 @end
 
 NS_ASSUME_NONNULL_END

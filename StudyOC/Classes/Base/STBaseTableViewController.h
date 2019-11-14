@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface STBaseTableViewController : STBaseViewController
 @property(nonatomic,strong)UILabel *refreshTipLabel;
 @property (nonatomic,strong) UITableView *tableView;
-@property (nonatomic,strong) NSMutableArray *dataArray;
 
+@property (assign, nonatomic) NSInteger page;
 /**
  初始化类
 
@@ -22,14 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
  @return 当前类
  */
 - (instancetype)initWithStyle:(UITableViewStyle)style;
-
 /**
  添加刷新
  */
 - (void)addTableViewRefresh;
 
 - (void)refreshTableViewData;
-
 /**
  刷新数据
 
@@ -37,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param showTip 是否显示提示消息
  */
 - (void)refreshData:(BOOL)header shouldShowTips:(BOOL)showTip;
+
 @end
 
 NS_ASSUME_NONNULL_END

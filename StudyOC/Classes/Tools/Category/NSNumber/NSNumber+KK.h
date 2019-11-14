@@ -10,6 +10,6 @@
 
 @interface NSNumber(KK)
 
-- (NSString *)convert ;
+- (NSString *)convert ;//转换*万
 
 @end

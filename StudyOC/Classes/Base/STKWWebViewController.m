@@ -25,6 +25,7 @@
 
 #pragma mark - setUpUI
 - (void)setUpUI {
+    [self customNavBarWithTitle:self.navTitle];
     WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
     configuration.userContentController = [WKUserContentController new];
     configuration.preferences.javaScriptEnabled = YES;
@@ -35,7 +36,8 @@
     _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0,
                                                            NAVIGATION_BAR_HEIGHT,
                                                            Window_W,
-                                                           Window_H - NAVIGATION_BAR_HEIGHT) configuration:configuration];
+                                                           Window_H - NAVIGATION_BAR_HEIGHT)
+                                  configuration:configuration];
     _webView.navigationDelegate = self;
     _webView.UIDelegate = self;
     _webView.allowsBackForwardNavigationGestures = YES;
@@ -45,8 +47,7 @@
                forKeyPath:NSStringFromSelector(@selector(estimatedProgress))
                   options:NSKeyValueObservingOptionNew
                   context:nil];
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
-    self.title = @"百度";
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]]];
 }
 
 - (void)setupProgressView {
@@ -81,6 +82,7 @@
     XYLog(@"dict:\n\n%@",dict);
 
 }
+
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
 
 }

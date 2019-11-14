@@ -8,7 +8,7 @@
 
 #import "STBaseViewController.h"
 @interface STBaseViewController ()
-@property (strong, nonatomic) KKNavTitleView *navTitleView; //  视图
+
 
 @end
 
@@ -16,10 +16,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = kWhiteColor;
+    self.view.backgroundColor = color_viewBG_1A1929;
     
     
 }
+
+#pragma  mark  --  显示加载错误页面 懒加载
+- (void)setIsShowErrorPageView:(BOOL)isShowErrorPageView {
+    _isShowErrorPageView = isShowErrorPageView;
+    
+}
+//- (BOOL)isShowErrorPageView {
+//
+//    if (!_isShowErrorPageView) {
+//        _isShowErrorPageView =({
+//            UIView *view = [UIView new];
+//            view;
+//
+//
+//
+//        });
+//    }
+//    return _isShowErrorPageView;
+//}
+
 
 - (void)customNavBarWithTitle:(NSString *)title {
     [self.view addSubview:self.navTitleView];
@@ -28,35 +48,41 @@
         make.height.mas_equalTo(NAVIGATION_BAR_HEIGHT);
     }];
     self.navTitleView.titleLabel.text = title;
-    
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [backButton setTitle:@"返回" forState:UIControlStateNormal];
+    [backButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
+    [backButton setImage:IMAGE_NAME(@"nav_backIcon") forState:UIControlStateNormal];
+    [backButton setImage:IMAGE_NAME(@"nav_backIcon") forState:UIControlStateHighlighted];
+    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [backButton sizeToFit];
+    //        backButton.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+    [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    self.navTitleView.leftBtns = @[backButton];
 }
 
 - (void)customNavBarwithTitle:(NSString *)title andLeftView:(NSString *)imageName {
     [self customNavBarWithTitle:title];
     if (imageName.length>0) {
+//        [self.navTitleView.leftBtns reverseObjectEnumerator];
+        for (UIButton *btn in self.navTitleView.leftBtns) {
+            [btn removeFromSuperview];
+        }
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [backButton setTitle:@"返回" forState:UIControlStateNormal];
+        [backButton setTitle:imageName forState:UIControlStateNormal];
         [backButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
-        [backButton setImage:IMAGE_NAME(imageName) forState:UIControlStateNormal];
-        [backButton setImage:IMAGE_NAME(imageName) forState:UIControlStateHighlighted];
+        [backButton setImage:IMAGE_NAME(@"close_navIcon2") forState:UIControlStateNormal];
+        [backButton setImage:IMAGE_NAME(@"close_navIcon2") forState:UIControlStateHighlighted];
         [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [backButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+        [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        backButton.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+        [backButton setEdgeInsetsStyle:KKButtonEdgeInsetsStyleLeft imageTitlePadding:15];
         [backButton sizeToFit];
-        //        backButton.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
+
         [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
         self.navTitleView.leftBtns = @[backButton];
     } else {
-        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backButton setTitle:@"返回" forState:UIControlStateNormal];
-        [backButton.titleLabel setFont:[UIFont systemFontOfSize:16]];
-        //        [backButton setImage:@"" forState:UIControlStateNormal];
-        //        [backButton setImage:@"" forState:UIControlStateHighlighted];
-        [backButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [backButton setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
-        [backButton sizeToFit];
-        //        backButton.contentEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0);
-        [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-        self.navTitleView.leftBtns = @[backButton];
+
     }
 }
 
@@ -83,7 +109,13 @@
 }
 
 - (void)back {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
 }
 #pragma mark  -  Get
 
@@ -91,12 +123,17 @@
     if(!_navTitleView){
         _navTitleView = ({
             KKNavTitleView *view = [KKNavTitleView new];
-            view.contentOffsetY = (STATUS_BAR_HEIGHT-(13.5))/2 ;
+            view.contentOffsetY = STATUS_BAR_HEIGHT >20 ? (STATUS_BAR_HEIGHT-(13.5))/2 : 10 ;
             view.backgroundColor = kWhiteColor;
             view ;
         });
     }
     return _navTitleView;
 }
-
+- (NSMutableArray *)dataArray {
+    if (!_dataArray) {
+        _dataArray = [NSMutableArray arrayWithCapacity:5];
+    }
+    return _dataArray;
+}
 @end

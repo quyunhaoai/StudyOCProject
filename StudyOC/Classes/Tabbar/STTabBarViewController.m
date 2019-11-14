@@ -14,9 +14,16 @@
 #import "STPersonalCenterViewController.h"
 #import "STSocialViewController.h"
 #import "STChatViewController.h"
+#import "ChatListViewController.h"
 
 #import "STFSHomeTopTabViewController.h"
 #import "UITabBar+HNTabber.h"
+#import "STVideoHomeViewController.h"
+#import "STInteractionViewController.h"
+
+#import "STNewVideoHomeViewController.h"
+#import "STChatHomeViewController.h"
+#import "STMySelfViewController.h"
 @interface STTabBarViewController ()<UITabBarDelegate,UITabBarControllerDelegate,UINavigationControllerDelegate>
 @property (strong, nonatomic) STBaseNav *navTabVC;
 @end
@@ -38,7 +45,7 @@
     [super viewDidLoad];
     [self builderTabbarView];
     
-    [self showBageMethod];
+//    [self showBageMethod];
 }
 
 - (void)showBageMethod {
@@ -50,63 +57,59 @@
 }
 - (void)builderTabbarView {
     self.delegate = self;
-    self.tabBar.backgroundColor = kWhiteColor;
-    STFSHomeTopTabViewController *navTabVC = [STFSHomeTopTabViewController new];
-    navTabVC.title = @"首页";
-//    navTabVC.view.backgroundColor = kRedColor;
-//    navTabVC.tabBarItem
-//    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"首页"]
-//                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-//                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    self.tabBar.backgroundColor = kBlackColor;
+    self.tabBar.backgroundImage = [UIImage imageWithColor:kBlackColor];
+    self.tabBar.layer.shadowColor = [UIColor clearColor].CGColor;
+    self.tabBar.layer.shadowOffset = CGSizeMake(0,0);
+    self.tabBar.layer.shadowOpacity = 0;
+    self.tabBar.layer.shadowRadius = 0;
+    STMySelfViewController *navTabVC = [STMySelfViewController new];
+    navTabVC.tabBarItem
+    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"我的"]
+                                    image:[[UIImage imageNamed:@"navigation_video"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                            selectedImage:[[UIImage imageNamed:@"navigation_video_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
-    STSocialViewController *collectionFoundVC = [STSocialViewController initWithSocialVC];
-    collectionFoundVC.title = @"粉号";
-//    collectionFoundVC.view.backgroundColor = kOrangeColor;
-    
-//    collectionFoundVC.tabBarItem
-//    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"服务"]
-//                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-//                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    
-    STChatViewController *chatVC = [[STChatViewController alloc] init];
-    chatVC.title = @"消息";
-//    singVC.view.backgroundColor = kYellowColor;
-//    singVC.tabBarItem
-//    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"发现"]
-//                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-//                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    STSocialViewController *collectionFoundVC = [[STSocialViewController alloc] init];
+    collectionFoundVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"主页"]
+                                    image:[[UIImage imageNamed:@"navigationpowder"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                            selectedImage:[[UIImage imageNamed:@"navigationpowder_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    STInteractionViewController *interactionVC = [STInteractionViewController new];
+    interactionVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"频道"]
+                                    image:[[UIImage imageNamed:@"navigationinteraction"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                            selectedImage:[[UIImage imageNamed:@"navigationinteraction_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    STChatHomeViewController *chatVC = [[STChatHomeViewController alloc] init];
+    chatVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"消息"]
+                                    image:[[UIImage imageNamed:@"navigationmessage"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                            selectedImage:[[UIImage imageNamed:@"navigationmessage_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     STPersonalCenterViewController *personalCenterVC = [[STPersonalCenterViewController alloc] init];
-    personalCenterVC.title = @"我的";
-//    personalCenterVC.view.backgroundColor = kWhiteColor;
-//    personalCenterVC.tabBarItem
-//    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"我"]
-//                                    image:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-//                            selectedImage:[[UIImage imageNamed:@""] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    personalCenterVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"应用"]
+                                    image:[[UIImage imageNamed:@"navigate_my"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                            selectedImage:[[UIImage imageNamed:@"navigate_my_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     // 设置文字的样式
-//    NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
-//    textAttrs[NSForegroundColorAttributeName] = COLOR_666666;
-//
-//    NSMutableDictionary *selectTextAttrs = [NSMutableDictionary dictionary];
-//    selectTextAttrs[NSForegroundColorAttributeName] = COLOR_F42415;
+    NSMutableDictionary *textAttrs = [NSMutableDictionary dictionary];
+    textAttrs[NSForegroundColorAttributeName] = COLOR_HEX_RGB(0xB2B2B2);
+ 
+    NSMutableDictionary *selectTextAttrs = [NSMutableDictionary dictionary];
+    selectTextAttrs[NSForegroundColorAttributeName] = kWhiteColor;
     
     
-    NSArray *viewCtrlArray = @[navTabVC, collectionFoundVC, chatVC, personalCenterVC];
+    NSArray *viewCtrlArray = @[collectionFoundVC,interactionVC,  navTabVC,   chatVC, personalCenterVC];
     // 创建可变数组，存放导航控制器
     NSMutableArray *navCtrls = [NSMutableArray array];
     // 遍历视图控制器数组
     @autoreleasepool {
         for (UIViewController *viewCtrl in viewCtrlArray) {
             // 为视图控制器添加导航栏
-//            [viewCtrl.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
-//            [viewCtrl.tabBarItem setTitleTextAttributes:selectTextAttrs forState:UIControlStateSelected];
+            [viewCtrl.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
+            [viewCtrl.tabBarItem setTitleTextAttributes:selectTextAttrs forState:UIControlStateSelected];
             STBaseNav *navCtrl = [[STBaseNav alloc] initWithRootViewController:viewCtrl];
 //            navCtrl.delegate = self;
             [navCtrls addObject:navCtrl];
         }
     }
-    self.navTabVC = navCtrls[0];
+//    self.navTabVC = navCtrls[0];
     self.viewControllers = navCtrls;
 }
 

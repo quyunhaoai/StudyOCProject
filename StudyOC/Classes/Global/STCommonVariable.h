@@ -24,6 +24,7 @@ static float const kkPaddingSuper = 30.f;
 static float const kkPaddingMax = 25.f;
 static float const kkPaddingHuge = 20.f;
 static float const kkPaddingLarge = 15.f;
+static float const kkPaddingNormalLarge = 12.f;
 static float const kkPaddingNormal = 10.f;
 static float const kkPaddingSmall = 5.f;
 static float const kkPaddingMin = 4.f;
@@ -132,16 +133,17 @@ typedef NS_ENUM(NSInteger,KKViewTag){
     KKViewTagImageDetailDescView ,//相片描述视图tag，主要用于解决手势冲突
 };
 
-@protocol KKCommonDelegate <NSObject>
+@protocol KKCommonDelegate <NSObject>//通用，
 @optional
 - (void)didSelectWithView:(UIView *)view andCommonCell:(NSIndexPath *)index;
 - (void)clickButtonWithType:(KKBarButtonType)type item:(id)item;
 - (void)shieldBtnClicked:(id)item;
+- (void)jumpBtnClicked:(id)item;
 - (void)jumpToUserPage:(NSString *)userId;
 - (void)clickImageWithItem:(id)item rect:(CGRect)rect fromView:(UIView *)fromView image:(UIImage *)image indexPath:(NSIndexPath *)indexPath;
 @end
 
-@protocol KKCommentDelegate <NSObject>
+@protocol KKCommentDelegate <NSObject>//评论
 @optional
 - (void)diggBtnClick:(NSString *)commemtId callback:(void(^)(BOOL suc))callback;
 - (void)setConcern:(BOOL)isConcern userId:(NSString *)userId callback:(void(^)(BOOL isSuc))callback;

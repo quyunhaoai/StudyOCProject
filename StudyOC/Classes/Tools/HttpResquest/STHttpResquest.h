@@ -15,6 +15,7 @@ typedef void (^requestSuccessBlock)(NSDictionary *dic);
 //请求失败回调block
 typedef void (^requestFailureBlock)(NSError *error);
 
+typedef void (^request400Block)(NSDictionary *dic);
 //请求方法define
 typedef enum {
     GET,
@@ -24,6 +25,7 @@ typedef enum {
     HEAD
 } HTTPMethod;
 @interface STHttpResquest : AFHTTPSessionManager
+@property (copy, nonatomic) request400Block request400block;
 + (instancetype)sharedManager;
 + (instancetype)sharedNetworkToolsWithoutBaseUrl;
 - (void)requestWithMethod:(HTTPMethod)method

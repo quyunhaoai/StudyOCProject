@@ -110,7 +110,7 @@ typedef NS_ENUM(NSInteger, YNPageHeaderViewScaleMode) {
 /** 线height 2 */
 @property (nonatomic, assign) CGFloat lineHeight;
 /** 线条底部距离 0*/
-@property (nonatomic, assign) CGFloat lineBottomMargin;
+@property (nonatomic, assign) CGFloat  lineBottomMargin;
 /** 线条左右偏移量 0 */
 @property (nonatomic, assign) CGFloat lineLeftAndRightMargin;
 /** 线条圆角 0 */
