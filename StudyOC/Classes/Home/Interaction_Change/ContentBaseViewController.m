@@ -43,7 +43,7 @@
     titleCategoryView.titleColor =  COLOR_HEX_RGB(0xB2B2B2);
     titleCategoryView.titleSelectedColor = kWhiteColor;
     titleCategoryView.titleSelectedFont = STFont(17);
-    titleCategoryView.titleFont = FONT_12;
+    titleCategoryView.titleFont = FONT_14;
     JXCategoryIndicatorDotLineView *lineView = [[JXCategoryIndicatorDotLineView alloc] init];
     lineView.indicatorColor = color_tipYellow_FECE24;
     titleCategoryView.indicators = @[lineView];
@@ -64,7 +64,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
     //离开页面的时候，需要恢复屏幕边缘手势，不能影响其他页面
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }

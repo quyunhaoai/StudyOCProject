@@ -1,3 +1,10 @@
 ${PODS_ROOT}/Target Support Files/Pods-StudyOC/Pods-StudyOC-resources.sh
+${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle
+${PODS_ROOT}/LBXScan/LBXScan/UI/CodeScan.bundle
 ${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle
 ${PODS_ROOT}/SuperPlayer/SuperPlayer/Resource/SuperPlayer.bundle
+${PODS_ROOT}/WMZDialog/WMZDialog/WMZDialog/WMZDialog.bundle
+${PODS_ROOT}/ZBarSDK/iphone/res/zbar-back.png
+${PODS_ROOT}/ZBarSDK/iphone/res/zbar-help.html
+${PODS_ROOT}/ZBarSDK/iphone/res/zbar-helpicons.png
+${PODS_ROOT}/ZBarSDK/iphone/res/zbar-samples.png

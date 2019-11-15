@@ -31,7 +31,7 @@
     titleCategoryView.titleColor =  COLOR_HEX_RGB(0xB2B2B2);
     titleCategoryView.titleSelectedColor = kWhiteColor;
     titleCategoryView.titleSelectedFont = STFont(17);
-    titleCategoryView.titleFont = FONT_12;
+    titleCategoryView.titleFont = FONT_14;
     JXCategoryIndicatorDotLineView *lineView = [[JXCategoryIndicatorDotLineView alloc] init];
     lineView.indicatorColor = color_tipYellow_FECE24;
     titleCategoryView.indicators = @[lineView];

@@ -83,7 +83,9 @@
         make.bottom.mas_equalTo(self);
     }];
     self.detailLabel.text = @"关注我的567 关注我的234 关注我的123";
-
+    SetAnthorRichTextLabel(self.detailLabel, FONT_13, @"567", kWhiteColor);
+    SetAnthorRichTextLabel(self.detailLabel, FONT_13, @"234", kWhiteColor);
+    SetAnthorRichTextLabel(self.detailLabel, FONT_13, @"123", kWhiteColor);
     [self.typeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.nameStringLabel.mas_right).mas_offset(kkPaddingMin);
         make.centerY.mas_equalTo(self.nameStringLabel);

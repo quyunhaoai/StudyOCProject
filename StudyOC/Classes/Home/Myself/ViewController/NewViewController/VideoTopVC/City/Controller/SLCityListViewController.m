@@ -85,14 +85,14 @@
 // 定位视图
 - (SLCityLocationView *)cityLocationView {
     if (!_cityLocationView) {
-        _cityLocationView = [[SLCityLocationView alloc] initWithFrame:CGRectMake(0, 84, Window_W, 40)];
+        _cityLocationView = [[SLCityLocationView alloc] initWithFrame:CGRectMake(0, 0, Window_W, 40)];
     }
     return _cityLocationView;
 }
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40 + 84, Window_W, Window_H - 84 - 40) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40 + 0, Window_W, Window_H - 0 - 40) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -146,7 +146,17 @@
 #pragma mark -- 设置navigationBar
 - (void)setupNavigationBar {
     
-    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+//    self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+//    self.navigationController.navigationBar.titleTextAttributes = [];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+
+     
+
+    @{NSFontAttributeName:[UIFont systemFontOfSize:19],
+
+     
+
+    NSForegroundColorAttributeName:[UIColor whiteColor]}];
     // 设置标题
     self.navigationItem.title = self.cityModel.selectedCityId? [NSString stringWithFormat:@"当前选择-%@", self.cityModel.selectedCity]: @"选择城市";
     [self selectdeCity];

@@ -44,7 +44,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 - (void)topMuenAddButton {
     UIButton *rightBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];

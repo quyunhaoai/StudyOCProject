@@ -19,10 +19,6 @@
 
 ![p](https://main.qcloudimg.com/raw/881148817fa0d5e267fe41c2aa71f3f6.gif)
 
-+ 一键换肤
-
-![sk](https://main.qcloudimg.com/raw/82899ea7e1917c6dd85be5d36900e279.gif)
-
 + 列表播放
 
 ![list](https://main.qcloudimg.com/raw/3ece479b33cdc7a458483d3eb1e78b1b.gif) ![fu](https://main.qcloudimg.com/raw/3af5501454ca107882b618dbb2c0d8ef.gif)
@@ -40,7 +36,6 @@
 
 ## 功能特性
 
-- [x] 加密视频播放（FairPlay、SimpleAES）
 - [x] 多种视频格式（RTMP、FLV、HLS、MP4）
 - [x] 直播、点播首屏秒开
 - [x] 码率自适应
@@ -75,7 +70,6 @@
 - [x] 视频缩略图预览
 - [x] 进度条打点
 - [x] 根据网络自动选择清晰度
-- [x] 自定义皮肤
 
 ## 快速开始
 
