@@ -129,7 +129,7 @@
 {
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc]init];
-        _timeLabel.textColor = UIMainWhiteColor;
+        _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.font = FontSet(12);
     }
@@ -190,9 +190,9 @@
     //处理时间
     if (audioModel.shouldShowTime) {
         self.timeLabel.text = [NSDate timeStringWithTimeInterval:audioModel.sendTime];
-        CGSize timeTextSize  = [self.timeLabel sizeThatFits:CGSizeMake(SCREEN_WITDTH, 20)];
+        CGSize timeTextSize  = [self.timeLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH, 20)];
         self.timeLabel.frame = Frame(5,(20 - timeTextSize.height)*0.5, timeTextSize.width, timeTextSize.height);
-        self.timeContainer.frame = Frame((SCREEN_WITDTH - timeTextSize.width-10)*0.5, 15,timeTextSize.width + 10, 20);
+        self.timeContainer.frame = Frame((SCREEN_WIDTH - timeTextSize.width-10)*0.5, 15,timeTextSize.width + 10, 20);
     }
     self.timeContainer.hidden = !audioModel.shouldShowTime;
     //处理失败按钮
@@ -244,7 +244,7 @@
 {
     //计算语音长度
     CGFloat length = 0;
-    CGFloat maxLength = SCREEN_WITDTH - 145;
+    CGFloat maxLength = SCREEN_WIDTH - 145;
     //默认最小值为30
     CGFloat minLength = 40;
     //秒数
@@ -262,7 +262,7 @@
             //其他
         default:
         {
-            length = 40 + (SCREEN_WITDTH - 145)/59 *seconds;
+            length = 40 + (SCREEN_WIDTH - 145)/59 *seconds;
             if (length >maxLength) {   //超过60秒 还是显示60秒长度
                 length = maxLength;
             }
@@ -274,8 +274,8 @@
     //我方
     if (_audioModel.byMyself.integerValue) {
         
-        self.iconView.frame = Frame(SCREEN_WITDTH - 65,MaxY(self.timeContainer.frame)+15, 50, 50);
-        self.backButton.frame = Frame(SCREEN_WITDTH - 70-length, MinY(self.iconView.frame)+5, length, 40);
+        self.iconView.frame = Frame(SCREEN_WIDTH - 65,MaxY(self.timeContainer.frame)+15, 50, 50);
+        self.backButton.frame = Frame(SCREEN_WIDTH - 70-length, MinY(self.iconView.frame)+5, length, 40);
         //动画
         self.voiceGIFView.frame = Frame(Width(self.backButton.frame)-39, (Height(self.backButton.frame)-24)*0.5, 24, 24);
         //红点

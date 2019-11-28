@@ -225,6 +225,7 @@
             view.layer.masksToBounds = YES ;
             view.userInteractionEnabled = YES ;
             ViewBorderRadius(view, 4, 2, [UIColor colorWithRed:199.0f/255.0f green:199.0f/255.0f blue:209.0f/255.0f alpha:1.0f]);
+//            ViewBorder(view, [UIColor colorWithRed:199.0f/255.0f green:199.0f/255.0f blue:209.0f/255.0f alpha:1.0f], 2);
             view;
         });
     }

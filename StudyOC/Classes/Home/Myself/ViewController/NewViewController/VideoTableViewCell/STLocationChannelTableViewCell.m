@@ -68,7 +68,7 @@
         make.size.mas_equalTo(CGSizeMake(kWidth(44), kWidth(44)));
     }];
     [self.vipImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.headerIconView).mas_offset(kWidth(30));
+        make.top.mas_equalTo(self.headerIconView).mas_offset(kWidth(26));
         make.left.mas_equalTo(self.headerIconView).mas_offset(kWidth(33));
         make.size.mas_equalTo(CGSizeMake(kWidth(16), kWidth(16)));
     }];
@@ -135,6 +135,7 @@
         make.width.mas_equalTo(165);
         make.height.mas_equalTo(109);
     }];
+    ViewBorderRadius(self.headerIconView, kWidth(22), 2, color_tipFeng_FF2190);
 }
 
 - (void)refreshData:(id)data {

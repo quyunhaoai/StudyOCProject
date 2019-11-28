@@ -27,7 +27,7 @@
     UIImage *barImg = [UIImage imageFromContextWithColor:UICOLOR_RGB_Alpha(0x000000, 0.8)];
     [navBar setBackgroundImage:barImg forBarMetrics:UIBarMetricsDefault];
     navBar.barStyle  =  UIBarStyleBlack;
-    [navBar setTintColor:UIMainWhiteColor];
+    [navBar setTintColor:[UIColor whiteColor]];
 }
 
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated

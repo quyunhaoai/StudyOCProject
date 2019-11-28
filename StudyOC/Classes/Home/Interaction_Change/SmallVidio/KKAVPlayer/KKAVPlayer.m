@@ -242,9 +242,9 @@
     //这里设置每秒执行一次
     AVPlayerItem *playerItem = self.curtPlayerItem;
     
-//    @weakify(self);
+    @STweakify(self);
     self.playTimeObserverObject = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
-//        @strongify(self);
+        @STstrongify(self);
         self.currentPlayTime = CMTimeGetSeconds(time);
         self.totalTime = CMTimeGetSeconds([playerItem duration]);
         self.curtPosition = self.currentPlayTime/self.totalTime ;

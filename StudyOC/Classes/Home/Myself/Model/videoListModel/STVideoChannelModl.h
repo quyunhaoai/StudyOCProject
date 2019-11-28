@@ -70,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , strong) NSArray <NSString *>  * video_type;
 @property (nonatomic , strong) NSArray               * video_team;
 @property (nonatomic, strong) NSArray *video_sponsor;
+@property (assign, nonatomic) int uid;    //
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,12 +6,12 @@
 //  Copyright © 2019 研学旅行. All rights reserved.
 //
 
-#import "STBaseTableViewController.h"
+#import "STBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface STVideoDetailViewController : STBaseTableViewController
-- (void)addVideoPlayView:(KKAVPlayerView *)playView;
+@interface STVideoDetailViewController : STBaseViewController
+//- (void)addVideoPlayView:(KKAVPlayerView *)playView;
 @end
 
 NS_ASSUME_NONNULL_END

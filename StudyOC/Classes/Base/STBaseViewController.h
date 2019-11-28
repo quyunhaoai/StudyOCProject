@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (assign, nonatomic) BOOL isShowErrorPageView;
 @property (assign, nonatomic) BOOL isShowNoDataPageView; 
-
+@property (assign, nonatomic) NSInteger page;
 
 /**
  初始化导航栏

@@ -108,12 +108,12 @@ static const CGFloat defaultInputHeight     = 35; //默认输入框 35
 {
     if (!_emotionBottonBar) {
         _emotionBottonBar = [[UIView alloc]init];
-        _emotionBottonBar.backgroundColor = UIMainWhiteColor;
+        _emotionBottonBar.backgroundColor = [UIColor whiteColor];
         UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sendButton.titleLabel.font = FontSet(14);
         [sendButton setTitle:@"发送" forState:UIControlStateNormal];
         [sendButton setTitleColor:UICOLOR_RGB_Alpha(0x333333, 1) forState:UIControlStateNormal];
-        sendButton.frame = Frame(SCREEN_WITDTH - 75, 5, 60, 30);
+        sendButton.frame = Frame(SCREEN_WIDTH - 75, 5, 60, 30);
         [sendButton addTarget:self action:@selector(sendEmotionMessage:) forControlEvents:UIControlEventTouchUpInside];
         ViewBorder(sendButton, UICOLOR_RGB_Alpha(0x333333, 1), 1);
         ViewRadius(sendButton, 5);
@@ -127,7 +127,7 @@ static const CGFloat defaultInputHeight     = 35; //默认输入框 35
 {
     if (!_emotionScrollView) {
         _emotionScrollView = [[UIScrollView alloc]init];
-        _emotionScrollView.backgroundColor = UIMainWhiteColor;
+        _emotionScrollView.backgroundColor = [UIColor whiteColor];
         _emotionScrollView.showsHorizontalScrollIndicator = NO;
         _emotionScrollView.pagingEnabled = YES;
         _emotionScrollView.delegate = self;
@@ -144,11 +144,11 @@ static const CGFloat defaultInputHeight     = 35; //默认输入框 35
         //宽高
         CGFloat widthHeight = 30.f;
         //中间间距
-        CGFloat midMargin = (SCREEN_WITDTH - columnMaxCount*widthHeight - 2*lrMargin)/(columnMaxCount - 1);
+        CGFloat midMargin = (SCREEN_WIDTH - columnMaxCount*widthHeight - 2*lrMargin)/(columnMaxCount - 1);
         //计算一共多少页表情
         NSInteger pageCount = self.emotionDict.count / emotionMaxCount + (self.emotionDict.count %emotionMaxCount > 0 ? 1 : 0);
         //滑动范围
-        _emotionScrollView.contentSize = CGSizeMake(pageCount *SCREEN_WITDTH, 0);
+        _emotionScrollView.contentSize = CGSizeMake(pageCount *SCREEN_WIDTH, 0);
         
         //布局
         //当前第几个表情
@@ -179,7 +179,7 @@ static const CGFloat defaultInputHeight     = 35; //默认输入框 35
 {
     if (!_facesKeyboard) {
         _facesKeyboard = [[UIView alloc]init];
-        _facesKeyboard.backgroundColor = UIMainWhiteColor;
+        _facesKeyboard.backgroundColor = [UIColor whiteColor];
         //添加表情滚动容器
         [_facesKeyboard addSubview:self.emotionScrollView];
         //添加底部操作栏
@@ -195,7 +195,7 @@ static const CGFloat defaultInputHeight     = 35; //默认输入框 35
 {
     if (!_handleKeyboard) {
         _handleKeyboard = [[UIView alloc]init];
-        _handleKeyboard.backgroundColor = UIMainWhiteColor;
+        _handleKeyboard.backgroundColor = [UIColor whiteColor];
         NSArray *buttonNames = @[@"照片",@"拍摄",@"视频"];
         for (NSInteger index = 0; index < 3; index ++) {
             NSInteger  colum = index % 3;
@@ -333,27 +333,27 @@ static const CGFloat defaultInputHeight     = 35; //默认输入框 35
 #pragma mark - 初始化布局
 - (void)configUIFrame
 {
-    self.messageBar.frame = Frame(0, 0, SCREEN_WITDTH, defaultMsgBarHeight);  //消息栏
+    self.messageBar.frame = Frame(0, 0, SCREEN_WIDTH, defaultMsgBarHeight);  //消息栏
     self.audioButton.frame = Frame(10, (Height(self.messageBar.frame) - 30)*0.5, 30, 30); //语音按钮
-    self.audioLpButton.frame = Frame(MaxX(self.audioButton.frame)+15,(Height(self.messageBar.frame)-defaultInputHeight)*0.5, SCREEN_WITDTH - 155, defaultInputHeight); //长按录音按钮
+    self.audioLpButton.frame = Frame(MaxX(self.audioButton.frame)+15,(Height(self.messageBar.frame)-defaultInputHeight)*0.5, SCREEN_WIDTH - 155, defaultInputHeight); //长按录音按钮
     self.msgTextView.frame = self.audioLpButton.frame;  //输入框
     self.swtFaceButton.frame  = Frame(MaxX(self.msgTextView.frame)+15, (Height(self.messageBar.frame)-30)*0.5,30, 30); //表情键盘切换按钮
     self.swtHandleButton.frame = Frame(MaxX(self.swtFaceButton.frame)+15, (Height(self.messageBar.frame)-30)*0.5, 30, 30); //加号按钮切换操作键盘
-    self.keyBoardContainer.frame = Frame(0,Height(self.messageBar.frame)+1, SCREEN_WITDTH,CTKEYBOARD_DEFAULTHEIGHT - Height(self.messageBar.frame)); //自定义键盘容器
+    self.keyBoardContainer.frame = Frame(0,Height(self.messageBar.frame)+1, SCREEN_WIDTH,CTKEYBOARD_DEFAULTHEIGHT - Height(self.messageBar.frame)); //自定义键盘容器
     self.handleKeyboard.frame = self.keyBoardContainer.bounds ;//键盘操作栏
     self.facesKeyboard.frame = self.keyBoardContainer.bounds ; //表情键盘部分
     
     //表情容器部分
-    self.emotionScrollView.frame =Frame(0,0, SCREEN_WITDTH, Height(self.facesKeyboard.frame)-40); //表情滚动容器
+    self.emotionScrollView.frame =Frame(0,0, SCREEN_WIDTH, Height(self.facesKeyboard.frame)-40); //表情滚动容器
     for (NSInteger index = 0; index < self.emotionScrollView.subviews.count; index ++) { //emotion容器
         UIView *emotionView = self.emotionScrollView.subviews[index];
-        emotionView.frame = Frame(index *SCREEN_WITDTH, 0, SCREEN_WITDTH, Height(self.emotionScrollView.frame));
+        emotionView.frame = Frame(index *SCREEN_WIDTH, 0, SCREEN_WIDTH, Height(self.emotionScrollView.frame));
     }
     //页码
     self.emotionPgControl.numberOfPages = self.emotionScrollView.subviews.count;
     CGSize controlSize = [self.emotionPgControl sizeForNumberOfPages:self.emotionScrollView.subviews.count];
-    self.emotionPgControl.frame = Frame((SCREEN_WITDTH - controlSize.width)*0.5,Height(self.emotionScrollView.frame)-controlSize.height, controlSize.width, controlSize.height); // pageControl
-    self.emotionBottonBar.frame = Frame(0,MaxY(self.emotionScrollView.frame), SCREEN_WITDTH, 40); //底部操作栏  固定 40高度
+    self.emotionPgControl.frame = Frame((SCREEN_WIDTH - controlSize.width)*0.5,Height(self.emotionScrollView.frame)-controlSize.height, controlSize.width, controlSize.height); // pageControl
+    self.emotionBottonBar.frame = Frame(0,MaxY(self.emotionScrollView.frame), SCREEN_WIDTH, 40); //底部操作栏  固定 40高度
 }
 
 #pragma mark - 系统键盘即将弹起
@@ -474,7 +474,7 @@ static const CGFloat defaultInputHeight     = 35; //默认输入框 35
 - (void)customKeyboardMove:(CGFloat)customKbY
 {
     [UIView animateWithDuration:0.25 animations:^{
-        self.frame = Frame(0,customKbY, SCREEN_WITDTH, Height(self.frame));
+        self.frame = Frame(0,customKbY, SCREEN_WIDTH, Height(self.frame));
     }];
 }
 
@@ -526,10 +526,10 @@ static const CGFloat defaultInputHeight     = 35; //默认输入框 35
 #pragma mark - 输入框高度调整
 - (void)msgTextViewHeightFit:(CGFloat)msgViewHeight
 {
-    self.messageBar.frame = Frame(0, 0, SCREEN_WITDTH, msgViewHeight +MinY(self.msgTextView.frame)*2);
+    self.messageBar.frame = Frame(0, 0, SCREEN_WIDTH, msgViewHeight +MinY(self.msgTextView.frame)*2);
     self.msgTextView.frame = Frame(MinX(self.msgTextView.frame),(Height(self.messageBar.frame)-msgViewHeight)*0.5, Width(self.msgTextView.frame), msgViewHeight);
-    self.keyBoardContainer.frame = Frame(0, MaxY(self.messageBar.frame), SCREEN_WITDTH, Height(self.keyBoardContainer.frame));
-    self.frame = Frame(0,SCREEN_HEIGHT - keyboardHeight-Height(self.messageBar.frame), SCREEN_WITDTH,Height(self.keyBoardContainer.frame) + Height(self.messageBar.frame));
+    self.keyBoardContainer.frame = Frame(0, MaxY(self.messageBar.frame), SCREEN_WIDTH, Height(self.keyBoardContainer.frame));
+    self.frame = Frame(0,SCREEN_HEIGHT - keyboardHeight-Height(self.messageBar.frame), SCREEN_WIDTH,Height(self.keyBoardContainer.frame) + Height(self.messageBar.frame));
 }
 
 #pragma mark - 拍摄 , 照片 ,视频按钮点击
@@ -599,7 +599,7 @@ static const CGFloat defaultInputHeight     = 35; //默认输入框 35
 #pragma mark - scrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    self.emotionPgControl.currentPage = scrollView.contentOffset.x / SCREEN_WITDTH;
+    self.emotionPgControl.currentPage = scrollView.contentOffset.x / SCREEN_WIDTH;
 }
 
 #pragma mark - 表情发送按钮点击

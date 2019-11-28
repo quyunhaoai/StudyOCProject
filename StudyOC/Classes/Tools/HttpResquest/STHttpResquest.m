@@ -7,7 +7,7 @@
 //
 
 #import "STHttpResquest.h"
-
+#import "SVProgressHUD+DGActivityIndicatorView.h"
 @implementation STHttpResquest
 
 + (instancetype)sharedManager {
@@ -69,6 +69,10 @@
           WithFailurBlock:(requestFailureBlock)failure
 {
     NSLog(@"params:%@\n",params);
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
+    [SVProgressHUD show];
+    [SVProgressHUD setActivityIndicatorType:DDActivityIndicatorAnimationTypeBallPulse];
+    [SVProgressHUD setActivityIndicatorTintColor:kWhiteColor];
      NSString *urlstr = [NSString stringWithFormat:@"%@%@",KBaseLocation,path];
     switch (method) {
         case GET:{
@@ -77,23 +81,11 @@
              progress:nil
               success:^(NSURLSessionTask *task, NSDictionary * responseObject) {
                 NSLog(@"JSON: %@", responseObject);
-//                NSInteger status = [[responseObject objectForKey:@"state"] integerValue];
-//                NSString *msg = [[responseObject objectForKey:@"msg"] description];
-//                if(status == 200){
-                    success(responseObject);
-//                }else {
-//                    if (status == 400) {
-////                        success(responseObject);
-//                    } else {
-//                        if (msg.length>0) {
-//                            [MBManager showBriefAlert:msg];
-//                        }
-//                    }
-//                }
-//                NSLog(@"msg:%@ status:%ld",msg,status);
+                [SVProgressHUD dismiss];
+                success(responseObject);
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
-                
+                [SVProgressHUD dismiss];
                 failure(error);
             }];
             break;
@@ -104,26 +96,11 @@
               progress:nil
                success:^(NSURLSessionTask *task, NSDictionary * responseObject) {
                 NSLog(@"JSON: %@", responseObject);
-//                NSString *msg = [[responseObject objectForKey:@"msg"] description];
-//                NSInteger status = [[responseObject objectForKey:@"state"] integerValue];
-//                if(status == 200){
-                    success(responseObject);
-//                }else {
-//                    NSDictionary *data = [responseObject objectForKey:@"data"];
-//                    if ([data.allKeys containsObject:@"auth_error"]) {
-//                       NSInteger auth_error = [[data objectForKey:@"auth_error"] integerValue];
-//                        if (auth_error  == 1) {
-//                            success(responseObject);
-//                        }
-//                    }
-//                    if (msg.length>0) {
-//                        [MBManager showBriefAlert:msg];
-//                    }
-////
-//                }
-//                NSLog(@"msg:%@ status:%ld",msg,status);
+                [SVProgressHUD dismiss];
+                success(responseObject);
             } failure:^(NSURLSessionTask *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
+                [SVProgressHUD dismiss];
                 failure(error);
             }];
             break;

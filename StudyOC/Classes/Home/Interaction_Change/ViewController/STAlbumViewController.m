@@ -19,21 +19,20 @@
 #import "STKWWebViewController.h"
 
 #import "STVideoDetailViewController.h"
-@interface STAlbumViewController ()<JXCategoryListContentViewDelegate,UITableViewDelegate,UITableViewDataSource,SuperPlayerDelegate,KKCommonDelegate,SDCycleScrollViewDelegate>
+@interface STAlbumViewController ()<JXCategoryListContentViewDelegate,UITableViewDelegate,UITableViewDataSource,KKAVPlayerViewDelegate,KKCommonDelegate,SDCycleScrollViewDelegate>
 {
     UILabel *_messageLabel;
 }
 @property (assign, nonatomic) BOOL isShowHeaderView;
 @property (strong, nonatomic) NSMutableArray *nData;  //  数组
 @property (assign, nonatomic) BOOL isLoadFinish; // 是否加载完成
-@property (strong, nonatomic) UITableViewCell *currentTableViewCellView; //  视图
-//@property (strong, nonatomic) SuperPlayerView *playerView;
-//@property (strong, nonatomic) STLocationChannelTableViewCell *playTableCellView; //  视图
+@property (strong, nonatomic) STHomeVideoTableViewCell *currentPlayingCell; //  视图
 @property (strong, nonatomic) SDCycleScrollView *headerView; //  视图
-
-
 @property (strong, nonatomic) KKAVPlayerView *videoPlayView; //  视图
-
+@property (strong, nonatomic) NSIndexPath *currentCellIndexPath;    //
+@property (assign, nonatomic) NSInteger currentPlayingIndex;
+@property (strong, nonatomic) NSMutableArray *visibleIndexArray;
+@property (assign, nonatomic) CGFloat cellHeight;
 @end
 
 @implementation STAlbumViewController
@@ -41,30 +40,30 @@
 - (UIView *)listView{
     return self.view;
 }
-- (NSMutableArray *)nData {
-    if (!_nData) {
-        _nData = [NSMutableArray arrayWithArray:@[@"",@"",@"",@""]];
-    }
-    return _nData;
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//    [self.tableView.mj_header beginRefreshing];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.page = 1;
-//    [self requestUrl];
+    _visibleIndexArray = [NSMutableArray array];
+    [self requestUrl];
     XYWeakSelf;
     self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
-//        [weakSelf requestUrl];
-        [weakSelf.tableView.mj_header endRefreshing];
-        [weakSelf refreshData:YES shouldShowTips:YES];
+        [weakSelf requestUrl];
+//        [weakSelf.tableView.mj_header endRefreshing];
+//        [weakSelf refreshData:YES shouldShowTips:YES];
     }];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         weakSelf.page ++;
-//        [weakSelf requestUrl];
-        [weakSelf.tableView.mj_footer endRefreshing];
+        [weakSelf requestUrl];
     }];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-    [self addheaderView];
+
 }
 
 - (void)requestUrl {
@@ -80,13 +79,17 @@
         NSString *msg = [[dic objectForKey:@"msg"] description];
         if(status == 200){
             NSDictionary *data = [dic objectForKey:@"data"];
-            BOOL hasmore = [[data objectForKey:@"hasmore"] boolValue];
-            if (hasmore) {
-                [weakSelf.tableView.mj_footer resetNoMoreData];
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+            NSMutableArray *arr = [data objectForKey:@"video_list"];
+            if (arr.count) {
+                [XXFileManger writeArray:arr ToPlistFileWithName:@"video_list"];
+                weakSelf.nData = [arr mutableCopy];
             } else {
-                [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];// 没有更多数据
+                weakSelf.nData = [XXFileManger readArrayFromDocumentWithFileName:@"video_list"];
             }
-            weakSelf.nData = [data objectForKey:@"video_list"];
+            [weakSelf.nData addObjectsFromArray:arr];
+            [weakSelf.nData addObjectsFromArray:arr];
             if (!weakSelf.nData.count) {
                 weakSelf.isShowNoDataPageView= YES;
             } else {
@@ -94,7 +97,14 @@
             }
             weakSelf.isLoadFinish = YES;
             [weakSelf.tableView reloadData];
-//            weakSelf.page ++;
+            BOOL hasmore = [[data objectForKey:@"hasmore"] boolValue];
+            if (hasmore) {
+                [weakSelf.tableView.mj_footer resetNoMoreData];
+            } else {
+                [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];// 没有更多数据
+            }
+            weakSelf.currentPlayingCell = [weakSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            [weakSelf.currentPlayingCell addPlayView];
         }else {
             if (msg.length>0) {
                 [MBManager showBriefAlert:msg];
@@ -117,10 +127,6 @@
     }];
     view.backgroundColor = color_cellBg_151420;
     self.tableView.tableHeaderView = view;
-}
-
-- (void)refreshTableViewData {
-    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)refreshData:(BOOL)header shouldShowTips:(BOOL)showTip {
@@ -173,20 +179,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     STVideoChannelModl *videoModel = [STVideoChannelModl yy_modelWithDictionary:self.nData[indexPath.row]];
+    _cellHeight = [STHomeVideoTableViewCell techHeightForOjb:videoModel];
     return [STHomeVideoTableViewCell techHeightForOjb:videoModel];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     cell = [STHomeVideoTableViewCell initializationCellWithTableView:tableView];
-    STVideoChannelModl *videoModel = [STVideoChannelModl yy_modelWithDictionary:self.nData[indexPath.row]];
+    STVideoChannelModl *videoModel = [STVideoChannelModl yy_modelWithDictionary:[self.nData safeObjectAtIndex:indexPath.row]];
     [(STHomeVideoTableViewCell *)cell refreshData:videoModel];
     [(STHomeVideoTableViewCell *)cell setDelegate:self];
+    [(STHomeVideoTableViewCell *)cell setIndexPath:indexPath];
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return  _isShowHeaderView && section ? 30.f : 0.0001f;
 }
 
@@ -208,123 +215,51 @@
     return view;
 }
 
-/**
- cell第一次显示
- */
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (_isShowHeaderView) {
-//        if (indexPath.section == 1 && indexPath.row == self.dataArray.count-2 && _isLoadFinish) {
-////            [self.tableView.mj_footer beginRefreshing];
-//
-//            NSDictionary *dict = testDataDict()[@"data"];
-//            NSArray *arr = (NSArray *)dict[@"content"];
-//            [self.dataArray addObjectsFromArray:arr];
-//
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.tableView reloadData];
-//            });
-//
-//            [self.tableView.mj_footer endRefreshing];
-//        }
-//    } else {
-//        if (indexPath.section == 0 && indexPath.row == self.nData.count-2 && _isLoadFinish) {
-////            [self.tableView.mj_footer beginRefreshing];
-//
-//            NSDictionary *dict = testDataDict()[@"data"];
-//            NSArray *arr = (NSArray *)dict[@"content"];
-//            [self.nData addObjectsFromArray:arr];
-//
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [self.tableView reloadData];
-//            });
-//
-//            [CATransaction commit];
-//
-//            [self.tableView.mj_footer endRefreshing];
-//        }
-//    }
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    STHomeViewController *vc = [STHomeViewController new];
-//    STVideoChannelModl *videoModel = [STVideoChannelModl yy_modelWithDictionary:self.nData[indexPath.row]];
-//    vc.videoUrl = videoModel.video_url;
-//    [self.navigationController pushViewController:vc animated:YES];
-    [self showVideoDetailView:@"" smallType:KKSamllVideoTypeDetail];
-}
-//跳转到详情页
-- (void)showVideoDetailView:(id )contentItem smallType:(KKSamllVideoType)smallType{
-    NSString *videoId = @"";
-    NSString *title = @"";
-    NSString *playCount = @"";
-    NSString *url = @"";
-    if(!url.length){
-//        url = contentItem.image_list.firstObject.url;
-    }
-    
-//    KKNewsBaseInfo *newsInfo = [KKNewsBaseInfo new];
-//    newsInfo.title = contentItem.title;
-//    newsInfo.groupId = contentItem.group_id;
-//    newsInfo.itemId = contentItem.item_id;
-//    newsInfo.source = contentItem.source;
-//    newsInfo.articalUrl = contentItem.display_url;
-//    newsInfo.publicTime = contentItem.publish_time;
-//    newsInfo.catagory = self.sectionItem.category;
-//    newsInfo.videoWatchCount = contentItem.video_detail_info.video_watch_count;
-//    newsInfo.diggCount = contentItem.digg_count;
-//    newsInfo.buryCount = contentItem.bury_count ;
-//    newsInfo.commentCount = contentItem.comment_count;
-//    newsInfo.userInfo = contentItem.user_info;
-    
-//    KKVideoNewsDetail *detailView = [[KKVideoNewsDetail alloc]initWithNewsBaseInfo:newsInfo];
-//    [[UIApplication sharedApplication].keyWindow addSubview:detailView];
-//    [detailView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.left.top.mas_equalTo(0);
-//        make.size.mas_equalTo(CGSizeMake(UIDeviceScreenWidth, UIDeviceScreenHeight));
-//    }];
-    STVideoDetailViewController *detailView = [STVideoDetailViewController new];
-    if([self.videoPlayView.videoId isEqualToString:videoId]){
-        [self.videoPlayView removeFromSuperview];
-        [self.videoPlayView setSmallType:smallType];
-    }else{
-        [self.videoPlayView destoryVideoPlayer];
-        self.videoPlayView = [[KKAVPlayerView alloc]initWithTitle:title playCount:playCount coverUrl:url videoId:videoId smallType:smallType];
-    }
-    [detailView addVideoPlayView:self.videoPlayView];
-    [self.navigationController pushViewController:detailView animated:YES];
-//    [detailView pushIn];
 }
 
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (cell == self.playTableCellView) {
-//        [self.playerView resetPlayer];
-//        [(STLocationChannelTableViewCell *)cell resetPlayerView];
-//    }
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self addOneIndexPathToVisibleIndexArrayWithValue:indexPath];
 }
 
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [_visibleIndexArray removeObject:indexPath];
+    if(_currentPlayingIndex==indexPath.row){
+        if(_currentPlayingCell){
+            [_currentPlayingCell removeFromSuperview];
+            _currentPlayingCell = nil;
+        }
+    }
+}
 #pragma mark  -  CellDelegate
 - (void)clickImageWithItem:(id)item rect:(CGRect)rect fromView:(UIView *)fromView image:(UIImage *)image indexPath:(NSIndexPath *)indexPath {
-    [self playVideoInSmall:@"" oriView:fromView oriRect:rect smallType:KKSamllVideoTypeVideoCatagory];
+    self.currentCellIndexPath = indexPath;
+    self.currentPlayingCell = [self.tableView cellForRowAtIndexPath:self.currentCellIndexPath];
+    [self playVideoInSmall:item
+                   oriView:fromView
+                   oriRect:rect
+                 smallType:KKSamllVideoTypeVideoCatagory];
 }
 //小屏播放
 - (void)playVideoInSmall:(id )contentItem oriView:(UIView *)oriView oriRect:(CGRect)oriRect smallType:(KKSamllVideoType)smallType{
-    NSString *videoId = @"";
-    NSString *title = @"最靓丽的视频就在这里，拍摄了几天，容纳了众多美女排";
-    NSString *playCount = @"347";
-    NSString *url = @"http://mp.youqucheng.com/addons/project/data/uploadfiles/video/1_06257727562426755.jpg";//封面图片
-    if(!url.length){
-        url =@"http://mp.youqucheng.com/addons/project/data/uploadfiles/video/1_06257727562426755.jpg";
-    }
+    STVideoChannelModl *model = (STVideoChannelModl *)contentItem;
+    NSString *videoId =model.video_url;
+    NSString *title = model.video_title;
+    NSString *playCount = STRING_FROM_INTAGER(model.play_volume);
+    NSString *url = model.video_thumb;//封面图片
     CGRect frame = [oriView convertRect:oriRect toView:self.tableView];
     [self.videoPlayView destoryVideoPlayer];
-    self.videoPlayView = [[KKAVPlayerView alloc]initWithTitle:title playCount:playCount coverUrl:url videoId:videoId smallType:smallType];
-    self.videoPlayView.originalFrame = frame ;
+    self.videoPlayView = [[KKAVPlayerView alloc]initWithTitle:title
+                                                    playCount:playCount
+                                                     coverUrl:url
+                                                      videoId:videoId
+                                                    smallType:smallType];
+    self.videoPlayView.originalFrame = frame;
     self.videoPlayView.originalView = oriView;
+    self.videoPlayView.delegate = self;
     [self.tableView addSubview:self.videoPlayView];
 }
-
-
 
 - (void)didSelectWithView:(UIView *)view andCommonCell:(NSIndexPath *)index {
     STChildrenViewController *vc = [STChildrenViewController new];
@@ -337,27 +272,27 @@
 }
 
 - (void)jumpBtnClicked:(id)item {
-    STNoLikeMaskView *nolikeView = [[STNoLikeMaskView alloc] initWithFrame:CGRectMake(0,
-                                                                                      0,
-                                                                                      Window_W,
-                                                                                      Window_H)];
-    [nolikeView showMaskViewIn:[[UIApplication sharedApplication] keyWindow]];
-    if ([item isKindOfClass:[UIButton class]]) {
-        UIButton *button = (UIButton *)item;
-        self.currentTableViewCellView = (UITableViewCell *)button.superview.superview.superview;
-    }
-    XYWeakSelf;
-    nolikeView.btnClickedBlock = ^(UIButton * _Nonnull sender,NSMutableDictionary *dict) {
-        if ([self.currentTableViewCellView isKindOfClass:[STHomeVideoTableViewCell class]]) {
-            [(STHomeVideoTableViewCell *)weakSelf.currentTableViewCellView setWithdrawDic:[dict mutableCopy]];
-            [(STHomeVideoTableViewCell *)weakSelf.currentTableViewCellView setIsShowWithdram:YES];
-        }
-    };
+//    STNoLikeMaskView *nolikeView = [[STNoLikeMaskView alloc] initWithFrame:CGRectMake(0,
+//                                                                                      0,
+//                                                                                      Window_W,
+//                                                                                      Window_H)];
+//    [nolikeView showMaskViewIn:[[UIApplication sharedApplication] keyWindow]];
+//    if ([item isKindOfClass:[UIButton class]]) {
+//        UIButton *button = (UIButton *)item;
+//        self.currentTableViewCellView = (UITableViewCell *)button.superview.superview.superview;
+//    }
+//    XYWeakSelf;
+//    nolikeView.btnClickedBlock = ^(UIButton * _Nonnull sender,NSMutableDictionary *dict) {
+//        if ([self.currentTableViewCellView isKindOfClass:[STHomeVideoTableViewCell class]]) {
+//            [(STHomeVideoTableViewCell *)weakSelf.currentTableViewCellView setWithdrawDic:[dict mutableCopy]];
+//            [(STHomeVideoTableViewCell *)weakSelf.currentTableViewCellView setIsShowWithdram:YES];
+//        }
+//    };
 }
 
 - (void)withdrawMothed:(UIButton *)button {
-    NSIndexPath *path = [self.tableView indexPathForCell:self.currentTableViewCellView];
-    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+//    NSIndexPath *path = [self.tableView indexPathForCell:self.currentTableViewCellView];
+//    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)jumpToUserPage:(NSString *)userId {
@@ -365,18 +300,116 @@
     vc.title = @"个人主页";
     [self.navigationController pushViewController:vc animated:YES];
 }
-
-#pragma mark  -  ScrollDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView == self.tableView){
-
+#pragma mark  -  计算可播放cell
+- (BOOL)judgeOneIndexPathIsExistInVisibleIndexArrayWithValue:(NSIndexPath *)indexPath
+{
+    NSInteger visibleCount = [_visibleIndexArray count];
+    for(int i=0;i<visibleCount;i++){
+        NSIndexPath *oneIndexPath = [_visibleIndexArray objectAtIndex:i];
+        if(oneIndexPath.row==indexPath.row){
+            return YES;
+        }
+    }
+    return NO;
+}
+//添加有效的cell
+- (void)addOneIndexPathToVisibleIndexArrayWithValue:(NSIndexPath *)indexPath
+{
+    BOOL isExist = [self judgeOneIndexPathIsExistInVisibleIndexArrayWithValue:indexPath];
+    if(!isExist){
+        [_visibleIndexArray addObject:indexPath];
     }
 }
+
+- (NSInteger)getCurrentCellIndexShouldBePlaying
+{
+    NSInteger visibleCount = [_visibleIndexArray count];
+    if(visibleCount==2){
+        CGFloat offsetY = self.tableView.contentOffset.y;
+        CGFloat totalCount = self.tableView.height/_cellHeight;
+        CGFloat offsetIndex = offsetY/_cellHeight;
+        CGFloat firstShowValue = ceilf(offsetIndex)-offsetIndex;
+        CGFloat secondShowValue = totalCount-firstShowValue;
+        NSIndexPath *firstIndexPath = [_visibleIndexArray firstObject];
+        NSIndexPath *lastIndexPath = [_visibleIndexArray lastObject];
+        if(offsetY==0 || (secondShowValue<=firstShowValue)){
+            return firstIndexPath.row;
+        }
+        else{
+            return lastIndexPath.row;
+        }
+    }
+    else if(visibleCount==3){
+        NSIndexPath *firstIndexPath = [_visibleIndexArray firstObject];
+        NSInteger smallIndex = firstIndexPath.row;
+        for(int i=1;i<visibleCount;i++){
+            NSIndexPath *oneIndexPath = [_visibleIndexArray objectAtIndex:i];
+            if(oneIndexPath.row<=smallIndex){
+                smallIndex=oneIndexPath.row;
+            }
+        }
+        return smallIndex+1;
+    } else if (visibleCount == 4){
+        NSIndexPath *firstIndexPath = [_visibleIndexArray firstObject];
+        NSInteger smallIndex = firstIndexPath.row;
+        for(int i=1;i<visibleCount;i++){
+            NSIndexPath *oneIndexPath = [_visibleIndexArray objectAtIndex:i];
+            if(oneIndexPath.row<=smallIndex){
+                smallIndex=oneIndexPath.row;
+            }
+        }
+        return smallIndex+1;
+    }
+    return 0;
+}
+
+- (BOOL)judgeCurrentFullScreenPlayingCellIfOutOfScreen
+{
+    NSInteger visibleCount = [_visibleIndexArray count];
+    for(int i=0;i<visibleCount;i++){
+        NSIndexPath *oneIndexPath = [_visibleIndexArray objectAtIndex:i];
+        if(_currentPlayingIndex==oneIndexPath.row){
+            return NO;
+        }
+    }
+    return YES;
+}
+- (void)setCurrentPlayingIndex:(NSInteger)currentPlayingIndex
+{
+    if(_currentPlayingIndex!=currentPlayingIndex){
+        _currentPlayingIndex=currentPlayingIndex;
+        _currentPlayingCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_currentPlayingIndex inSection:0]];
+        if(_currentPlayingCell){
+            NSLog(@"duang duang new index is %ld",currentPlayingIndex);
+            [_currentPlayingCell addPlayView];
+        }
+    }
+}
+#pragma mark  -  ScrollDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self];
+        [self performSelector:@selector(scrollViewDidEndScrollingAnimation:) withObject:nil afterDelay:0.2];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    BOOL isOutOfScreen = [self judgeCurrentFullScreenPlayingCellIfOutOfScreen];
+    if(isOutOfScreen){
+        if(_currentPlayingCell){
+            [_currentPlayingCell removeFromSuperview];
+            _currentPlayingCell = nil;
+        }
+    }
+    
+    self.currentPlayingIndex = [self getCurrentCellIndexShouldBePlaying];
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (scrollView == self.tableView) {
-        NSIndexPath * middleIndexPath = [self.tableView  indexPathForRowAtPoint:CGPointMake(0, scrollView.contentOffset.y + self.tableView.frame.size.height/2)];
-        NSLog(@"中间的cell：第 %ld 组 %ld个",middleIndexPath.section, middleIndexPath.row);
-        UITableViewCell* liveCell =(UITableViewCell *)[self.tableView cellForRowAtIndexPath:middleIndexPath];
+//        NSIndexPath * middleIndexPath = [self.tableView  indexPathForRowAtPoint:CGPointMake(0, scrollView.contentOffset.y + self.tableView.frame.size.height/2)];
+//        NSLog(@"中间的cell：第 %ld 组 %ld个",middleIndexPath.section, middleIndexPath.row);
+//        UITableViewCell* liveCell =(UITableViewCell *)[self.tableView cellForRowAtIndexPath:middleIndexPath];
 //        if ([liveCell isKindOfClass:[STLocationChannelTableViewCell class]] ) {
 //            if (self.playTableCellView) {
 //                [self.playerView resetPlayer];
@@ -397,23 +430,31 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-//    [self.videoPlayView destoryVideoPlayer];
+    [self.videoPlayView destoryVideoPlayer];
+    [self.videoPlayView removeFromSuperview];
+    self.videoPlayView = nil;
 }
 
-- (void)didMoveToParentViewController:(nullable UIViewController *)parent
-{
-    if (parent == nil) {
-        [self.videoPlayView destoryVideoPlayer];
-    }
-}
+//- (void)didMoveToParentViewController:(nullable UIViewController *)parent
+//{
+//    if (parent == nil) {
+//        [self.videoPlayView destoryVideoPlayer];
+//    }
+//}
 
 #pragma  mark  --  headerView 懒加载
 - (SDCycleScrollView *)headerView {
     
     if (!_headerView) {
-        _headerView =[SDCycleScrollView cycleScrollViewWithFrame:CGRectZero delegate:self placeholderImage:IMAGE_NAME(STSystemDefaultImageName)];
-        _headerView.localizationImageNamesGroup = @[IMAGE_NAME(STSystemDefaultImageName),IMAGE_NAME(STSystemDefaultImageName),IMAGE_NAME(STSystemDefaultImageName)];
-        _headerView.titlesGroup= @[@"本周活动开始，开始报名打卡",@"本周活动开始，开始报名打卡2",@"本周活动开始，开始报名打卡3"];
+        _headerView =[SDCycleScrollView cycleScrollViewWithFrame:CGRectZero
+                                                        delegate:self
+                                                placeholderImage:IMAGE_NAME(STSystemDefaultImageName)];
+        _headerView.localizationImageNamesGroup = @[IMAGE_NAME(STSystemDefaultImageName),
+                                                    IMAGE_NAME(STSystemDefaultImageName),
+                                                    IMAGE_NAME(STSystemDefaultImageName)];
+        _headerView.titlesGroup= @[@"本周活动开始，开始报名打卡",
+                                   @"本周活动开始，开始报名打卡2",
+                                   @"本周活动开始，开始报名打卡3"];
         _headerView.titleLabelTextColor = kWhiteColor;
         _headerView.titleLabelTextFont = FONT_14;
         _headerView.titleLabelTextAlignment = NSTextAlignmentLeft;
@@ -426,10 +467,6 @@
     return _headerView;
 }
 
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-
-}
 #pragma mark  -  cyscrollview-Delegate
 
 /** 点击图片回调 */
@@ -439,5 +476,33 @@
     vc.title = @"活动";
     [self.navigationController pushViewController:vc animated:YES];
 }
+#pragma mark  -  播放器代理
+- (void)quitFullScreen {
+    
+}
 
+- (void)enterFullScreen {
+    
+}
+
+- (void)videoFinishPlay {
+    if (self.currentCellIndexPath.row == self.nData.count-2) {
+        self.currentPlayingIndex = self.nData.count-1;
+        return;
+    }
+    if (self.currentCellIndexPath.row>=self.nData.count-1) {
+        return;
+    }
+    self.currentPlayingIndex = self.currentCellIndexPath.row;
+    NSIndexPath *index = [NSIndexPath indexPathForRow:self.currentCellIndexPath.row+1 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+#pragma mark  -  Get
+- (NSMutableArray *)nData {
+    if (!_nData) {
+        _nData = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _nData;
+}
 @end

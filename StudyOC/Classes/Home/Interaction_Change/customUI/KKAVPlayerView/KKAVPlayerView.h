@@ -10,9 +10,11 @@
 #import "KKAVPlayer.h"
 
 @protocol KKAVPlayerViewDelegate <NSObject>
+@optional
 - (void)enterFullScreen;
 - (void)quitFullScreen;
 - (void)quitVideoDetailView;//退出视频详情页
+- (void)videoFinishPlay;
 @end
 
 typedef NS_ENUM(NSInteger, KKSamllVideoType) {

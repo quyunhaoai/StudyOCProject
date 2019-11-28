@@ -42,11 +42,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleDefault;
 }
-//- (UIStatusBarStyle)preferredStatusBarStyle {
-//    return UIStatusBarStyleDefault;
-//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
@@ -377,7 +375,7 @@
                              @"mobile":[NSString stringWithFormat:@"%@%@",self.registerInputView.areaButton.titleLabel.text,mobileNumberStr],
                              @"mobile_code":verCodeString,
                              @"password":passWordString,
-                             @"client":client,
+                             @"client":clientName,
                              @"headimg":filePath
     };
     [[STHttpResquest sharedManager] requestWithMethod:POST
@@ -577,9 +575,9 @@
     
 }
 
-//- (UIStatusBarStyle)preferredStatusBarStyle {
-//    return UIStatusBarStyleDefault;
-//}
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
 
 
 @end

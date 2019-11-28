@@ -12,7 +12,7 @@
 #import "STFollowTableViewCell.h"
 #import "STFollowTipView.h"
 static NSString *CellIdentifier = @"STFollowViewController";
-@interface STFollowViewController ()<JXCategoryListContentViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface STFollowViewController ()<JXCategoryListContentViewDelegate,UITableViewDelegate,UITableViewDataSource,KKCommonDelegate>
 
 @property (strong, nonatomic) STRecommonPersonView *recommonView; //  视图
 @property (strong, nonatomic) STHeaderPersonView *headerView; //  视图
@@ -26,13 +26,18 @@ static NSString *CellIdentifier = @"STFollowViewController";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    XYWeakSelf;
     STHeaderPersonView *headerView = [[STHeaderPersonView alloc] init];
     [self.view addSubview:headerView];
     [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(self.view);
         make.height.mas_equalTo(120);
     }];
+    [headerView.headerIconView addTapGestureWithBlock:^(UIView *gestureView) {
+        STChildrenViewController *vc = [STChildrenViewController new];
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    }];
+    headerView.titleLabArray = @[@"关注我的234",@"我关注的345",@"访问我的123"];
     headerView.backgroundColor = color_cellBg_151420;
     self.headerView = headerView;
     self.tableView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);
@@ -40,12 +45,12 @@ static NSString *CellIdentifier = @"STFollowViewController";
     self.tableView.height = self.view.height-120;
     [self.tableView registerNib:[STFollowTableViewCell loadNib] forCellReuseIdentifier:CellIdentifier];
     self.recommonView.frame = CGRectMake(0, 0, Window_W, 214);
-    self.tableView.tableHeaderView = self.recommonView;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Window_W, 219)];
+    [view addSubview:self.recommonView];
+    self.tableView.tableHeaderView = view;
 
     [self refreshData:YES shouldShowTips:YES];
-    XYWeakSelf;
     self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
-       
         [weakSelf.tableView.mj_header endRefreshing];
     }];
 }
@@ -106,6 +111,7 @@ static NSString *CellIdentifier = @"STFollowViewController";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     STFollowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -136,7 +142,11 @@ static NSString *CellIdentifier = @"STFollowViewController";
     STChildrenViewController *vc = [STChildrenViewController new];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
+#pragma mark  -  cell代理
+- (void)jumpBtnClicked:(id)item {
+    STChildrenViewController *vc = [STChildrenViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 - (STFollowTipView *)tipView {
     if (!_tipView) {
         _tipView = ({

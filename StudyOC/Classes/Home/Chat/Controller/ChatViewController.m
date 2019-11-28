@@ -75,7 +75,7 @@
     if (!_titleView) {
         _titleView = [[UILabel alloc]init];
         _titleView.font = FontSet(16);
-        _titleView.textColor = UIMainWhiteColor;
+        _titleView.textColor = [UIColor whiteColor];
         _titleView.textAlignment = NSTextAlignmentLeft;
         //铃铛
         [_titleView addSubview:self.bellView];
@@ -94,7 +94,7 @@
 - (UITableView *)chatTableView
 {
     if (!_chatTableView) {
-        _chatTableView = [[UITableView alloc]initWithFrame:Frame(0, 0, SCREEN_WITDTH, Height(self.view.bounds)-49) style:UITableViewStylePlain];
+        _chatTableView = [[UITableView alloc]initWithFrame:Frame(0, 0, SCREEN_WIDTH, Height(self.view.bounds)-49) style:UITableViewStylePlain];
         _chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _chatTableView.backgroundColor = UIMainBackColor;
         _chatTableView.allowsSelection = NO;
@@ -269,7 +269,7 @@
     [self.view addSubview:self.chatTableView];
     //初始化键盘
     [self.view addSubview:self.customKeyboard];
-    self.customKeyboard.frame = Frame(0, SCREEN_HEIGHT - 49 -HOME_INDICATOR_HEIGHT, SCREEN_WITDTH, CTKEYBOARD_DEFAULTHEIGHT);
+    self.customKeyboard.frame = Frame(0, SCREEN_HEIGHT - 49 -HOME_INDICATOR_HEIGHT, SCREEN_WIDTH, CTKEYBOARD_DEFAULTHEIGHT);
 }
 
 

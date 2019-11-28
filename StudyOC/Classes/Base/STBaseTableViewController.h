@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UILabel *refreshTipLabel;
 @property (nonatomic,strong) UITableView *tableView;
 
-@property (assign, nonatomic) NSInteger page;
+
 /**
  初始化类
 

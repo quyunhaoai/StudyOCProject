@@ -25,7 +25,7 @@
     [self addSubview:self.subNameStringLabel];
     [self addSubview:self.tagView];
     [self addSubview:self.addButton];
-    [self addSubview:self.detailLabel];
+//    [self addSubview:self.detailLabel];
     [self addSubview:self.typeLabel];
     [self.headerIconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self).mas_offset(17);
@@ -39,7 +39,7 @@
     }];
     [self.nameStringLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.headerIconView.mas_right).mas_offset(kkPaddingNormal);
-        make.top.mas_equalTo(self.headerIconView.mas_top).mas_offset(kkPaddingMin);
+        make.top.mas_equalTo(self.headerIconView.mas_top).mas_offset(1);
         make.width.mas_equalTo(240);
         make.height.mas_equalTo(18);
     }];
@@ -73,19 +73,39 @@
     [self addSubview:style];
     [style mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self).mas_offset(12);
-        make.top.mas_equalTo(self.headerIconView.mas_bottom).mas_offset(8);
+        make.top.mas_equalTo(self.headerIconView.mas_bottom).mas_offset(10);
         make.height.mas_equalTo(2);
         make.width.mas_equalTo(Window_W-24);
     }];
-    [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(self);
-        make.top.mas_equalTo(style.mas_bottom);
-        make.bottom.mas_equalTo(self);
-    }];
-    self.detailLabel.text = @"关注我的567 关注我的234 关注我的123";
-    SetAnthorRichTextLabel(self.detailLabel, FONT_13, @"567", kWhiteColor);
-    SetAnthorRichTextLabel(self.detailLabel, FONT_13, @"234", kWhiteColor);
-    SetAnthorRichTextLabel(self.detailLabel, FONT_13, @"123", kWhiteColor);
+//    [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.mas_equalTo(self);
+//        make.top.mas_equalTo(style.mas_bottom);
+//        make.bottom.mas_equalTo(self);
+//    }];
+//    self.detailLabel.textContainer = @"关注我的567   关注我的234   关注我的123";
+//    TYTextContainer *container = [[TYTextContainer alloc] init];
+//    NSString *text = @"关注我的567   我关注的234   访问我的123";
+//    container.text = text;
+//    container.textColor = color_text_AFAFB1;
+//    container.textAlignment = kCTTextAlignmentCenter;
+//    container.font = FONT_10;
+//    TYTextStorage *storage = [[TYTextStorage alloc] init];
+//    storage.textColor = kWhiteColor;
+//    storage.range = [text rangeOfString:@"567"];
+//    storage.font = FONT_13;
+//    [container addTextStorage:storage];
+//    TYTextStorage *storage2 = [[TYTextStorage alloc] init];
+//    storage2.textColor = kWhiteColor;
+//    storage2.range = [text rangeOfString:@"234"];
+//    storage2.font = FONT_13;
+//    [container addTextStorage:storage2];
+//    TYTextStorage *storage3 = [[TYTextStorage alloc] init];
+//    storage3.textColor = kWhiteColor;
+//    storage3.range =[text rangeOfString:@"123"];
+//    storage3.font = FONT_13;
+//    [container addTextStorage:storage3];
+    
+//    self.detailLabel.textContainer = container;
     [self.typeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.nameStringLabel.mas_right).mas_offset(kkPaddingMin);
         make.centerY.mas_equalTo(self.nameStringLabel);
@@ -93,6 +113,28 @@
         make.height.mas_equalTo(11);
     }];
     self.typeLabel.text = @"官方";
+}
+- (void)setTitleLabArray:(NSArray *)titleLabArray {
+    _titleLabArray = titleLabArray;
+    
+    NSMutableArray *tolAry = [NSMutableArray new];
+    for (int i = 0; i <_titleLabArray.count; i ++) {
+        TYAttributedLabel *view = [TYAttributedLabel new];
+        view.textColor = color_text_AFAFB1;
+        view.font = FONT_10;
+        view.lineBreakMode = NSLineBreakByTruncatingTail;
+        view.backgroundColor = [UIColor clearColor];
+        view.textAlignment = NSTextAlignmentCenter;
+        view.numberOfLines = 1;
+        view.text = _titleLabArray[i];
+        [self addSubview:view];
+        [tolAry addObject:view];
+    }
+    [tolAry mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:15 leadSpacing:kWidth(70) tailSpacing:kWidth(70)];
+    [tolAry mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(@0).mas_offset(-5);
+        make.height.equalTo(@20);
+    }];
 }
 #pragma  mark  --  addBtn 懒加载
 
@@ -116,17 +158,17 @@
     }
     return _typeLabel;
 }
-- (UILabel *)detailLabel {
+- (TYAttributedLabel *)detailLabel {
     if (!_detailLabel) {
         _detailLabel = ({
             
-            UILabel *view = [UILabel new];
-            view.textColor = color_text_AFAFB1;
-            view.font = FONT_10;
-            view.lineBreakMode = NSLineBreakByTruncatingTail;
-            view.backgroundColor = [UIColor clearColor];
-            view.textAlignment = NSTextAlignmentCenter;
-            view.numberOfLines = 1;
+            TYAttributedLabel *view = [TYAttributedLabel new];
+//            view.textColor = color_text_AFAFB1;
+//            view.font = FONT_10;
+//            view.lineBreakMode = NSLineBreakByTruncatingTail;
+//            view.backgroundColor = [UIColor clearColor];
+//            view.textAlignment = NSTextAlignmentCenter;
+//            view.numberOfLines = 1;
             view ;
             
             

@@ -75,7 +75,7 @@
 {
     if (!_secondsLabel) {
         _secondsLabel = [[UILabel alloc]init];
-        _secondsLabel.textColor = UIMainWhiteColor;
+        _secondsLabel.textColor = [UIColor whiteColor];
         _secondsLabel.font = FontSet(7.f);
         _secondsLabel.textAlignment = NSTextAlignmentRight;
         _secondsLabel.numberOfLines = 1;
@@ -106,7 +106,7 @@
 {
     if (!_progressLabel) {
         _progressLabel = [[UILabel alloc]init];
-        _progressLabel.textColor = UIMainWhiteColor;
+        _progressLabel.textColor = [UIColor whiteColor];
         _progressLabel.textAlignment = NSTextAlignmentCenter;
         _progressLabel.font = FontSet(14.f);
         _progressLabel.hidden = YES;  //默认隐藏
@@ -118,7 +118,7 @@
 {
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc]init];
-        _timeLabel.textColor = UIMainWhiteColor;
+        _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.font = FontSet(12.f);
     }
@@ -131,7 +131,7 @@
     if (!_sizeLabel) {
         _sizeLabel = [[UILabel alloc]init];
         _sizeLabel.font = FontSet(7.f);
-        _sizeLabel.textColor = UIMainWhiteColor;
+        _sizeLabel.textColor = [UIColor whiteColor];
         _sizeLabel.textAlignment = NSTextAlignmentLeft;
         _sizeLabel.numberOfLines = 1;
     }
@@ -207,9 +207,9 @@
     if (videoModel.shouldShowTime) {
         self.timeContainer.hidden = NO;
         self.timeLabel.text = [NSDate timeStringWithTimeInterval:videoModel.sendTime];
-        CGSize timeTextSize  = [self.timeLabel sizeThatFits:CGSizeMake(SCREEN_WITDTH, 20)];
+        CGSize timeTextSize  = [self.timeLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH, 20)];
         self.timeLabel.frame = Frame(5,(20 - timeTextSize.height)*0.5, timeTextSize.width, timeTextSize.height);
-        self.timeContainer.frame = Frame((SCREEN_WITDTH - timeTextSize.width-10)*0.5, 15,timeTextSize.width + 10, 20);
+        self.timeContainer.frame = Frame((SCREEN_WIDTH - timeTextSize.width-10)*0.5, 15,timeTextSize.width + 10, 20);
     }else{
         self.timeContainer.hidden = YES;
     }
@@ -344,12 +344,12 @@
     CGFloat scale = width/height;
     if ([videoModel.fromUserID isEqualToString:[AccountTool account].myUserID]) {
         
-        self.iconView.frame = Frame(SCREEN_WITDTH - 65, MaxY(self.timeContainer.frame)+15, 50, 50);
+        self.iconView.frame = Frame(SCREEN_WIDTH - 65, MaxY(self.timeContainer.frame)+15, 50, 50);
         //高大于宽
         if (height>width) {
             
             if (scale *105 <=50) {
-                self.picView.frame = Frame(SCREEN_WITDTH - 115, MinY(self.iconView.frame), 50, 130);
+                self.picView.frame = Frame(SCREEN_WIDTH - 115, MinY(self.iconView.frame), 50, 130);
                 
             }else{
                 self.picView.frame = Frame(MinX(self.iconView.frame)-130*scale ,MinY(self.iconView.frame), 130*scale, 130);
@@ -380,7 +380,7 @@
         }else{
             
             if (100*(height/width)<=50) {
-                self.picView.frame = Frame(SCREEN_WITDTH -195, MinY(self.iconView.frame), 135, 50);
+                self.picView.frame = Frame(SCREEN_WIDTH -195, MinY(self.iconView.frame), 135, 50);
                 self.picView.contentMode = UIViewContentModeScaleToFill;
             }else{
                 self.picView.frame = Frame(MinX(self.iconView.frame)-135, MinY(self.iconView.frame), 135, 135 *(height/width));

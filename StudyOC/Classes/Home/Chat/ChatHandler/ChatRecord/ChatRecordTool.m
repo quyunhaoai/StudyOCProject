@@ -49,7 +49,7 @@
 - (UIImageView *)animationView
 {
     if (!_animationView) {
-        _animationView = [[UIImageView alloc]initWithFrame:Frame((SCREEN_WITDTH - 120)*0.5, (SCREEN_HEIGHT - 120)*0.5, 120, 120)];
+        _animationView = [[UIImageView alloc]initWithFrame:Frame((SCREEN_WIDTH - 120)*0.5, (SCREEN_HEIGHT - 120)*0.5, 120, 120)];
     }
     return _animationView;
 }
@@ -57,7 +57,7 @@
 - (UILabel *)cutdownLabel
 {
     if (!_cutdownLabel) {
-        _cutdownLabel = [[UILabel alloc]initWithFrame:Frame((SCREEN_WITDTH - 120)*0.5, (SCREEN_HEIGHT - 120)*0.5, 120, 120)];
+        _cutdownLabel = [[UILabel alloc]initWithFrame:Frame((SCREEN_WIDTH - 120)*0.5, (SCREEN_HEIGHT - 120)*0.5, 120, 120)];
         _cutdownLabel.font = [UIFont systemFontOfSize:50 weight:0.2];
         _cutdownLabel.textColor = [UIColor whiteColor];
         _cutdownLabel.textAlignment = NSTextAlignmentCenter;

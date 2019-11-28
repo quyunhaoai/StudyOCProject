@@ -26,6 +26,13 @@
 
 @property (nonatomic, assign) BOOL isNeedIndicatorPositionChangeItem;
 
+@property (nonatomic, assign) BOOL isOff;
+
+@property (assign, nonatomic) NSInteger currentIndex;    //
+
+@property (nonatomic,strong) UIButton *rightButton1; //  按钮
+
+@property (nonatomic,strong) UIButton *rightButton2; //  按钮
 - (JXCategoryBaseView *)preferredCategoryView;
 
 - (CGFloat)preferredCategoryViewHeight;

@@ -18,9 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL isShowWithdram; //
 @property (strong, nonatomic) NSMutableDictionary *withdrawDic;  //  字典
 @property (strong, nonatomic) UIView *smallWindosView; //  视图
-
+@property (strong, nonatomic) NSIndexPath *indexPath;    // 
 + (CGFloat)techHeightForOjb:(STVideoChannelModl *)obj;
 - (void)refreshData:(STVideoChannelModl *)model;
+- (void)addPlayView;
 @end
 
 NS_ASSUME_NONNULL_END

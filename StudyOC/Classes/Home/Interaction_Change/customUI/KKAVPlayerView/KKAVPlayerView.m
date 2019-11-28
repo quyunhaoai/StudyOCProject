@@ -9,7 +9,6 @@
 #import "KKAVPlayerView.h"
 #import "KKCacheSliderView.h"
 #import "KKAVPlayer.h"
-//#import "KKFetchNewsTool.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "KKForwardRewindView.h"
 
@@ -47,7 +46,7 @@ static CGFloat gestureMinimumTranslation = 10.f;
 @property(nonatomic,assign)KKMoveDirection direction;//拖动的方向
 
 @property(nonatomic,assign)UIStatusBarStyle barStyle;
-
+@property (assign, nonatomic) BOOL ishideStatusBar; //
 @end
 
 @implementation KKAVPlayerView
@@ -123,20 +122,13 @@ static CGFloat gestureMinimumTranslation = 10.f;
     [self.operatorView addSubview:self.scalaBtn];
     [self.operatorView addSubview:self.scalaBtnMask];
     
-//    @weakify(self);
+    @STweakify(self);
     [self addTapGestureWithBlock:^(UIView *gestureView) {
-//        @strongify(self);
+        @STstrongify(self);
         if([[KKAVPlayer sharedInstance]playFinish]){
             return  ;
         }
         CGFloat alpha = 1 - self.operatorView.alpha;
-        if(self.fullScreen || (self.smallType == KKSamllVideoTypeDetail && self.canHideStatusBar)){
-            if(iPhoneX){
-                [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-            }else{
-                [[UIApplication sharedApplication]setStatusBarHidden:(alpha == 0) withAnimation:UIStatusBarAnimationFade];
-            }
-        }
         [UIView animateWithDuration:0.3 animations:^{
             self.operatorView.alpha = alpha;
             self.bottomSlider.alpha = 1 - alpha;
@@ -208,7 +200,7 @@ static CGFloat gestureMinimumTranslation = 10.f;
     }];
     [self.slider.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.left.mas_equalTo(self.slider);
-        make.centerY.mas_equalTo(self.slider.centerY);
+        make.centerY.mas_equalTo(self.slider.centerY+0.75);
         make.height.mas_equalTo(1.5);
     }];
     [self.startTimeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -225,7 +217,7 @@ static CGFloat gestureMinimumTranslation = 10.f;
     }];
     [self.bottomSlider.progressView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.left.mas_equalTo(self.bottomSlider);
-        make.centerY.mas_equalTo(self.bottomSlider.centerY);
+        make.centerY.mas_equalTo(self.bottomSlider.centerY+0.75);
         make.height.mas_equalTo(1.5);
     }];
     [self.forwardRewindView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -243,107 +235,78 @@ static CGFloat gestureMinimumTranslation = 10.f;
     self.replayBtn.alpha = 0;
     
     [self showActivityViewWithImage:@"loading_fullscreen_30x30_"];
-    /*
-    [[KKFetchNewsTool shareInstance]fetchVideoInfoWithVideoId:self.videoId
-                                                      success:^(KKVideoPlayInfo *playInfo)
-     {
-         if(playInfo){
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 NSString *url = playInfo.poster_url;
-                 if(!url.length){
-                     url = @"";
-                 }
-                 @weakify(self);*/
-    XYWeakSelf;
-                 [[KKAVPlayer sharedInstance]initPlayInfoWithUrl:@"http://mp.youqucheng.com/addons/project/data/uploadfiles/video/1_06257727562426755.mp4?t=0.7643188466880166"
-                                                       mediaType:KKMediaTypeVideo
-                                                     networkType:KKNetworkTypeNet
-                                                         process:^(KKAVPlayer *player, float progress)
-                  {
-//                      @strongify(self);
-                      if(!weakSelf.sliderDraging){
-                          weakSelf.slider.value = progress;
-                          weakSelf.startTimeLabel.text =  [NSString getHHMMSSFromSS:[NSString stringWithFormat:@"%f",player.currentPlayTime]];
-                          weakSelf.bottomSlider.value = progress;
-                      }
-                  } compelete:^(KKAVPlayer *player) {
-                      NSLog(@"compelete");
-//                      @strongify(self);
-                      [[KKAVPlayer sharedInstance].playerLayer removeFromSuperlayer];
-                      [[KKAVPlayer sharedInstance] releasePlayer];
-                      
-                      weakSelf.operatorView.alpha = 0;
-                      weakSelf.bottomSlider.alpha = 1.0 ;
-                      weakSelf.replayBtn.alpha = 1.0;
-                      weakSelf.corverView.hidden = NO ;
-                      
-                      if(weakSelf.fullScreen){
-                          [weakSelf quitFullScreen];
-                      }
-                  } loadStatus:^(KKAVPlayer *player, AVPlayerStatus status) {
-                      NSLog(@"AVPlayerStatus status:%ld",status);
-//                      @strongify(self);
-                      if(status == AVPlayerStatusFailed){
-                          [[KKAVPlayer sharedInstance].playerLayer removeFromSuperlayer];
-                          [[KKAVPlayer sharedInstance] releasePlayer];
-                          weakSelf.operatorView.alpha = 0;
-                          weakSelf.bottomSlider.alpha = 1.0 ;
-                          weakSelf.replayBtn.alpha = 1.0;
-                          weakSelf.corverView.hidden = NO ;
-                      }else if(status == AVPlayerStatusReadyToPlay){
-                          weakSelf.playPauseBtn.selected = YES ;
-                          weakSelf.corverView.hidden = YES ;
-                      }
-                      
-                      weakSelf.startTimeLabel.text = @"00:00";
-                      weakSelf.endTimeLabel.text =  [NSString getHHMMSSFromSS:[NSString stringWithFormat:@"%f",player.totalTime]];
-                      
-                      [weakSelf hiddenActivityWithTitle:nil];
-                      
-                  } bufferPercent:^(KKAVPlayer *player, float bufferPercent) {
-                      NSLog(@"bufferPercent percent:%f",bufferPercent);
-//                      @strongify(self);
-                      weakSelf.slider.cachaValue = bufferPercent;
-                      weakSelf.bottomSlider.cachaValue = bufferPercent;
-                  } willSeekToPosition:^(KKAVPlayer *player,CGFloat curtPos,CGFloat toPos) {
-                      NSLog(@"willSeekToPosition");
-                  } seekComplete:^(KKAVPlayer *player,CGFloat prePos,CGFloat curtPos) {
-//                      @strongify(self);
-                      weakSelf.sliderDraging = NO ;
-                  } buffering:^(KKAVPlayer *player) {
-//                      @strongify(self);
-                      [weakSelf showActivityViewWithImage:@"loading_fullscreen_30x30_"];
-                  } bufferFinish:^(KKAVPlayer *player) {
-//                      @strongify(self);
-                      [weakSelf hiddenActivityWithTitle:nil];
-                  } error:^(KKAVPlayer *player, NSError *error) {
-//                      @strongify(self);
-                      weakSelf.operatorView.alpha = 0;
-                      weakSelf.bottomSlider.alpha = 1.0 ;
-                      weakSelf.replayBtn.alpha = 1.0;
-                      [weakSelf hiddenActivityWithTitle:nil];
-                  }];
-                 
-                 [self.layer insertSublayer:[KKAVPlayer sharedInstance].playerLayer above:self.corverView.layer];
-                 [[KKAVPlayer sharedInstance]play];/*
-             });
-         }else{
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 self.operatorView.alpha = 0 ;
-                 self.bottomSlider.alpha = 1.0;
-                 self.replayBtn.alpha = 1.0;
-                 [self hiddenActivityWithTitle:nil];
-             });
-         }
-     } failure:^(NSError *error) {
-         dispatch_async(dispatch_get_main_queue(), ^{
-             self.operatorView.alpha = 0 ;
-             self.bottomSlider.alpha = 1.0;
-             self.replayBtn.alpha = 1.0;
-             [self hiddenActivityWithTitle:nil];
-         });
-     }];
-    */
+     @STweakify(self);
+     [[KKAVPlayer sharedInstance]initPlayInfoWithUrl:self.videoId
+                                           mediaType:KKMediaTypeVideo
+                                         networkType:KKNetworkTypeNet
+                                             process:^(KKAVPlayer *player, float progress)
+      {
+          @STstrongify(self);
+          if(!self.sliderDraging){
+              self.slider.value = progress;
+              self.startTimeLabel.text =  [NSString getHHMMSSFromSS:[NSString stringWithFormat:@"%f",player.currentPlayTime]];
+              self.bottomSlider.value = progress;
+          }
+      } compelete:^(KKAVPlayer *player) {
+          NSLog(@"compelete");
+          @STstrongify(self);
+          [[KKAVPlayer sharedInstance].playerLayer removeFromSuperlayer];
+          [[KKAVPlayer sharedInstance] releasePlayer];
+          
+          self.operatorView.alpha = 0;
+          self.bottomSlider.alpha = 1.0 ;
+          self.replayBtn.alpha = 1.0;
+          self.corverView.hidden = NO ;
+          [self videoFinishPlay];
+          if(self.fullScreen){
+              [self quitFullScreen];
+          }
+      } loadStatus:^(KKAVPlayer *player, AVPlayerStatus status) {
+          NSLog(@"AVPlayerStatus status:%ld",status);
+          @STstrongify(self);
+          if(status == AVPlayerStatusFailed){
+              [[KKAVPlayer sharedInstance].playerLayer removeFromSuperlayer];
+              [[KKAVPlayer sharedInstance] releasePlayer];
+              self.operatorView.alpha = 0;
+              self.bottomSlider.alpha = 1.0 ;
+              self.replayBtn.alpha = 1.0;
+              self.corverView.hidden = NO ;
+          }else if(status == AVPlayerStatusReadyToPlay){
+              self.playPauseBtn.selected = YES ;
+              self.corverView.hidden = YES ;
+          }
+          
+          self.startTimeLabel.text = @"00:00";
+          self.endTimeLabel.text =  [NSString getHHMMSSFromSS:[NSString stringWithFormat:@"%f",player.totalTime]];
+          
+          [self hiddenActivityWithTitle:nil];
+          
+      } bufferPercent:^(KKAVPlayer *player, float bufferPercent) {
+          NSLog(@"bufferPercent percent:%f",bufferPercent);
+          @STstrongify(self);
+          self.slider.cachaValue = bufferPercent;
+          self.bottomSlider.cachaValue = bufferPercent;
+      } willSeekToPosition:^(KKAVPlayer *player,CGFloat curtPos,CGFloat toPos) {
+          NSLog(@"willSeekToPosition");
+      } seekComplete:^(KKAVPlayer *player,CGFloat prePos,CGFloat curtPos) {
+          @STstrongify(self);
+          self.sliderDraging = NO ;
+      } buffering:^(KKAVPlayer *player) {
+          @STstrongify(self);
+          [self showActivityViewWithImage:@"loading_fullscreen_30x30_"];
+      } bufferFinish:^(KKAVPlayer *player) {
+          @STstrongify(self);
+          [self hiddenActivityWithTitle:nil];
+      } error:^(KKAVPlayer *player, NSError *error) {
+          @STstrongify(self);
+          self.operatorView.alpha = 0;
+          self.bottomSlider.alpha = 1.0 ;
+          self.replayBtn.alpha = 1.0;
+          [self hiddenActivityWithTitle:nil];
+      }];
+     
+     [self.layer insertSublayer:[KKAVPlayer sharedInstance].playerLayer above:self.corverView.layer];
+     [[KKAVPlayer sharedInstance]play];
 }
 
 #pragma mark -- 销毁视频播放器
@@ -355,7 +318,12 @@ static CGFloat gestureMinimumTranslation = 10.f;
     [self removeFromSuperview];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(autoHideoperatorView) object:nil];
 }
-
+#pragma mark  -  结束视频
+- (void)videoFinishPlay {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(videoFinishPlay)]){
+        [self.delegate videoFinishPlay];
+    }
+}
 #pragma mark -- 进入、退出全屏
 
 - (void)enterFullScreen{
@@ -369,11 +337,11 @@ static CGFloat gestureMinimumTranslation = 10.f;
     [self removeFromSuperview];
     [self setFrame:rectInWindow];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
-    
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeRight animated:NO];
-    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:NO];
-    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+    [UIApplication sharedApplication].statusBarHidden = YES;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationMaskLandscapeRight;
+    self.ishideStatusBar = YES;
+    [self.viewController setNeedsStatusBarAppearanceUpdate];
     [UIView animateWithDuration:0.3 animations:^{
         self.transform = CGAffineTransformMakeRotation(M_PI_2);
         self.bounds = CGRectMake(0, 0, CGRectGetHeight(self.superview.bounds), CGRectGetWidth(self.superview.bounds));
@@ -391,10 +359,11 @@ static CGFloat gestureMinimumTranslation = 10.f;
         return;
     }
     self.fullScreen = NO ;
-    
-    [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait animated:NO];
-    [[UIApplication sharedApplication]setStatusBarStyle:self.barStyle];
-    
+    [UIApplication sharedApplication].statusBarHidden = NO;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationMaskPortrait;
+    self.ishideStatusBar = NO;
+    [self.viewController setNeedsStatusBarAppearanceUpdate];
     CGRect frame = [self.parantView convertRect:self.originalFrame toView:[UIApplication sharedApplication].keyWindow];
     [UIView animateWithDuration:0.3 animations:^{
         self.transform = CGAffineTransformIdentity;
@@ -409,7 +378,9 @@ static CGFloat gestureMinimumTranslation = 10.f;
         [self.delegate quitFullScreen];
     }
 }
-
+- (BOOL)prefersStatusBarHidden {
+    return self.ishideStatusBar;
+}
 #pragma mark -- 视频播放暂停
 
 - (void)playOrPauseVideo{
@@ -622,13 +593,6 @@ static CGFloat gestureMinimumTranslation = 10.f;
     if(!self.sliderDraging && self.videoId.length){
         self.operatorView.alpha = 0.0;
         self.bottomSlider.alpha = 1.0;
-        if(self.fullScreen || (self.smallType == KKSamllVideoTypeDetail && self.canHideStatusBar)){
-            if(iPhoneX){
-                [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-            }else{
-                [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-            }
-        }
     }
 }
 
@@ -737,13 +701,6 @@ static CGFloat gestureMinimumTranslation = 10.f;
 
 - (void)setCanHideStatusBar:(BOOL)canHideStatusBar{
     _canHideStatusBar = canHideStatusBar;
-    if(canHideStatusBar){
-        if(self.fullScreen || (self.smallType == KKSamllVideoTypeDetail)){
-            [[UIApplication sharedApplication]setStatusBarHidden:(self.operatorView.alpha == 0) withAnimation:NO];
-        }
-    }else{
-        [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:NO];
-    }
 }
 
 #pragma mark -- @property getter
@@ -911,7 +868,7 @@ static CGFloat gestureMinimumTranslation = 10.f;
     if(!_resolutionLabel){
         _resolutionLabel = ({
             UILabel *view  = [UILabel new];
-            view.text = @"标清";
+//            view.text = @"标清";
             view.textColor = [UIColor whiteColor];
             view.font = [UIFont systemFontOfSize:11];
             view.textAlignment = NSTextAlignmentCenter;

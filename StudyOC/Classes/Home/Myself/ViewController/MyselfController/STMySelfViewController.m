@@ -9,6 +9,7 @@
 #import "STMySelfViewController.h"
 #import "STPowderMaterViewController.h"
 #import "JXCategoryIndicatorDotLineView.h"
+#import "STMyCircleViewController.h"
 @interface STMySelfViewController ()<JMDropMenuDelegate>
 
 @end
@@ -23,16 +24,16 @@
     JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)self.categoryView;
     titleCategoryView.titleColorGradientEnabled = YES;
     titleCategoryView.titleLabelZoomEnabled = YES;
-    titleCategoryView.titleLabelZoomScale = 1.85;
+    titleCategoryView.titleLabelZoomScale = 1.35;
     titleCategoryView.cellWidthZoomEnabled = YES;
-    titleCategoryView.cellWidthZoomScale = 1.85;
+    titleCategoryView.cellWidthZoomScale = 1.35;
     titleCategoryView.titleLabelAnchorPointStyle = JXCategoryTitleLabelAnchorPointStyleBottom;
     titleCategoryView.selectedAnimationEnabled = YES;
     titleCategoryView.titleLabelZoomSelectedVerticalOffset = 3;
     titleCategoryView.titleColor =  COLOR_HEX_RGB(0xB2B2B2);
     titleCategoryView.titleSelectedColor = kWhiteColor;
-    titleCategoryView.titleSelectedFont = STFont(17);
     titleCategoryView.titleFont = FONT_14;
+    titleCategoryView.titleSelectedFont = STFont(17);
     JXCategoryIndicatorDotLineView *lineView = [[JXCategoryIndicatorDotLineView alloc] init];
     lineView.indicatorColor = color_tipYellow_FECE24;
     titleCategoryView.indicators = @[lineView];
@@ -47,7 +48,7 @@
 }
 
 - (NSArray *)viewControllerArray {
-    NSArray *_viewControllerArray = @[[STPowderMaterViewController new],
+    NSArray *_viewControllerArray = @[[STMyCircleViewController new],
                                       [STPowderMaterViewController new],
                                      ];
     return _viewControllerArray;

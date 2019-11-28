@@ -50,7 +50,7 @@
         self.navContentOffsetY = 0 ;
 //        self.navTitleHeight = KKNavBarHeight ;
 //        self.videoArray = videoArray ;
-        self.videoArray =@[@"",@"",@"",@"",@"",@"",@"",@""];
+        self.videoArray =@[@""];//   self.videoArray =@[@"",@"",@"",@"",@"",@"",@"",@""];
         self.selIndex = selIndex ;
         self.barStyle = [[UIApplication sharedApplication]statusBarStyle];
     }
@@ -70,35 +70,29 @@
     [self initUI];
 //    [self refreshData];
     [self startAnimate];
-    
-    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:NO];
-    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
-    
-//    @weakify(self);
-//    [self addTapGestureWithBlock:^(UIView *gestureView) {
-////        @strongify(self);
-//
-//        self.topGradient.hidden = !self.topGradient.hidden;
-//        self.bottomGradient.hidden = !self.bottomGradient.hidden;
-//
-//        [[UIApplication sharedApplication]setStatusBarHidden:self.topGradient.hidden withAnimation:UIStatusBarAnimationFade];
-//
-//        [UIView animateWithDuration:0.3 animations:^{
-//            self.navTitleView.alpha = 1 - self.navTitleView.alpha;
-////            self.bottomBar.alpha = 1 - self.bottomBar.alpha;
-//        }completion:^(BOOL finished) {
-//
-//        }];
-//
-//    }];
+    [UIApplication sharedApplication].statusBarHidden = NO;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    @STweakify(self);
+    [self addTapGestureWithBlock:^(UIView *gestureView) {
+        @STstrongify(self);
+
+        self.topGradient.hidden = !self.topGradient.hidden;
+        self.bottomGradient.hidden = !self.bottomGradient.hidden;
+        [UIApplication sharedApplication].statusBarHidden = self.topGradient.hidden;
+        [UIView animateWithDuration:0.3 animations:^{
+            self.navTitleView.alpha = 1 - self.navTitleView.alpha;
+//            self.bottomBar.alpha = 1 - self.bottomBar.alpha;
+        }completion:^(BOOL finished) {
+
+        }];
+
+    }];
 }
 
 - (void)viewWillDisappear{
     [super viewWillDisappear];
-    
-    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:NO];
-    [[UIApplication sharedApplication]setStatusBarStyle:self.barStyle];
-    
+    [UIApplication sharedApplication].statusBarHidden = NO;
+    [UIApplication sharedApplication].statusBarStyle = self.barStyle;
     //关闭视频
     KKXiaoShiPingPlayer *videoView = [self.videoContainer viewWithTag:VideoCorverViewBaseTag + self.selIndex ];
     [videoView destoryVideoPlayer];
@@ -117,26 +111,15 @@
 
 - (void)initUI{
     self.videoContainer.alpha = 1.0 ;
-//    self.navAuthorView.alpha = 0.0 ;
-//    self.bottomBar.alpha = 0.0 ;
     self.dragContentView.backgroundColor = [UIColor blackColor];
-    
     [self.dragContentView insertSubview:self.videoContainer belowSubview:self.navTitleView];
-//    [self.dragContentView insertSubview:self.bottomBar aboveSubview:self.videoContainer];
-    
-//    [self.dragContentView.layer insertSublayer:self.topGradient below:self.navTitleView.layer];
-//    [self.dragContentView.layer insertSublayer:self.bottomGradient below:self.bottomBar.layer];
-    
     [self initNavBar];
-//    self.dragViewBg.backgroundColor = kRedColor;
     [self.videoContainer mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.dragContentView);
         make.left.mas_equalTo(self.dragContentView);
         make.width.mas_equalTo(Window_W);
         make.height.mas_equalTo(self.dragContentView);
     }];
-
-    self.videoContainer.backgroundColor = kOrangeColor;
     [self initVideoPlayView];
 }
 
@@ -146,12 +129,10 @@
     for(id item in self.videoArray){
         KKXiaoShiPingPlayer *view = [KKXiaoShiPingPlayer new];
         view.playUrl = @"http://mp.youqucheng.com/addons/project/data/uploadfiles/video/1_06257727562426755.mp4?t=0.7643188466880166";
-//        view.corverUrl = @"";
         view.corverImage = IMAGE_NAME(STSystemDefaultImageName);
         view.delegate = self ;
         view.tag = VideoCorverViewBaseTag + index ;
         view.frame = CGRectMake(index * VideoItemWith, 0, Window_W, Window_H);
-        view.backgroundColor = KKRandomColor;
         [self.videoContainer addSubview:view];
         index ++;
     }
@@ -177,30 +158,12 @@
     self.navTitleView.leftBtns = @[backButton];
     self.navTitleView.splitView.hidden = YES ;
     self.navTitleView.contentOffsetY = 5 ;
-    
-//    self.navAuthorView.showDetailLabel = NO ;
-//    self.navAuthorView.headerSize = CGSizeMake(30, 30);
-//    [self.navTitleView addSubview:self.navAuthorView];
-//    [self.navAuthorView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.mas_equalTo(self.navTitleView);
-//        make.centerY.mas_equalTo(self.navTitleView).mas_offset(5);
-//        make.width.mas_equalTo(200);
-//        make.height.mas_equalTo(44);
-//    }];
 }
 
 #pragma mark -- 数据刷新
 
 - (void)refreshData{
-//    NSString *headUrl = self.newsInfo.userInfo.avatar_url;
-//    NSString *name = self.newsInfo.userInfo.name;
-//
-//    self.navAuthorView.name = name;
-//    self.navAuthorView.headUrl = headUrl;
-//    self.navAuthorView.isConcern = NO ;
-//    self.navAuthorView.userId = self.newsInfo.userInfo.user_id;
-//
-//    self.bottomBar.commentCount = [self.newsInfo.commentCount integerValue];
+
 }
 
 #pragma mark -- UIScrollViewDelegate
@@ -245,16 +208,6 @@
     if(self.selIndex != index){
         
         self.selIndex = index ;
-        
-//        KKSummaryContent *item = [self.videoArray safeObjectAtIndex:self.selIndex];
-//        KKNewsBaseInfo *newsInfo = [KKNewsBaseInfo new];
-//        newsInfo.title = item.title;
-//        newsInfo.groupId = item.smallVideo.group_id;
-//        newsInfo.itemId = item.smallVideo.item_id;
-//        newsInfo.commentCount = item.smallVideo.action.comment_count;
-//        newsInfo.userInfo = item.smallVideo.user.info;
-//        newsInfo.catagory = @"hotsoon_video";
-//        self.newsInfo = newsInfo;
         
         KKXiaoShiPingPlayer *view = [self.videoContainer viewWithTag:VideoCorverViewBaseTag + self.selIndex];
         [view startPlayVideo];
@@ -302,8 +255,6 @@
         self.animateImageView.frame = frame;
     }completion:^(BOOL finished) {
         self.videoContainer.alpha = 1.0 ;
-//        self.navAuthorView.alpha = 1.0 ;
-//        self.bottomBar.alpha = 1.0 ;
         self.dragContentView.backgroundColor = [UIColor blackColor];
     }];
 }
@@ -311,9 +262,8 @@
 #pragma mark -- 关闭视频并退出界面
 
 - (void)dismissVideoPlayView{
-    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:NO];
-    [[UIApplication sharedApplication]setStatusBarStyle:self.barStyle];
-    
+    [UIApplication sharedApplication].statusBarHidden = NO;
+    [UIApplication sharedApplication].statusBarStyle = self.barStyle;
     KKXiaoShiPingPlayer *videoView = [self.videoContainer viewWithTag:VideoCorverViewBaseTag + self.selIndex];
     //关闭视频
     [videoView destoryVideoPlayer];
@@ -345,21 +295,7 @@
 }
 
 - (void)clickedUserHeadWithUserId:(NSString *)userId{
-//    @weakify(self);
-//    KKPersonalInfoView *view = [[KKPersonalInfoView alloc]initWithUserId:userId willDissmissBlock:^{
-//        @strongify(self);
-//        self.canHideStatusBar = NO ;
-//    }];
-//    view.topSpace = 0 ;
-//    view.navContentOffsetY = KKStatusBarHeight / 2.0 ;
-//    view.navTitleHeight = KKNavBarHeight ;
-//
-//    [[UIApplication sharedApplication].keyWindow addSubview:view];
-//    [view mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.left.top.mas_equalTo(0);
-//        make.size.mas_equalTo(CGSizeMake(UIDeviceScreenWidth, UIDeviceScreenHeight));
-//    }];
-//    [view pushIn];
+
 }
 
 #pragma mark -- KKBottomBarDelegate
@@ -379,19 +315,7 @@
 }
 
 - (void)showCommentView{
-//    KKNewsCommentView *view = [[KKNewsCommentView alloc]initWithNewsBaseInfo:self.newsInfo];
-//    view.topSpace = 200 ;
-//    view.navContentOffsetY = 0 ;
-//    view.navTitleHeight = 44 ;
-//    view.contentViewCornerRadius = 10 ;
-//    view.cornerEdge = UIRectCornerTopRight|UIRectCornerTopLeft;
-//
-//    [[UIApplication sharedApplication].keyWindow addSubview:view];
-//    [view mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.left.top.mas_equalTo(0);
-//        make.size.mas_equalTo(CGSizeMake(UIDeviceScreenWidth, UIDeviceScreenHeight));
-//    }];
-//    [view startShow];
+
 }
 
 #pragma mark -- 开始、拖拽中、结束拖拽
@@ -412,12 +336,10 @@
     KKXiaoShiPingPlayer *videoView = [self.videoContainer viewWithTag:VideoCorverViewBaseTag + self.selIndex ];
     if(self.enableFreedomDrag){
         self.navTitleView.alpha = 0;
-//        self.bottomBar.alpha = 0;
         videoView.layer.transform = CATransform3DMakeScale(self.dragViewBg.alpha,self.dragViewBg.alpha,0);
     }
     
     self.topGradient.hidden = YES ;
-//    self.bottomGradient.hidden = YES ;
     self.videoContainer.scrollEnabled = NO ;
     self.dragContentView.backgroundColor = [UIColor clearColor];
 }
@@ -466,34 +388,6 @@
     }
     return _videoContainer;
 }
-
-//- (KKAuthorInfoView *)navAuthorView{
-//    if(!_navAuthorView){
-//        _navAuthorView = ({
-//            KKAuthorInfoView *view = [KKAuthorInfoView new];
-//            view.delegate = self ;
-//            view.detailLabel.textColor = [UIColor whiteColor];
-//            view.nameLabel.textColor = [UIColor whiteColor];
-//            view.backgroundColor = [UIColor clearColor];
-//            view ;
-//        });
-//    }
-//    return _navAuthorView;
-//}
-//
-//- (KKBottomBar *)bottomBar{
-//    if(!_bottomBar){
-//        _bottomBar = ({
-//            KKBottomBar *view = [[KKBottomBar alloc]initWithBarType:KKBottomBarTypeNewsDetail];
-//            view.delegate = self ;
-//            view.splitView.hidden = YES ;
-//            view.textView.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.1];
-//            view.backgroundColor = [UIColor clearColor];
-//            view ;
-//        });
-//    }
-//    return _bottomBar;
-//}
 
 - (CAGradientLayer *)topGradient{
     if(!_topGradient){

@@ -275,7 +275,7 @@ NSInteger autoConnectCount = TCP_AutoConnectCount;
     // 配置 SSL/TLS 设置信息
     NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:3];
     //允许自签名证书手动验证
-    [settings setObject:@YES forKey:GCDAsyncSocketManuallyEvaluateTrust];
+        [settings setObject:@YES forKey:GCDAsyncSocketManuallyEvaluateTrust];
     //GCDAsyncSocketSSLPeerName
     [settings setObject:@"此处填服务器IP地址" forKey:GCDAsyncSocketSSLPeerName];
     [_chatSocket startTLS:settings];
@@ -336,12 +336,12 @@ NSInteger autoConnectCount = TCP_AutoConnectCount;
 //    if (_connectStatus == SocketConnectStatus_DisconnectByUser) return; //主动断开连接
     
     //网络中断 , 断开连接
-    if (networkStatus == RealStatusNotReachable||_connectStatus == SocketConnectStatus_UnConnected) {
+    if (networkStatusCurrent == RealStatusNotReachable||_connectStatus == SocketConnectStatus_UnConnected) {
         [self serverInterruption];//断开连接,默认还会重连3次 ,还未连接自动断开
     }
     
     //如果网络监测有网 , 但是socket处于未连接状态 , 进行重连
-    if (networkStatus == RealStatusViaWWAN || networkStatus == RealStatusViaWiFi) {
+    if (networkStatusCurrent == RealStatusViaWWAN || networkStatusCurrent == RealStatusViaWiFi) {
         
         if (_connectStatus == SocketConnectStatus_UnConnected) {
          

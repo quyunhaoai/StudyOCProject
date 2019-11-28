@@ -63,10 +63,10 @@ static CGFloat const gestureMinimumTranslation = 5.0;
     [self.dragViewBg mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self);
     }];
-    
-//    @weakify(self);
+
+    @STweakify(self);
     [self.dragViewBg addTapGestureWithBlock:^(UIView *gestureView) {
-//        @strongify(self);
+        @STstrongify(self);
         [self startHide];
     }];
 }
@@ -436,7 +436,7 @@ static CGFloat const gestureMinimumTranslation = 5.0;
     if(!_dragViewBg){
         _dragViewBg = ({
             UIView *view = [[UIView alloc]init];
-            view.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.7];
+            view.backgroundColor = [UIColor clearColor];
             view ;
         });
     }
@@ -448,7 +448,7 @@ static CGFloat const gestureMinimumTranslation = 5.0;
         _dragContentView = ({
             UIView *view = [[UIView alloc]init];
             view.clipsToBounds = YES ;
-            view.backgroundColor = [UIColor whiteColor];
+            view.backgroundColor =KKColor(21, 20, 21, 0.95);
             view ;
         });
     }

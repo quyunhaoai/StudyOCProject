@@ -16,8 +16,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.imageView.frame = Frame(0,7, SCREEN_WITDTH *0.25, 24);
-    self.titleLabel.frame   = Frame(0, MaxY(self.imageView.frame)+5, SCREEN_WITDTH *0.25, 12);
+    self.imageView.frame = Frame(0,7, SCREEN_WIDTH *0.25, 24);
+    self.titleLabel.frame   = Frame(0, MaxY(self.imageView.frame)+5, SCREEN_WIDTH *0.25, 12);
 }
 
 @end
@@ -40,7 +40,7 @@
             [tabbarItem setTitle:dict[@"ItemName"] forState:UIControlStateNormal];
             [tabbarItem setTitleColor:UICOLOR_RGB_Alpha(0x919191, 1) forState:UIControlStateNormal];
             [tabbarItem setImage:LoadImage(dict[@"ItemImageName"]) forState:UIControlStateNormal];
-            tabbarItem.frame = Frame(index *(SCREEN_WITDTH*0.25),0, SCREEN_WITDTH*0.25, 49);
+            tabbarItem.frame = Frame(index *(SCREEN_WIDTH*0.25),0, SCREEN_WIDTH*0.25, 49);
             [tabbarItem addTarget:self action:@selector(itemClick:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:tabbarItem];
         }

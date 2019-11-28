@@ -9,17 +9,11 @@
 #import "STLoginInputView.h"
 @interface STLoginInputView ()
 
-
 @property (strong, nonatomic) UILabel *niceLabel; //  标签
 @property (strong, nonatomic) UILabel *mobileLabel; //  标签
 @property (strong, nonatomic) UILabel *passWordLabel; //  标签
 
-
-
-
-
-
-@property (nonatomic,strong) UIButton *justButton; //  按钮
+@property (nonatomic,strong) KKButton *justButton; //  按钮
 @property (nonatomic,strong) UIButton *loginButton; //  按钮
 @end
 
@@ -84,9 +78,7 @@
         make.right.mas_equalTo(self).mas_offset(-40);
         make.height.mas_equalTo(21);
     }];
-    
-    
-    
+
     UIView *line1 = [[UIView alloc] init];
     line1.backgroundColor = COLOR_d2d1d1;
     [self addSubview:line1];
@@ -118,9 +110,9 @@
     [self.justButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(line3.mas_bottom).mas_offset(kHeight(19));
         make.left.mas_equalTo(self.niceLabel.mas_left).mas_offset(-kWidth(2));
-        make.size.mas_equalTo(CGSizeMake(kWidth(150), 21));
+        make.size.mas_equalTo(CGSizeMake(Window_W-50, 21));
     }];
-    
+    [self.justButton layoutButtonWithEdgeInsetsStyle:KKButtonEdgeInsetsStyleRightLeft imageTitleSpace:0];
     [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.justButton.mas_bottom).mas_offset(kHeight(30));
         make.left.mas_equalTo(self).mas_offset(14);
@@ -141,7 +133,6 @@
 - (UIImageView *)headIconImageView {
     if (!_headIconImageView) {
         _headIconImageView =({
-            
             UIImageView *view = [UIImageView new];
             view.contentMode = UIViewContentModeScaleAspectFill;
             view.image = [UIImage imageNamed:@"headPortraitImageView"];
@@ -149,12 +140,6 @@
             view.layer.borderColor = [[UIColor colorWithRed:255.0f/255.0f green:159.0f/255.0f blue:16.0f/255.0f alpha:1.0f] CGColor];
             view.layer.borderWidth = 1;
             view.hidden = YES;
-//            CAGradientLayer *gradientLayer0 = [[CAGradientLayer alloc] init];
-//            gradientLayer0.frame = view.bounds;
-//            gradientLayer0.colors = @[
-//            gradientLayer0.locations = @[gradientLayer0 setStartPoint:CGPointMake(0, 1)];
-//            [gradientLayer0 setEndPoint:CGPointMake(1, 1)];
-//            [view.layer addSublayer:gradientLayer0];
             view ;
             
         });
@@ -184,16 +169,17 @@
     return _loginButton;
 }
 
-- (UIButton *)justButton {
+- (KKButton *)justButton {
     if (!_justButton) {
         _justButton =({
-            
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+            KKButton *btn = [KKButton buttonWithType:UIButtonTypeSystem];
             [btn setTitleColor:COLOR_HEX_RGB(0x2a5d8f) forState:UIControlStateNormal];
             [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
             [btn setBackgroundColor:[UIColor clearColor]];
             [btn setTitle:@"使用手机短信验证登录" forState:UIControlStateNormal];
             [btn setTag:BUTTON_TAG(1)];
+            [btn.titleLabel setTextAlignment:NSTextAlignmentLeft];
+            btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
             btn ;
             

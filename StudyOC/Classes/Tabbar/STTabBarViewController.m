@@ -44,10 +44,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self builderTabbarView];
-    
+    [kNotificationCenter addObserver:self selector:@selector(changeVc:) name:@"2222" object:nil];
 //    [self showBageMethod];
+    [[UITabBar appearance] setShadowImage:[UIImage imageWithColor:ColorWhiteAlpha20 size:CGSizeMake(Window_W, 0.7)]];
 }
-
+- (void)changeVc:(NSNotification *)not {
+    NSString *obj = (NSString *)not.object;
+    if ([obj isEqualToString:@"2"]) {
+        self.tabBar.backgroundColor = kClearColor;
+        self.tabBar.backgroundImage = [UIImage imageWithColor:kClearColor];
+        [self.tabBar setShadowImage:[UIImage imageWithColor:ColorWhiteAlpha20 size:CGSizeMake(Window_W, 0.7)]];
+    } else {
+        self.tabBar.backgroundColor = kBlackColor;
+        self.tabBar.backgroundImage = [UIImage imageWithColor:kBlackColor];
+        [self.tabBar setShadowImage:[UIImage imageWithColor:kBlackColor size:CGSizeMake(Window_W, 0.7)]];
+    }
+}
 - (void)showBageMethod {
 //    @weakify(self);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -59,10 +71,6 @@
     self.delegate = self;
     self.tabBar.backgroundColor = kBlackColor;
     self.tabBar.backgroundImage = [UIImage imageWithColor:kBlackColor];
-    self.tabBar.layer.shadowColor = [UIColor clearColor].CGColor;
-    self.tabBar.layer.shadowOffset = CGSizeMake(0,0);
-    self.tabBar.layer.shadowOpacity = 0;
-    self.tabBar.layer.shadowRadius = 0;
     STMySelfViewController *navTabVC = [STMySelfViewController new];
     navTabVC.tabBarItem
     = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"我的"]
@@ -95,7 +103,7 @@
     selectTextAttrs[NSForegroundColorAttributeName] = kWhiteColor;
     
     
-    NSArray *viewCtrlArray = @[collectionFoundVC,interactionVC,  navTabVC,   chatVC, personalCenterVC];
+    NSArray *viewCtrlArray = @[interactionVC, collectionFoundVC,  navTabVC,   chatVC, personalCenterVC];
     // 创建可变数组，存放导航控制器
     NSMutableArray *navCtrls = [NSMutableArray array];
     // 遍历视图控制器数组
@@ -105,14 +113,22 @@
             [viewCtrl.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateNormal];
             [viewCtrl.tabBarItem setTitleTextAttributes:selectTextAttrs forState:UIControlStateSelected];
             STBaseNav *navCtrl = [[STBaseNav alloc] initWithRootViewController:viewCtrl];
-//            navCtrl.delegate = self;
             [navCtrls addObject:navCtrl];
         }
     }
-//    self.navTabVC = navCtrls[0];
     self.viewControllers = navCtrls;
 }
-
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    if ([item.title isEqualToString:@"频道"]) {
+        self.tabBar.backgroundColor = kClearColor;
+        self.tabBar.backgroundImage = [UIImage imageWithColor:kClearColor];
+        [self.tabBar setShadowImage:[UIImage imageWithColor:ColorWhiteAlpha20 size:CGSizeMake(Window_W, 0.7)]];
+    } else {
+        self.tabBar.backgroundColor = kBlackColor;
+        self.tabBar.backgroundImage = [UIImage imageWithColor:kBlackColor];
+        [self.tabBar setShadowImage:[UIImage imageWithColor:kBlackColor size:CGSizeMake(Window_W, 0.7)]];
+    }
+}
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if (self.selectedViewController == viewController && self.selectedViewController == _navTabVC) {
 //        if ([_swappableImageView.layer animationForKey:@"rotationAnimation"]) {

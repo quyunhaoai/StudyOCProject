@@ -11,7 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface STFollowTableViewCell : UITableViewCell
-
+@property (weak, nonatomic) id<KKCommonDelegate> delegate; // 
+@property (weak, nonatomic) IBOutlet UIImageView *userHeadIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
+@property (weak, nonatomic) IBOutlet UILabel *playCountLab;
+@property(nonatomic,strong) CAGradientLayer *gradientLayer;
 @end
 
 NS_ASSUME_NONNULL_END

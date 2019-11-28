@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface STRecommonPersonCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *areaLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *userHeadIcon;
+@property (weak, nonatomic) IBOutlet UILabel *shopLab;
+@property (weak, nonatomic) IBOutlet UILabel *themeLab;
+@property (weak, nonatomic) IBOutlet UILabel *areaLab;
 
 @end
 

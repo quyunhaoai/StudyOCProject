@@ -28,9 +28,9 @@
     JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)self.categoryView;
     titleCategoryView.titleColorGradientEnabled = YES;
     titleCategoryView.titleLabelZoomEnabled = YES;
-    titleCategoryView.titleLabelZoomScale = 1.85;
+    titleCategoryView.titleLabelZoomScale = 1.35;
     titleCategoryView.cellWidthZoomEnabled = YES;
-    titleCategoryView.cellWidthZoomScale = 1.85;
+    titleCategoryView.cellWidthZoomScale = 1.35;
     titleCategoryView.titleLabelAnchorPointStyle = JXCategoryTitleLabelAnchorPointStyleBottom;
     titleCategoryView.selectedAnimationEnabled = YES;
     titleCategoryView.titleLabelZoomSelectedVerticalOffset = 3;
@@ -55,9 +55,8 @@
 }
 
 - (NSArray *)viewControllerArray {
-    NSArray *_viewControllerArray = @[
+    NSArray *_viewControllerArray = @[[STFollowViewController new],
                                       [STLocationTableViewController new],
-                                      [STFollowViewController new],
                                       [STPowderMaterViewController new],];
     return _viewControllerArray;
 }

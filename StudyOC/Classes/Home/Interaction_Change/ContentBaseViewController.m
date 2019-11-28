@@ -19,24 +19,24 @@
 
     self.view.backgroundColor = color_viewBG_1A1929;
     self.navBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Window_W, NAVIGATION_BAR_HEIGHT)];
-    self.navBarView.backgroundColor = kBlackColor;
+    self.navBarView.backgroundColor = kClearColor;
     [self.view addSubview:self.navBarView];
     self.categoryView.frame = CGRectMake(0, STATUS_BAR_HEIGHT, self.view.bounds.size.width-157, NAVIGATION_BAR_HEIGHT-STATUS_BAR_HEIGHT);
     self.categoryView.delegate = self;
-    self.categoryView.backgroundColor = kBlackColor;
+    self.categoryView.backgroundColor = kClearColor;
     self.categoryView.selectedAnimationEnabled = YES;
     [self.navBarView addSubview:self.categoryView];
     
     [self.view addSubview:self.listContainerView];
 
     self.categoryView.contentScrollView = self.listContainerView.scrollView;
-    
+    [self.view bringSubviewToFront:self.navBarView];
     JXCategoryTitleView *titleCategoryView = (JXCategoryTitleView *)self.categoryView;
     titleCategoryView.titleColorGradientEnabled = YES;
     titleCategoryView.titleLabelZoomEnabled = YES;
-    titleCategoryView.titleLabelZoomScale = 1.85;
+    titleCategoryView.titleLabelZoomScale = 1.35;
     titleCategoryView.cellWidthZoomEnabled = YES;
-    titleCategoryView.cellWidthZoomScale = 1.85;
+    titleCategoryView.cellWidthZoomScale = 1.35;
     titleCategoryView.titleLabelAnchorPointStyle = JXCategoryTitleLabelAnchorPointStyleBottom;
     titleCategoryView.selectedAnimationEnabled = YES;
     titleCategoryView.titleLabelZoomSelectedVerticalOffset = 3;
@@ -47,12 +47,41 @@
     JXCategoryIndicatorDotLineView *lineView = [[JXCategoryIndicatorDotLineView alloc] init];
     lineView.indicatorColor = color_tipYellow_FECE24;
     titleCategoryView.indicators = @[lineView];
+    [self topMuenAddButton];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    self.listContainerView.frame = CGRectMake(0, 0, Window_W, Window_H);
+}
 
-    self.listContainerView.frame = CGRectMake(0, [self preferredCategoryViewHeight], self.view.bounds.size.width, self.view.bounds.size.height-NAVIGATION_BAR_HEIGHT);
+- (void)topMuenAddButton {
+    UIButton *rightBtn1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *rightBtn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn1.tag = BUTTON_TAG(111);
+    rightBtn2.tag = BUTTON_TAG(112);
+    [rightBtn1 setImage:IMAGE_NAME(@"search_home") forState:UIControlStateNormal];
+    [rightBtn1 addTarget:self action:@selector(seachVc:) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn2 setImage:IMAGE_NAME(@"pageOff") forState:UIControlStateNormal];
+    [rightBtn2 addTarget:self action:@selector(dropMenu:) forControlEvents:UIControlEventTouchUpInside];
+    rightBtn1.titleLabel.font = FONT_10;
+    rightBtn2.titleLabel.font = FONT_10;
+    [rightBtn2 setTitleColor:kBlackColor forState:UIControlStateNormal];
+    [rightBtn1 setTitleColor:kBlackColor forState:UIControlStateNormal];
+    rightBtn2.frame = CGRectMake(Window_W-25-20, NAVIGATION_BAR_HEIGHT-31, 25, 25);
+    rightBtn1.frame = CGRectMake(Window_W-25*2-30, NAVIGATION_BAR_HEIGHT-31, 25, 25);
+    self.rightButton1 = rightBtn1;
+    self.rightButton2 = rightBtn2;
+    [self.navBarView addSubview:rightBtn1];
+    [self.navBarView addSubview:rightBtn2];
+}
+
+#pragma mark  -  private method
+- (void)seachVc:(UIButton *)button {
+    
+}
+- (void)dropMenu:(UIButton *)button {
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -98,6 +127,14 @@
     //侧滑手势处理
     self.navigationController.interactivePopGestureRecognizer.enabled = (index == 0);
     NSLog(@"%@", NSStringFromSelector(_cmd));
+    self.currentIndex = index;
+    if (self.currentIndex == 2) {
+        [self.rightButton2 setImage:IMAGE_NAME(@"openLive") forState:UIControlStateNormal];
+    } else if(self.currentIndex == 1){
+        [self.rightButton2 setImage:IMAGE_NAME(@"pageOpen") forState:UIControlStateNormal];
+    } else {
+        [self.rightButton2 setImage:IMAGE_NAME(@"pageOff") forState:UIControlStateNormal];
+    }
 }
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView didScrollSelectedItemAtIndex:(NSInteger)index {
@@ -107,6 +144,14 @@
 - (void)categoryView:(JXCategoryBaseView *)categoryView didClickSelectedItemAtIndex:(NSInteger)index {
     NSLog(@"%@", NSStringFromSelector(_cmd));
     [self.listContainerView didClickSelectedItemAtIndex:index];
+    self.currentIndex = index;
+    if (self.currentIndex == 2) {
+        [self.rightButton2 setImage:IMAGE_NAME(@"openLive") forState:UIControlStateNormal];
+    } else if(self.currentIndex == 1){
+        [self.rightButton2 setImage:IMAGE_NAME(@"pageOpen") forState:UIControlStateNormal];
+    } else {
+        [self.rightButton2 setImage:IMAGE_NAME(@"pageOff") forState:UIControlStateNormal];
+    }
 }
 
 - (void)categoryView:(JXCategoryBaseView *)categoryView scrollingFromLeftIndex:(NSInteger)leftIndex toRightIndex:(NSInteger)rightIndex ratio:(CGFloat)ratio {
@@ -121,6 +166,10 @@
 
 - (NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView {
     return self.titles.count;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 @end

@@ -24,7 +24,6 @@
 #import "STLocationChannelViewController.h"
 #import "STSubscribeViewController.h"
 #import "STScanViewController.h"
-#import "STLoginViewController.h"
 
 #import "STSearchView.h"
 @interface STVideoHomeViewController ()<YNPageViewControllerDelegate,YNPageViewControllerDataSource,YNPageScrollMenuViewDelegate,JMDropMenuDelegate>

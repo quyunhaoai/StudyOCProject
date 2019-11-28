@@ -13,7 +13,7 @@
 #import "SLCityListViewController.h"
 #import "STLocationThemeTableViewCell.h"
 static NSString *CellIdentifier= @"STLocationTableViewController";
-@interface STLocationTableViewController ()<JXCategoryListContentViewDelegate,SLCityListViewControllerDelegate>
+@interface STLocationTableViewController ()<JXCategoryListContentViewDelegate,SLCityListViewControllerDelegate,KKCommonDelegate>
 @property (strong, nonatomic) STLocationHeadView *headView; //  视图
 @property (strong, nonatomic) NSMutableArray *themeArray;  //  数组
 @property (assign, nonatomic) BOOL isopen1; //
@@ -113,6 +113,7 @@ static NSString *CellIdentifier= @"STLocationTableViewController";
         return cel;
     }
     STFollowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -129,17 +130,13 @@ static NSString *CellIdentifier= @"STLocationTableViewController";
 
                UILabel *baseLabel = [[UILabel alloc] initWithFrame:CGRectMake(12 + CGRectGetMaxX(lastFrame), 10+CGRectGetMaxY(lastFrame), windth + 20, 30.f)];
                if (windth + 20 + 12*2 + CGRectGetMaxX(lastFrame) > Window_W - 20) {
-//                   if (self.isopen1 && line<2) {
                        baseLabel.x = 12;
                        baseLabel.y = CGRectGetMaxY(lastFrame) + 15;
-//                   } else {
-//                       baseLabel.y = CGRectGetMinY(lastFrame);
-//                   }
                    if (!self.isopen1 && line>1) {
                        break;
                    } else {
                    }
-                   line +=1;
+//                   line +=1;
                    line+=1;
                }
                else {
@@ -178,10 +175,14 @@ static NSString *CellIdentifier= @"STLocationTableViewController";
     STChildrenViewController *vc = [STChildrenViewController new];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
+#pragma mark  -  cell代理
+- (void)jumpBtnClicked:(id)item {
+    STChildrenViewController *vc = [STChildrenViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 - (NSMutableArray *)themeArray {
     if (!_themeArray) {
-        _themeArray =[NSMutableArray arrayWithArray:@[@"ssssss",@"sss",@"ddd",@"ffff",@"sssssssss",@"sss",@"ddd",@"ffff",@"ssssss",@"sss",@"ddd",@"ffff",@"sssssssss",@"sss",@"ddd",@"ffff"]];
+        _themeArray =[NSMutableArray arrayWithArray:@[@"ssssss",@"sss",@"ddd",@"ffff",@"sssssssss",@"sss",@"ddd",@"ffff",@"ssssss",@"sss",@"ddd",@"ffff",@"sssssssss",@"sss",@"ddd",@"end"]];
     }
     return _themeArray;
 }

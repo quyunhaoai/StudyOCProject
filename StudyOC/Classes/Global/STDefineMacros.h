@@ -30,7 +30,7 @@
 #define KCellDefultHeight 48.0
 //数据库表名
 #define STBGFMDB_tableName @"messageHistory"
-#define client  @"ios"
+#define clientName  @"ios"
 #define STImageViewDefaultImageMacro IMAGE_NAME(STimagDefault)
 ////适配的一些宏定义
 #define IOS11_OR_LATER        ( [[[UIDevice currentDevice] systemVersion] compare:@"11.0" options:NSNumericSearch] != NSOrderedAscending )
@@ -61,7 +61,9 @@
 #define TAB_BAR_HEIGHT ((iPhoneX==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 34.f + 49.f : 49.0)
 // home indicator
 #define HOME_INDICATOR_HEIGHT ((iPhoneX==YES || IS_IPHONE_Xr ==YES || IS_IPHONE_Xs_Max== YES) ? 34.f : 0.f)
-
+//iPhone X底部边距
+#define STATUS_BAR_HIGHT CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)
+#define SAFE_AREA_BOTTOM (STATUS_BAR_HIGHT > 20 ? 34.0 : 0.0)
 //获取系统对象
 #define kApplication        [UIApplication sharedApplication]
 #define kAppWindow          [UIApplication sharedApplication].delegate.window
@@ -72,6 +74,10 @@
 
 //弱引用
 #define XYWeakSelf      __weak __typeof(&*self) weakSelf = self
+
+#define STweakify(object) autoreleasepool   {} __weak  typeof(object) weak##object = object;
+#define STstrongify(object) autoreleasepool {} __strong  typeof(weak##object) object = weak##object;
+
 #define __weakify(type) @weakify(type)
 #define __strongify(type) @strongify(type)
 //IntToString
@@ -362,7 +368,10 @@ _Pragma("clang diagnostic pop")\
 
 //#define MaxX(v)            CGRectGetMaxX((v).frame) //横坐标加上控件的宽度
 //#define MaxY(v)            CGRectGetMaxY((v).frame) //纵坐标加上控件的高度
-
+#define MaxX(frame) CGRectGetMaxX(frame)
+#define MaxY(frame) CGRectGetMaxY(frame)
+#define MinX(frame) CGRectGetMinX(frame)
+#define MinY(frame) CGRectGetMinY(frame)
 // 日志
 
 #ifdef DEBUG
@@ -511,7 +520,7 @@ return shared##className; \
 #define color_button_FC2D57 COLOR_HEX_RGB(0xFC2D57) //订阅按钮色
 #define color_tipRed_FF0000 COLOR_HEX_RGB(0xFF0000)
 #define color_cellBg_151420 COLOR_HEX_RGB(0x151420) //cell背景色
-
+#define color_tipFeng_FF2190 COLOR_HEX_RGB(0xFF2190) //粉红色
 #define kBlackColor         [UIColor blackColor]
 #define kDarkGrayColor      [UIColor darkGrayColor]
 #define kLightGrayColor     [UIColor lightGrayColor]
@@ -527,6 +536,7 @@ return shared##className; \
 #define kPurpleColor        [UIColor purpleColor]
 #define kClearColor         [UIColor clearColor]
 
+#define RGBHexColor(hexValue, alphaValue) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:alphaValue]
 //  FONT_ + 所属PT    参照：XIYUAN-5.0-UI 戏缘ui 通用规范
 #define FONT_18 [UIFont systemFontOfSize:RationEnlarge(18.f)]    //  T1  用在导航栏标题
 #define FONT_16 [UIFont systemFontOfSize:RationEnlarge(16.f)]    //  T2  用于筛选标题或戏曲标题
@@ -591,9 +601,51 @@ objc_setAssociatedObject(self, @selector( propertyGetter ), valueObj, OBJC_ASSOC
 #define WEAKSELF_( __CLASSNAME__ )     __block typeof( __CLASSNAME__ *) weakSelf = self;
 #endif
 
-#define __weakify(type) @weakify(type)
-#define __strongify(type) @strongify(type)
 
+/*******************Socket**************************/
+#define TCP_VersionCode  @"1"      //当前TCP版本(服务器协商,便于服务器版本控制)
+#define TCP_beatBody  @"beatID"    //心跳标识
+#define TCP_AutoConnectCount  3    //自动重连次数
+#define TCP_BeatDuration  1        //心跳频率
+#define TCP_MaxBeatMissCount   3   //最大心跳丢失数
+#define TCP_PingUrl    @"www.baidu.com"
+
+
+#define networkStatusCurrent  [GLobalRealReachability currentReachabilityStatus]  //网络状态
+
+
+/****************************************************/
+#define hashEqual(str1,str2)  str1.hash == str2.hash  //hash码
+#define SCREEN_BOUNDS   [UIScreen mainScreen].bounds //屏幕bounds
+#define SCREEN_WIDTH    [UIScreen mainScreen].bounds.size.width //屏宽 SCREEN_WIDTH
+#define SCREEN_HEIGHT    [UIScreen mainScreen].bounds.size.height //屏高
+///  View加边框
+#define ViewBorder(View, BorderColor, BorderWidth )\
+\
+View.layer.borderColor = BorderColor.CGColor;\
+View.layer.borderWidth = BorderWidth;
+
+//frame
+#define Frame(x,y,width,height)  CGRectMake(x, y, width, height)
+
+//宽度高度
+#define Width(frame)    CGRectGetWidth(frame)
+#define Height(frame)   CGRectGetHeight(frame)
+
+//16进制颜色
+#define UICOLOR_RGB_Alpha(_color,_alpha) [UIColor colorWithRed:((_color>>16)&0xff)/255.0f green:((_color>>8)&0xff)/255.0f blue:(_color&0xff)/255.0f alpha:_alpha]
+//分割线
+#define  UILineColor           UICOLOR_RGB_Alpha(0xe6e6e6,1)
+//主背景色
+#define UIMainBackColor UICOLOR_RGB_Alpha(0xf0f0f0,1)
+//加载本地图片
+#define LoadImage(imageName) [UIImage imageNamed:imageName]
+//加载不缓存图片
+#define LoadImage_NotCache(imageName,imageType) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:imageName ofType:imageType]]
+//设置字体
+#define FontSet(fontSize)  [UIFont systemFontOfSize:fontSize]
+//聊天缓存基本地址 (根据当前用户来创建缓存目录 , 每个登录用户创建单独资源文件夹,每个会话创建单独的文件夹 , 便于管理)
+#define ChatCache_Path   [NSHomeDirectory() stringByAppendingString:[NSString stringWithFormat:@"/Library/Caches/ChatSource/%@",[Account account].myUserID]]
 
 
 

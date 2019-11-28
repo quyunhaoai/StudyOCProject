@@ -31,8 +31,9 @@
                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                <integer key="value" value="1"/>
+                                <integer key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3rv-MF-2Oi">
@@ -51,12 +52,6 @@
                                     <constraint firstAttribute="height" constant="213" id="lBT-52-vZk"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottomjianbianIcon" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8zF-yn-g12">
-                                <rect key="frame" x="0.0" y="204" width="391" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="uCT-j3-0WS"/>
-                                </constraints>
-                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="video_play_icon_home" translatesAutoresizingMaskIntoConstraints="NO" id="3xY-dF-Pdw">
                                 <rect key="frame" x="21" y="225" width="24" height="17"/>
                             </imageView>
@@ -73,13 +68,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.16470588235294117" green="0.16470588235294117" blue="0.20392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="112-iZ-6Gp" firstAttribute="bottom" secondItem="8zF-yn-g12" secondAttribute="bottom" id="17C-12-964"/>
                             <constraint firstItem="Dt6-br-a0B" firstAttribute="leading" secondItem="3xY-dF-Pdw" secondAttribute="trailing" constant="5" id="6yK-eE-PnR"/>
                             <constraint firstItem="112-iZ-6Gp" firstAttribute="bottom" secondItem="3xY-dF-Pdw" secondAttribute="bottom" constant="7" id="81W-bi-3QC"/>
                             <constraint firstItem="112-iZ-6Gp" firstAttribute="leading" secondItem="3rv-MF-2Oi" secondAttribute="leading" id="Cwt-b2-lSA"/>
-                            <constraint firstItem="8zF-yn-g12" firstAttribute="leading" secondItem="3rv-MF-2Oi" secondAttribute="leading" id="Mij-Nt-UBy"/>
                             <constraint firstAttribute="height" constant="263" id="Tvl-6A-Jzy"/>
-                            <constraint firstAttribute="trailing" secondItem="8zF-yn-g12" secondAttribute="trailing" id="Yy6-Ye-2dB"/>
                             <constraint firstItem="112-iZ-6Gp" firstAttribute="top" secondItem="3rv-MF-2Oi" secondAttribute="top" constant="36" id="cPl-3d-LtR"/>
                             <constraint firstItem="Dt6-br-a0B" firstAttribute="centerY" secondItem="3xY-dF-Pdw" secondAttribute="centerY" id="jwi-85-FT3"/>
                             <constraint firstAttribute="trailing" secondItem="112-iZ-6Gp" secondAttribute="trailing" id="lZZ-d5-s8O"/>
@@ -127,6 +119,9 @@
                                 <integer key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="h2l-f3-riD"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f9t-md-CgC">
                         <rect key="frame" x="20" y="334" width="72" height="19"/>
@@ -148,7 +143,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1分钟前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXe-ML-9ji">
                         <rect key="frame" x="20" y="362" width="183" height="11"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="183" id="3eF-5a-tgD"/>
+                            <constraint firstAttribute="width" priority="750" constant="183" id="3eF-5a-tgD"/>
                             <constraint firstAttribute="height" constant="11" id="qUc-if-Tgj"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -158,10 +153,16 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hP9-FD-FKf">
                         <rect key="frame" x="223" y="356.5" width="18" height="22"/>
                         <state key="normal" image="more_home"/>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yLU-yg-mE0"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nUa-6E-rzw">
                         <rect key="frame" x="252" y="356.5" width="15" height="22"/>
                         <state key="normal" image="like_icon_video"/>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XQ3-vY-EJn"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSo-XF-aKE">
                         <rect key="frame" x="275" y="359" width="45" height="17"/>
@@ -184,6 +185,9 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbC-m2-ZhM">
                         <rect key="frame" x="328" y="356.5" width="17" height="22"/>
                         <state key="normal" image="comment_icon_video"/>
+                        <connections>
+                            <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="X6M-Ub-szf"/>
+                        </connections>
                     </button>
                 </subviews>
                 <color key="backgroundColor" red="0.082352941176470587" green="0.078431372549019607" blue="0.12549019607843137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -216,12 +220,16 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="coverImageView" destination="112-iZ-6Gp" id="ke1-UZ-Xlb"/>
+                <outlet property="playCountLab" destination="Dt6-br-a0B" id="pzy-a0-7Bj"/>
+                <outlet property="userHeadIcon" destination="ZCS-5f-TFn" id="t7s-bn-Bl3"/>
+            </connections>
             <point key="canvasLocation" x="200.72463768115944" y="275.55803571428572"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="IMG_0096" width="186" height="286"/>
-        <image name="bottomjianbianIcon" width="360" height="45"/>
         <image name="comment_icon_video" width="17" height="17"/>
         <image name="like_icon_video" width="15" height="15"/>
         <image name="locationIcon" width="10.5" height="11.5"/>

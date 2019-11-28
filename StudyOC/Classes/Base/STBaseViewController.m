@@ -21,6 +21,10 @@
     
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma  mark  --  显示加载错误页面 懒加载
 - (void)setIsShowErrorPageView:(BOOL)isShowErrorPageView {
     _isShowErrorPageView = isShowErrorPageView;

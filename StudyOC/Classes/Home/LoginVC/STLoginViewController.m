@@ -34,14 +34,15 @@
 @end
 
 @implementation STLoginViewController
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:self.barStyle];
+    [UIApplication sharedApplication].statusBarStyle=self.barStyle;
 }
 
 - (void)viewDidLoad {
@@ -53,11 +54,9 @@
     [closeBtn.titleLabel setFont:FONT_10];
     self.closeButton = closeBtn;
     [self.view addSubview:closeBtn];
-
-    
-    TYAttributedLabel *attriLabel = [[TYAttributedLabel alloc] initWithFrame:CGRectMake((Window_W-kWidth(224))/2,
+    TYAttributedLabel *attriLabel = [[TYAttributedLabel alloc] initWithFrame:CGRectMake(0,
                                                                                         Window_H - 47 - HOME_INDICATOR_HEIGHT,
-                                                                                        kWidth(224),
+                                                                                        Window_W,
                                                                                         21)];
     [self.view addSubview:attriLabel];
     NSString *text = @"安全帮助 | 找回密码 | 切换更多";
@@ -68,7 +67,7 @@
     attriLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     attriLabel.linesSpacing = 5;
     attriLabel.numberOfLines = 1;
-    attriLabel.textAlignment = NSTextAlignmentCenter;
+    attriLabel.textAlignment = kCTTextAlignmentCenter;
     attriLabel.delegate = self;
     
     TYTextStorage *textStorage = [[TYTextStorage alloc] init];
@@ -363,7 +362,7 @@
                                      @"mobile":[NSString stringWithFormat:@"+86%@",mobileNumberStr],
                                      @"username":niceString,
                                      @"password":passWordString,
-                                     @"client":client,
+                                     @"client":clientName,
             };
             //Add HUD to view
             hud = [[WSProgressHUD alloc] initWithView:self.navigationController.view];
@@ -409,7 +408,7 @@
                                      @"login_type":@"mobile",
                                      @"mobile":[NSString stringWithFormat:@"+86%@",mobileNumberStr],
                                      @"mobile_code":verCodeString,
-                                     @"client":client,
+                                     @"client":clientName,
             };
             //Add HUD to view
             hud = [[WSProgressHUD alloc] initWithView:self.navigationController.view];
@@ -480,8 +479,6 @@
             }else{
                 [MBManager showBriefAlert:linkStr];
             }
-            
-            
         }
     }
 }
@@ -523,5 +520,9 @@
     [self.loginInputView.mobileTextView resignFirstResponder];
     [self.mobileView.mobileTextView resignFirstResponder];
     [self.mobileView.verWordTextView resignFirstResponder];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
 }
 @end

@@ -88,6 +88,7 @@
     XYWeakSelf;
     [self.headView addTapWithGestureBlock:^(UITapGestureRecognizer *gesture) {
         STLoginViewController *vc = [STLoginViewController new];
+        vc.barStyle = [UIApplication sharedApplication].statusBarStyle;
         STBaseNav *nav = [[STBaseNav alloc] initWithRootViewController:vc];
         [weakSelf presentViewController:nav animated:YES completion:nil];
         NSLog(@"点击了头像！");

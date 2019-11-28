@@ -23,6 +23,7 @@ static NSString *cellReuseIdentifier = @"STRecommonPersonCollectionViewCell";
 }
 
 - (void)setupUI {
+    self.backgroundColor = color_cellBg_151420;
     [self addSubview:self.nameStringLabel];
     [self addSubview:self.collectView];
     [self addSubview:self.moreButton];
@@ -44,8 +45,6 @@ static NSString *cellReuseIdentifier = @"STRecommonPersonCollectionViewCell";
         make.width.mas_equalTo(25);
         make.height.mas_equalTo(25);
     }];
-//    self.backgroundColor = kGreenColor;
-//    self.collectView.backgroundColor = kYellowColor;
     self.nameStringLabel.text = @"值得订阅的粉号自媒体";
 }
 
@@ -59,13 +58,10 @@ static NSString *cellReuseIdentifier = @"STRecommonPersonCollectionViewCell";
 - (UIButton *)moreButton {
     if (!_moreButton) {
         _moreButton = ({
-
             UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
-//            [view setTitleColor:kBlackColor forState:UIControlStateNormal];
             [view setImage:[UIImage imageNamed:@"more_home"] forState:UIControlStateNormal];
             [view addTarget:self action:@selector(moreBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
             view ;
-            
         });
     }
     return _moreButton;
@@ -104,26 +100,7 @@ static NSString *cellReuseIdentifier = @"STRecommonPersonCollectionViewCell";
             view.showsHorizontalScrollIndicator = NO;
             view.showsVerticalScrollIndicator = NO;
             view.contentInset = UIEdgeInsetsMake(0, 16, 0, 0);
-//            [view registerClass:[STRecommonPersonCollectionViewCell class] forCellWithReuseIdentifier:cellReuseIdentifier];
             [view registerNib:[STRecommonPersonCollectionViewCell loadNib] forCellWithReuseIdentifier:cellReuseIdentifier];
-//            XYWeakSelf;
-//            view.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
-//                [weakSelf refreshData:YES shouldShowTips:YES];
-//            }];
-            
-//            MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-////                [weakSelf refreshData:NO shouldShowTips:NO];
-//            }];
-//            [footer setTitle:@"正在努力加载" forState:MJRefreshStateIdle];
-//            [footer setTitle:@"正在努力加载" forState:MJRefreshStateRefreshing];
-//            [footer setTitle:@"正在努力加载" forState:MJRefreshStatePulling];
-//            [footer setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-//            [view setMj_footer:footer];
-            
-//            if (IOS11_OR_LATER) {
-//                KKAdjustsScrollViewInsets(view);
-//            }
-            
             view;
         });
     }
@@ -154,12 +131,9 @@ static NSString *cellReuseIdentifier = @"STRecommonPersonCollectionViewCell";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    self.selIndexPath = indexPath ;
-//    KKSummaryContent *item = [self.dataArray safeObjectAtIndex:indexPath.row];
-//    KKXiaoShiPingCell *cell = (KKXiaoShiPingCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//    cell.contentBgView.alpha = 0 ;
-    
-//    [self showPlayViewWithItem:@"" oriRect:cell.frame oriImage:cell.corverView.image];
+    STChildrenViewController *vc = [STChildrenViewController new];
+    UIViewController *controller = [[QYHTools sharedInstance] getCurrentVC];
+    [controller presentViewController:vc animated:YES completion:nil];
 }
 
 //设置水平间距 (同一行的cell的左右间距）

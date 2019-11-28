@@ -48,13 +48,13 @@
 @implementation STFoundPassWordViewController
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [UIApplication sharedApplication].statusBarStyle=UIStatusBarStyleDefault;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COlOR_EDEDED;
     [self setupUI];
-    
     self.mobileTextView.delegate = self;
     self.VerificationTextField.delegate = self;
     self.passWordTextView.delegate = self;
@@ -77,7 +77,6 @@
                                                             NAVIGATION_BAR_HEIGHT,
                                                             Window_W,
                                                             Window_H - NAVIGATION_BAR_HEIGHT)];
-
     [self.view addSubview:self.contentView];
     [self.contentView addSubview:self.titleLabelView];
     [self.contentView addSubview:self.passWordLabel];
@@ -283,7 +282,7 @@
                                  @"mobile":[NSString stringWithFormat:@"+86%@",mobileNumberStr],
                                  @"mobile_code":verCodeString,
                                  @"password":passWordString,
-                                 @"client":client,
+                                 @"client":clientName,
                                  @"forget_type":@"mobile",
         };
         XYWeakSelf;
@@ -370,7 +369,6 @@
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        button.enabled = NO;
                                        NSString *strTime = [NSString stringWithFormat:@"%.2d秒后重试",weakSelf.captchaTimeout];
-       //                                button.titleLabel.text = strTime;
                                        [button setTitleColor:COLOR_HEX_RGB(0x707070) forState:UIControlStateNormal];
                                         button.layer.borderColor = [kClearColor CGColor];
                                         button.layer.borderWidth = 0;
@@ -385,8 +383,6 @@
                             [MBManager showBriefAlert:msg];
                         }
                     }
-
-                   
                 } WithFailurBlock:^(NSError * _Nonnull error) {
     
                 }];
@@ -712,8 +708,8 @@
 }
 
 
-//- (UIStatusBarStyle)preferredStatusBarStyle {
-//    return UIStatusBarStyleDefault;
-//}
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
 
 @end

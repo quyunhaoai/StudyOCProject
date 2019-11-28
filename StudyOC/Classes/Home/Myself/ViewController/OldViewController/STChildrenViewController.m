@@ -46,6 +46,9 @@
 
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
 
 /*
 - (void)uploadvideo {

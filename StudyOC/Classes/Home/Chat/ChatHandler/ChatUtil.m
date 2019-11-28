@@ -44,7 +44,7 @@
         coreLabel.lineSpacing = 6;
         coreLabel.imageSize =CGSizeMake(24, 24);
         [coreLabel setText:currentChatmodel.content.text customLinks:nil keywords:nil];
-        CGSize labelSize = [coreLabel sizeThatFits:CGSizeMake(SCREEN_WITDTH - 145, MAXFLOAT)];
+        CGSize labelSize = [coreLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 145, MAXFLOAT)];
         height = 5 + 10 + labelSize.height + 10;
         height = height < 50 ? 50 : height;
         //验证是否群聊

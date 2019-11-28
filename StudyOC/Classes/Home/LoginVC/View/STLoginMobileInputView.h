@@ -17,14 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) UILabel *titleLabelView; // 视图
 
-//@property (strong, nonatomic) UIImageView *headIconImageView; //  图片
 @property (strong, nonatomic) UILabel *niceLabel; //  标签
 @property (strong, nonatomic) UILabel *mobileLabel; //  标签
 @property (strong, nonatomic) UILabel *verWordLabel; //  标签
-
-
-
-
 
 
 @property (nonatomic,strong) UIButton *justButton; //  按钮

@@ -12,7 +12,7 @@
 #import "STNoLikeMaskView.h"
 #import "STSubscribeVideoTableViewCell.h"
 
-@interface STSubscribeVideoViewController ()
+@interface STSubscribeVideoViewController ()<KKCommonDelegate>
 {
     BOOL _isShowHeaderView;
 }

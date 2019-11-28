@@ -17,10 +17,10 @@
 #import "MBManager.h"
 #import <Masonry.h>
 #import <SDWebImage.h>
-#import <MJExtension/MJExtension.h>
-#import <MJRefresh/MJRefresh.h>
-#import <BGFMDB/BGDB.h>
-#import <SDCycleScrollView/SDCycleScrollView.h>
+#import <MJExtension.h>
+#import <MJRefresh.h>
+#import <BGDB.h>
+#import <SDCycleScrollView.h>
 #import <YYCache.h>
 #import <PPNetworkHelper.h>
 #import <YYModel.h>
@@ -67,6 +67,7 @@
 #import "UIKit+Standard.h"
 #import "TYAttributedLabel.h"
 #import "UITabBar+HNTabber.h"
+#import "KKButton.h"
 //========================NS扩展======================
 #import "NSNumber+KK.h"
 #import "NSDate+KK.h"
@@ -92,7 +93,6 @@
 #import "KKAVPlayerView.h"
 //=====================chat=============
 #import "AccountTool.h"
-#import "Config.h"
 #import "Constant.h"
 #import "RealReachability.h"
 #import "UIImageView+SDWebImage.h"
@@ -101,10 +101,11 @@
 #import "UIImageView+GIF.h"
 //=================工具类====================
 #import "QYHTools.h"
-
+#import "KKThirdTools.h"
 //==================z系统库====================
 #import <CoreLocation/CoreLocation.h>
-
+//==================小视频======================
+#import "UIView+CommonFunction.h"
 
 
 

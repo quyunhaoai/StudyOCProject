@@ -24,7 +24,7 @@
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
           
-    [LBPGuideView showGuideViewWithImages:@[@"IMG_1",@"IMG_2",@"IMG_3",@"IMG_4",@"IMG_5"]];
+//    [LBPGuideView showGuideViewWithImages:@[@"IMG_1",@"IMG_2",@"IMG_3",@"IMG_4",@"IMG_5"]];
     
     
     return YES;
@@ -38,6 +38,7 @@
     self.window.backgroundColor = kWhiteColor;
     [self.window makeKeyAndVisible];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationMaskPortrait;
 }
 
 - (void)addADLaunchController

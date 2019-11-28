@@ -14,12 +14,8 @@
     if (self == [super initWithFrame:frame]) {
         [self setupUI];
     }
-    
     return self;
 }
-
-
-
 
 - (void)setupUI {
     
@@ -81,7 +77,7 @@
     [self.justButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(line2.mas_bottom).mas_offset(kHeight(19));
         make.left.mas_equalTo(self.titleLabelView.mas_left).mas_offset(-kWidth(2));
-        make.size.mas_equalTo(CGSizeMake(kWidth(90), 21));
+        make.size.mas_equalTo(CGSizeMake(Window_W-50, 21));
     }];
     
     [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -110,11 +106,9 @@
             [btn setTitleColor:kBlackColor forState:UIControlStateNormal];
             [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
             [btn setBackgroundColor:[UIColor clearColor]];
-//            [btn setImage:IMAGE_NAME(@"areaButtonImage") forState:UIControlStateNormal];
             [btn setTitle:@"获取验证码" forState:UIControlStateNormal];
             [btn setTag:BUTTON_TAG(6)];
             [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
-//            [btn setEdgeInsetsStyle:KKButtonEdgeInsetsStyleLeft imageTitlePadding:10];
             btn.layer.masksToBounds = YES;
             btn.layer.cornerRadius = 3;
             btn.layer.borderColor = [[UIColor colorWithRed:112.0f/255.0f green:112.0f/255.0f blue:112.0f/255.0f alpha:1.0f] CGColor];
@@ -150,7 +144,6 @@
 - (UIButton *)justButton {
     if (!_justButton) {
         _justButton =({
-            
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
             [btn setTitleColor:COLOR_HEX_RGB(0x2a5d8f) forState:UIControlStateNormal];
             [btn.titleLabel setFont:[UIFont systemFontOfSize:15]];
@@ -158,10 +151,10 @@
             [btn setTitle:@"使用账号登录" forState:UIControlStateNormal];
             [btn.titleLabel setTextAlignment:NSTextAlignmentLeft];
             [btn setTag:BUTTON_TAG(2)];
+            btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
             [btn setEdgeInsetsStyle:KKButtonEdgeInsetsStyleRightLeft imageTitlePadding:0];
             btn ;
-            
         });
     }
     return _justButton;
@@ -187,34 +180,6 @@
     }
     return _titleLabelView;
 }
-            //
-//            NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"账号登录"];
-//            [attributedString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Segoe UI" size:14.0f] range:NSMakeRange(0, 4)];
-//            [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f] range:NSMakeRange(0, 4)];
-//- (UITextField *)niceTextView {
-//    if (!_niceTextView) {
-//        _niceTextView = ({
-//            UITextField *textfield = [[UITextField alloc] init];
-//            //设置边框
-//            textfield.borderStyle = UITextBorderStyleNone;
-//            //设置水印提示
-//            textfield.placeholder = @"所注册的昵称";
-//            textfield.placeholderColor= COLOR_HEX_RGB(0xbbbbbb);
-//            //设置输入框右边的一键删除（x号）
-//            textfield.clearButtonMode = 0;
-//            //设置密码安全样式
-//            textfield.secureTextEntry = NO;
-//            //设置键盘样式
-//            textfield.keyboardType = 0 ;
-//            textfield.backgroundColor = kClearColor;
-//            //设置输入的字体大小
-//            textfield.font = [UIFont systemFontOfSize:15];
-//
-//            textfield;
-//        });
-//    }
-//    return _niceTextView;
-//}
 
 - (UITextField *)mobileTextView {
     if (!_mobileTextView) {
@@ -266,31 +231,6 @@
     }
     return _verWordTextView;
 }
-
-//- (UILabel *)niceLabel {
-//    if (!_niceLabel) {
-//        _niceLabel = ({
-//            UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-//            label.backgroundColor = [UIColor clearColor];
-////            设置显示的内容
-//            label.text = @"昵称";
-////            设置字体颜色
-//            label.textColor = [UIColor blackColor];
-////            设置字体和字号
-//            label.font = [UIFont systemFontOfSize:15];
-////            设置多行显示
-//            label.numberOfLines = 1;
-////            设置换行的方式
-//            label.lineBreakMode = NSLineBreakByCharWrapping;
-////            设置对齐方式
-//            label.textAlignment = NSTextAlignmentLeft;
-//
-//            label;
-//
-//        });
-//    }
-//    return _niceLabel;
-//}
 
 - (UILabel *)mobileLabel {
     if (!_mobileLabel) {

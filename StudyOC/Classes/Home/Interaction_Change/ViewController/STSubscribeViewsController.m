@@ -83,18 +83,6 @@
 
 //  切换各个标签内容
 - (void)replaceController:(UIViewController *)oldController newController:(UIViewController *)newController andIndex:(NSInteger)index {
-//    if (index == 0) {
-//        XYSmallVideoCollectionViewController *vc = [[XYSmallVideoCollectionViewController alloc] init];
-//        [vc.view setFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT+44, Window_W, Window_H - NAVIGATION_BAR_HEIGHT-44-HOME_INDICATOR_HEIGHT)];
-//
-//        newController = vc;
-//    } else {
-//        if ([newController isKindOfClass:[AKSettingViewController class]]) {
-//            SH_PersonalCenterCollectionCategoryViewController *vc = [[SH_PersonalCenterCollectionCategoryViewController alloc] init];
-//            [vc.view setFrame:CGRectMake(0, NAVIGATION_BAR_HEIGHT+44, Window_W, Window_H - NAVIGATION_BAR_HEIGHT-44-HOME_INDICATOR_HEIGHT)];
-//            newController = vc;
-//        }
-//    }
     newController.view.frame = CGRectMake(0, 40, Window_W, self.view.height-40);
     [self addChildViewController:newController];
     XYWeakSelf;

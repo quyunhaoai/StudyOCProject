@@ -95,7 +95,7 @@
 {
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc]init];
-        _timeLabel.textColor = UIMainWhiteColor;
+        _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.font = FontSet(12);
     }
@@ -161,9 +161,9 @@
     if (textModel.shouldShowTime) {
         self.timeContainer.hidden = NO;
         self.timeLabel.text  = [NSDate timeStringWithTimeInterval:textModel.sendTime];
-        CGSize timeTextSize  = [self.timeLabel sizeThatFits:CGSizeMake(SCREEN_WITDTH, 20)];
+        CGSize timeTextSize  = [self.timeLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH, 20)];
         self.timeLabel.frame = Frame(5,(20 - timeTextSize.height)*0.5, timeTextSize.width, timeTextSize.height);
-        self.timeContainer.frame = Frame((SCREEN_WITDTH - timeTextSize.width-10)*0.5, 15,timeTextSize.width + 10, 20);
+        self.timeContainer.frame = Frame((SCREEN_WIDTH - timeTextSize.width-10)*0.5, 15,timeTextSize.width + 10, 20);
     }else{
         self.timeContainer.hidden = YES;
     }
@@ -201,15 +201,15 @@
 
 - (void)setFrame
 {
-    CGSize size = [_coreLabel sizeThatFits:CGSizeMake(SCREEN_WITDTH - 145, MAXFLOAT)];
+    CGSize size = [_coreLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH - 145, MAXFLOAT)];
     if (_textModel.byMyself.integerValue) {
         //文本宽度JYScreen_Width - 145
         //我方头像
-        self.iconView.frame = Frame(SCREEN_WITDTH - 65, MaxY(self.timeContainer.frame)+15, 50, 50);
+        self.iconView.frame = Frame(SCREEN_WIDTH - 65, MaxY(self.timeContainer.frame)+15, 50, 50);
         //我方文本label
         self.coreLabel.frame = Frame(10, 10,size.width, size.height);
         //我方背景气泡
-        self.backButton.frame = Frame(SCREEN_WITDTH - 100 - Width(self.coreLabel.frame), MinY(self.iconView.frame)+5, Width(self.coreLabel.frame)+30, Height(self.coreLabel.frame)+20);
+        self.backButton.frame = Frame(SCREEN_WIDTH - 100 - Width(self.coreLabel.frame), MinY(self.iconView.frame)+5, Width(self.coreLabel.frame)+30, Height(self.coreLabel.frame)+20);
         self.activiView.frame = Frame(MinX(self.backButton.frame)-34,MinY(self.backButton.frame)+((Height(self.backButton.frame)-24)*0.5), 24, 24);
         //红叹号
         self.failureButton.frame = self.activiView.frame;

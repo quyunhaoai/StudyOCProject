@@ -108,6 +108,8 @@
     return self.titles.count;
 }
 
-
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
 @end

@@ -163,13 +163,13 @@
         make.right.mas_equalTo(self.bgView).mas_offset(-kkPaddingNormalLarge);
         make.height.mas_equalTo(15);
     }];
-    [self.bgView addSubview:self.addButton];
-    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(self.headerIconView);
-        make.right.mas_equalTo(self.bgView).mas_offset(-kkPaddingNormalLarge);
-        make.height.mas_equalTo(21);
-        make.width.mas_equalTo(60);
-    }];
+//    [self.bgView addSubview:self.addButton];
+//    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.mas_equalTo(self.headerIconView);
+//        make.right.mas_equalTo(self.bgView).mas_offset(-kkPaddingNormalLarge);
+//        make.height.mas_equalTo(21);
+//        make.width.mas_equalTo(60);
+//    }];
     
     XYWeakSelf;
     [self.headerIconView addTapGestureWithBlock:^(UIView *gestureView) {
@@ -339,16 +339,16 @@
     }
     return _addButton;
 }
-- (void)addBtnClick:(UIButton *)button {
-    button.selected = !button.isSelected;
-    if (button.selected) {
-        button.layer.backgroundColor = [[UIColor colorWithRed:58.0f/255.0f green:58.0f/255.0f blue:68.0f/255.0f alpha:1.0f] CGColor];
-        [button setTitle:@"已订阅" forState:UIControlStateNormal];
-    } else {
-        button.layer.backgroundColor = [[UIColor colorWithRed:255.0f/255.0f green:33.0f/255.0f blue:144.0f/255.0f alpha:1.0f] CGColor];
-        [button setTitle:@"订阅+" forState:UIControlStateNormal];
-    }
-}
+//- (void)addBtnClick:(UIButton *)button {
+//    button.selected = !button.isSelected;
+//    if (button.selected) {
+//        button.layer.backgroundColor = [[UIColor colorWithRed:58.0f/255.0f green:58.0f/255.0f blue:68.0f/255.0f alpha:1.0f] CGColor];
+//        [button setTitle:@"已订阅" forState:UIControlStateNormal];
+//    } else {
+//        button.layer.backgroundColor = [[UIColor colorWithRed:255.0f/255.0f green:33.0f/255.0f blue:144.0f/255.0f alpha:1.0f] CGColor];
+//        [button setTitle:@"订阅+" forState:UIControlStateNormal];
+//    }
+//}
 - (UIButton *)likeBtn {
     if (!_likeBtn) {
         _likeBtn =  ({

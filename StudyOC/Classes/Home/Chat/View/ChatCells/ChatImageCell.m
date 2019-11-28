@@ -60,7 +60,7 @@
 {
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc]init];
-        _timeLabel.textColor = UIMainWhiteColor;
+        _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.font = FontSet(12.f);
     }
@@ -101,7 +101,7 @@
 {
     if (!_progressLabel) {
         _progressLabel = [[UILabel alloc]init];
-        _progressLabel.textColor = UIMainWhiteColor;
+        _progressLabel.textColor = [UIColor whiteColor];
         _progressLabel.font = FontSet(14.f);
         _progressLabel.textAlignment = NSTextAlignmentCenter;
         _progressLabel.hidden = YES;  //默认隐藏
@@ -164,9 +164,9 @@
     if (imageModel.shouldShowTime) {
         self.timeContainer.hidden = NO;
         self.timeLabel.text = [NSDate timeStringWithTimeInterval:imageModel.sendTime];
-        CGSize timeTextSize  = [self.timeLabel sizeThatFits:CGSizeMake(SCREEN_WITDTH, 20)];
+        CGSize timeTextSize  = [self.timeLabel sizeThatFits:CGSizeMake(SCREEN_WIDTH, 20)];
         self.timeLabel.frame = Frame(5,(20 - timeTextSize.height)*0.5, timeTextSize.width, timeTextSize.height);
-        self.timeContainer.frame = Frame((SCREEN_WITDTH - timeTextSize.width-10)*0.5, 15,timeTextSize.width + 10, 20);
+        self.timeContainer.frame = Frame((SCREEN_WIDTH - timeTextSize.width-10)*0.5, 15,timeTextSize.width + 10, 20);
     }
     self.timeContainer.hidden = !imageModel.shouldShowTime;
     //处理失败按钮 , 处理进度按钮 ,昵称隐藏处理
@@ -232,14 +232,14 @@
     if (_imageModel.byMyself.integerValue) {
     
         //头像
-        self.iconView.frame = Frame(SCREEN_WITDTH - 65, MaxY(self.timeContainer.frame)+15, 50, 50);
+        self.iconView.frame = Frame(SCREEN_WIDTH - 65, MaxY(self.timeContainer.frame)+15, 50, 50);
         
         //高大于宽
         if (widHgtScale>0&&widHgtScale < 1) {
         
             //极窄极高 (展示固定50宽,不能再窄)
             if (105*widHgtScale<=50) {
-                self.picView.frame = Frame(SCREEN_WITDTH - 115, MinY(self.iconView.frame), 50, 130);
+                self.picView.frame = Frame(SCREEN_WIDTH - 115, MinY(self.iconView.frame), 50, 130);
             }else{
                 self.picView.frame = Frame(MinX(self.iconView.frame)-130*widHgtScale ,MinY(self.iconView.frame), 130*widHgtScale, 130);
             }
@@ -249,7 +249,7 @@
         
             //极宽极低(展示固定高度50,不能更低)
             if (100*(hgtWidScale)<=50) {
-                self.picView.frame = Frame(SCREEN_WITDTH -195, MinY(self.iconView.frame), 130, 50);
+                self.picView.frame = Frame(SCREEN_WIDTH -195, MinY(self.iconView.frame), 130, 50);
             }else{
                 self.picView.frame = Frame(MinX(self.iconView.frame)-135, MinY(self.iconView.frame), 135, 135 *hgtWidScale);
             }
