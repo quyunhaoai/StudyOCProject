@@ -7,19 +7,13 @@
 //
 
 #import "ZMCusCommentListView.h"
-#import "ZMCusCommentBottomView.h"
-#import "ZMCusCommentListTableHeaderView.h"
-#import "ZMCusCommentListContentCell.h"
-#import "ZMCusCommentListReplyContentCell.h"
 #import "LKCommentListContentCell.h"
 #import "LKCommentListReplyContentCell.h"
 #import "LKMoreReplyContentTableViewCell.h"
 #import "UITableViewCell+FSAutoCountHeight.h"
 #import "LKContentModel.h"
-#import <Masonry.h>
 
 @interface ZMCusCommentListView()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) ZMCusCommentListTableHeaderView *headerView;
 /** 模型数组 */
 @property (nonatomic, strong) NSMutableArray *modelArr;
 @end
@@ -60,6 +54,7 @@
         _tableView.tableFooterView = [UIView new];
         _tableView.estimatedRowHeight = 10000;
         _tableView.rowHeight = UITableViewAutomaticDimension;
+        _tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         @STweakify(self);
         MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
             @STstrongify(self);
@@ -88,8 +83,6 @@
     [self.tableView reloadData];
 }
 
-
-#pragma mark -
 #pragma mark UITableViewDataSource, UITableViewDelegate
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -109,12 +102,6 @@
     if (model.maxReplayCount == 0) // || model.nowReplayCount == model.maxReplayCount
     {
         // 没有子回复 或者当前已显示回复数量和最大回复数量一致 不显示更多按钮
-        
-        // 设置是否为 点击展示更多 行
-        //model.isMoreCell = NO;
-        // 更新数据
-        //[self.modelArr replaceObjectAtIndex:section withObject:model];
-        
         // 返回一个主回复
         //NSLog(@"返回一个主回复");
         return count;

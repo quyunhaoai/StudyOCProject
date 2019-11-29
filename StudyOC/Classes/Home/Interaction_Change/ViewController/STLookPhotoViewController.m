@@ -9,6 +9,7 @@
 #import "STLookPhotoViewController.h"
 #import "KKXiaoShiPingCell.h"
 #import "KKXiaoShiPingPlayView.h"
+#import "SmallVideoPlayViewController.h"
 static NSString *cellReuseIdentifier = @"cellReuseIdentifier";
 static CGFloat space = 0.5 ;
 @interface STLookPhotoViewController ()<JXCategoryListContentViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,KKXiaoShiPingPlayViewDelegate>
@@ -18,9 +19,11 @@ static CGFloat space = 0.5 ;
 @end
 
 @implementation STLookPhotoViewController
+
 - (UIView *)listView {
     return self.view;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kBlackColor;
@@ -42,103 +45,32 @@ static CGFloat space = 0.5 ;
         make.top.left.bottom.right.mas_equalTo(self.view);
     }];
     self.view.backgroundColor = color_viewBG_1A1929;
-    
 }
 
 #pragma mark -- 刷新数据
 
 - (void)refreshData:(BOOL)header shouldShowTips:(BOOL)showTip{
-//    [self.loadingView setHidden:self.dataArray.count];
-//    [[KKFetchNewsTool shareInstance]fetchSummaryWithSectionItem:self.sectionItem success:^(KKSummaryDataModel *model) {
-//        NSMutableArray *insertArray = [NSMutableArray arrayWithCapacity:0];
-//        if(model.contentArray.count){
-//            if(header){
-//                NSRange range = NSMakeRange(0,[model.contentArray count]);
-//                [self.dataArray insertObjects:model.contentArray atIndexes:[NSIndexSet indexSetWithIndexesInRange:range]];
-//                if(self.dataArray.count > 30){
-//                    NSInteger delCount = self.dataArray.count - 30 ;
-//                    for(NSInteger i = 0 ; i < delCount ; i++){
-//                        [self.dataArray removeLastObject];
-//                    }
-//                    [CATransaction begin];
-//                    [CATransaction setDisableActions:YES];
-//                    [self.collectView reloadData];
-//                    [CATransaction commit];
-//                }else{
-//                    for(NSInteger i = 0 ; i < model.contentArray.count ; i++){
-//                        [insertArray safeAddObject:[NSIndexPath indexPathForRow:i inSection:0]];
-//                    }
-//                }
-//            }else{
-//                NSInteger fromIndex = self.dataArray.count;
-//                NSInteger lastItemIndex = self.dataArray.count - 1;
-//                [self.dataArray addObjectsFromArray:model.contentArray];
-//                if(self.dataArray.count > 30){
-//                    NSInteger delCount = self.dataArray.count - 30 ;
-//                    for(NSInteger i = 0 ; i < delCount ; i++){
-//                        [self.dataArray safeRemoveObjectAtIndex:0];
-//                        lastItemIndex -- ;
-//                    }
-//                    [CATransaction begin];
-//                    [CATransaction setDisableActions:YES];
-//                    [self.collectView reloadData];
-//                    [self.collectView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:lastItemIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
-//                    [CATransaction commit];
-//                }else{
-//                    for(NSInteger i = 0; i < model.contentArray.count ; i++){
-//                        [insertArray safeAddObject:[NSIndexPath indexPathForRow:(fromIndex + i) inSection:0]];
-//                    }
-//                }
-//            }
-//        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.collectView.mj_footer endRefreshing];
-            [self.collectView.mj_header endRefreshing];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectView.mj_footer endRefreshing];
+        [self.collectView.mj_header endRefreshing];
+        
+        NSInteger total = [self.dataArray count];
+        if(total > 0){
+            self.refreshTipLabel.text = @"为你推荐了10条视频";
+        }else{
+            self.refreshTipLabel.text = @"没有更多更新";
+        }
+        if(showTip){
+            [self.collectView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(self.view).mas_offset(self.refreshTipLabel.height);
+            }];
+            [UIView animateWithDuration:0.3 animations:^{
+                [self.view layoutIfNeeded];
+            }];
             
-//            if(insertArray.count){
-//                [CATransaction begin];
-//                [CATransaction setDisableActions:YES];
-//                [self.collectView insertItemsAtIndexPaths:insertArray];
-//                [CATransaction commit];
-//            }
-            
-//            [self.loadingView setHidden:YES];
-//            [self.noDataView setHidden:self.dataArray.count];
-            
-            NSInteger total = [self.dataArray count];
-            if(total > 0){
-                self.refreshTipLabel.text = @"为你推荐了10条视频";
-            }else{
-                self.refreshTipLabel.text = @"没有更多更新";
-            }
-            if(showTip){
-                [self.collectView mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(self.view).mas_offset(self.refreshTipLabel.height);
-                }];
-                [UIView animateWithDuration:0.3 animations:^{
-                    [self.view layoutIfNeeded];
-                }];
-                
-                [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
-            }
-        });
-//    } failure:^(NSError *error) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.refreshTipLabel setText:@"网络不给力"];
-//            [self.collectView.mj_footer endRefreshing];
-//            [self.collectView.mj_header endRefreshing];
-//            [self.loadingView setHidden:YES];
-//            [self.noDataView setHidden:self.dataArray.count];
-//            [self.collectView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.top.mas_equalTo(self).mas_offset(self.refreshTipLabel.height);
-//            }];
-//            [UIView animateWithDuration:0.3 animations:^{
-//                [self layoutIfNeeded];
-//            }];
-//
-//            [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
-//        });
-//    }];
+            [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
+        }
+    });
 }
 
 //开始下拉刷新
@@ -174,9 +106,7 @@ static CGFloat space = 0.5 ;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-//    KKSummaryContent *item = [self.dataArray safeObjectAtIndex:indexPath.row];
     KKXiaoShiPingCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellReuseIdentifier forIndexPath:indexPath];
-//    [cell refreshWith:item];
     return cell;
 }
 
@@ -187,12 +117,13 @@ static CGFloat space = 0.5 ;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    self.selIndexPath = indexPath ;
-//    KKSummaryContent *item = [self.dataArray safeObjectAtIndex:indexPath.row];
-    KKXiaoShiPingCell *cell = (KKXiaoShiPingCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.contentBgView.alpha = 0 ;
-    
-    [self showPlayViewWithItem:@"" oriRect:cell.frame oriImage:cell.corverView.image];
+    SmallVideoPlayViewController *vc = [SmallVideoPlayViewController new];
+    vc.showBackBtn = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+//    self.selIndexPath = indexPath ;
+//    KKXiaoShiPingCell *cell = (KKXiaoShiPingCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    cell.contentBgView.alpha = 0 ;
+//    [self showPlayViewWithItem:@"" oriRect:cell.frame oriImage:cell.corverView.image];
 }
 
 //设置水平间距 (同一行的cell的左右间距）
@@ -208,15 +139,7 @@ static CGFloat space = 0.5 ;
 #pragma mark -- 显示视频播放视图
 
 - (void)showPlayViewWithItem:(id)item oriRect:(CGRect)oriRect oriImage:(UIImage *)oriImage{
-//    KKNewsBaseInfo *newsInfo = [KKNewsBaseInfo new];
-//    newsInfo.title = item.title;
-//    newsInfo.groupId = item.smallVideo.group_id;
-//    newsInfo.itemId = item.smallVideo.item_id;
-//    newsInfo.commentCount = item.smallVideo.action.comment_count;
-//    newsInfo.userInfo = item.smallVideo.user.info;
-//    newsInfo.catagory = @"hotsoon_video";
-    
-    KKXiaoShiPingPlayView *browser = [[KKXiaoShiPingPlayView alloc]initWithNewsBaseInfo:@"" videoArray:self.dataArray selIndex:self.selIndexPath.row];
+    KKXiaoShiPingPlayView *browser = [[KKXiaoShiPingPlayView alloc]initWithNewsBaseInfo:@"" videoArray:self.dataArray selIndex:0];
     browser.delegate = self ;
     browser.topSpace = 0 ;
     browser.frame = CGRectMake(0, 0, Window_W, Window_H);
@@ -319,17 +242,5 @@ static CGFloat space = 0.5 ;
     }
     return _refreshTipLabel;
 }
-
-//- (KKLoadingView *)loadingView{
-//    if(!_loadingView){
-//        _loadingView = ({
-//            KKLoadingView *view = [KKLoadingView new];
-//            view.hidden = NO ;
-//            view.backgroundColor = [UIColor whiteColor];
-//            view ;
-//        });
-//    }
-//    return _loadingView;
-//}
 
 @end

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray *modelArray;
 @property (nonatomic, assign) NSInteger currentPlayIndex;
 @property (nonatomic) BOOL hasMore;
-
+@property (assign, nonatomic) BOOL showBackBtn; // 
 @property (nonatomic, assign) NSInteger rid;
 
 @end

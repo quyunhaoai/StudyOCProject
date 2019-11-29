@@ -19,15 +19,10 @@
 #define VideoCorverViewBaseTag 10000
 
 @interface KKXiaoShiPingPlayView()<UIScrollViewDelegate,KKXiaoShiPingPlayerDelegate>
-//@property(nonatomic)KKAuthorInfoView *navAuthorView;
-//@property(nonatomic)KKBottomBar *bottomBar;
 @property(nonatomic)UIScrollView *videoContainer;
 @property(nonatomic)UIImageView *animateImageView;//进入播放视图时的动画视图
-
 @property(nonatomic,strong)CAGradientLayer *topGradient;
 @property(nonatomic,strong)CAGradientLayer *bottomGradient;
-
-//@property(nonatomic)KKNewsBaseInfo *newsInfo;
 @property(nonatomic,copy)NSArray<id > *videoArray;
 @property(nonatomic,assign)NSInteger selIndex;
 @property(nonatomic,assign)UIStatusBarStyle barStyle;
@@ -46,10 +41,7 @@
         self.enableFreedomDrag = NO ;
         self.enableHorizonDrag = YES ;
         self.enableVerticalDrag = YES ;
-//        self.newsInfo = newsInfo;
         self.navContentOffsetY = 0 ;
-//        self.navTitleHeight = KKNavBarHeight ;
-//        self.videoArray = videoArray ;
         self.videoArray =@[@""];//   self.videoArray =@[@"",@"",@"",@"",@"",@"",@"",@""];
         self.selIndex = selIndex ;
         self.barStyle = [[UIApplication sharedApplication]statusBarStyle];
@@ -59,8 +51,6 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-//    self.topGradient.frame = CGRectMake(0, 0, self.width, 100);
-//    self.bottomGradient.frame = CGRectMake(0, self.height - 100, self.width, 100);
 }
 
 #pragma mark -- 视图的显示和消失
@@ -68,20 +58,17 @@
 - (void)viewWillAppear{
     [super viewWillAppear];
     [self initUI];
-//    [self refreshData];
     [self startAnimate];
     [UIApplication sharedApplication].statusBarHidden = NO;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     @STweakify(self);
     [self addTapGestureWithBlock:^(UIView *gestureView) {
         @STstrongify(self);
-
         self.topGradient.hidden = !self.topGradient.hidden;
         self.bottomGradient.hidden = !self.bottomGradient.hidden;
         [UIApplication sharedApplication].statusBarHidden = self.topGradient.hidden;
         [UIView animateWithDuration:0.3 animations:^{
             self.navTitleView.alpha = 1 - self.navTitleView.alpha;
-//            self.bottomBar.alpha = 1 - self.bottomBar.alpha;
         }completion:^(BOOL finished) {
 
         }];

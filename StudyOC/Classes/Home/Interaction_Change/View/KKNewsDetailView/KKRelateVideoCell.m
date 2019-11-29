@@ -100,6 +100,7 @@
     self.nameStringLabel.font = FONT_10;
     self.subNameStringLabel.font = FONT_10;
 }
+
 - (void)refreshData:(STVideoChannelModl *)data {
     [self.smallImgView yy_setImageWithURL:[NSURL URLWithString:data.video_thumb] placeholder:STImageViewDefaultImageMacro];
     self.titleLabel.text = data.video_title;
@@ -107,6 +108,7 @@
     self.nameStringLabel.text = data.nickname;
     self.subNameStringLabel.text = data.zuozhe_desc;
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
@@ -114,20 +116,12 @@
 + (CGFloat)techHeightForOjb:(id)obj {
     return 2 * kkPaddingLarge + 3 * FONT_18.lineHeight + 3 * 3 -10;
 }
-#pragma mark -- 初始化标题文本
-
-//+ (void)initAttriTextData:(KKSummaryContent *)content{
-//    if(content.textContainer == nil ){
-//        TYTextContainer *item = [TYTextContainer new];
-//        item.linesSpacing = 2 ;
-//        item.textColor = [UIColor kkColorBlack];
-//        item.lineBreakMode = NSLineBreakByTruncatingTail;
-//        item.text = content.title;
-//        item.font = KKTitleFont ;
-//        item.numberOfLines = 2;
-//        content.textContainer = [item createTextContainerWithTextWidth:KKTitleWidth];
-//    }
-//}
+#pragma mark  -  moreBtnClicked
+- (void)moreBtnClicked:(UIButton *)button {
+    if ([self.delegate respondsToSelector:@selector(jumpBtnClicked:)]) {
+        [self.delegate jumpBtnClicked:button];
+    }
+}
 
 #pragma mark -- @property
 
@@ -153,6 +147,7 @@
     }
     return _smallImgView;
 }
+
 - (UIView *)splitViewBottom{
     if(!_splitViewBottom){
         _splitViewBottom = ({
@@ -174,6 +169,7 @@
           view.layer.backgroundColor = [[UIColor colorWithRed:58.0f/255.0f green:58.0f/255.0f blue:68.0f/255.0f alpha:1.0f] CGColor];
           view.alpha = 1;
           [view setUserInteractionEnabled:YES];
+          view.hidden = YES;
 //          [view addTarget:self action:@selector(addBtnClick:) forControlEvents:UIControlEventTouchUpInside];
           view ;
             

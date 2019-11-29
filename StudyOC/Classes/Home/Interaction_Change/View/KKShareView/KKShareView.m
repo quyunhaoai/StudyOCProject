@@ -262,7 +262,7 @@ static NSString *cellReuseIdentifier = @"STHeaderImageFriendCollectionViewCell";
 - (UIView *)contentView{
     if(!_contentView){
         _contentView = [[UIView alloc]init];
-        _contentView.backgroundColor = [UIColor colorWithRed:20.0/255 green:21.0/255 blue:20.0/255 alpha:0.96];
+        _contentView.backgroundColor = [UIColor colorWithRed:20.0/255 green:21.0/255 blue:20.0/255 alpha:0.95];
     }
     return _contentView;
 }

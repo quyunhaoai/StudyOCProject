@@ -114,7 +114,7 @@
     self.activityView = [[SPActivityIndicatorView alloc] initWithType:SPActivityIndicatorAnimationTypeLineScalePulseOut tintColor:kWhiteColor size:11];
     self.activityView.frame = CGRectMake(kkPaddingNormalLarge+kkPaddingNormalLarge+8, (Window_W-kkPaddingNormalLarge*2)*0.56 + 40-14-16-kkPaddingSmall, 11, 11);
     [self.bgView addSubview:self.activityView];
-    self.videoTimeLabel.frame = CGRectMake(kkPaddingNormalLarge+kkPaddingNormalLarge+kkPaddingNormalLarge+11, (Window_W-kkPaddingNormalLarge*2)*0.56 + 40-17-16-kkPaddingSmall, 100, 17);
+    self.videoTimeLabel.frame = CGRectMake(kkPaddingNormalLarge+kkPaddingNormalLarge+kkPaddingNormalLarge, (Window_W-kkPaddingNormalLarge*2)*0.56 + 40-17-16-kkPaddingSmall, 100, 17);
 
     XYWeakSelf;
     [self.headerIconView addTapGestureWithBlock:^(UIView *gestureView) {
@@ -150,11 +150,13 @@
     [self.stateLabel setText:@"直播中"];
     self.videoTimeLabel.text = @"2.5万 3.05";
 }
+
 - (void)moreBtnClicked:(UIButton *)button {
     if ([self.delegate respondsToSelector:@selector(jumpBtnClicked:)]) {
         [self.delegate jumpBtnClicked:button];
     }
 }
+
 #pragma  mark  --  smallWindows 懒加载
 - (UIView *)smallWindosView {
     
@@ -184,6 +186,7 @@
     }
     return _gradientLayer1;
 }
+
 - (CAGradientLayer *)gradientLayer{
     if(!_gradientLayer){
         _gradientLayer = [CAGradientLayer layer];

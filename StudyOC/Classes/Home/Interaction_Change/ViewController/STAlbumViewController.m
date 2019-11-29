@@ -270,8 +270,14 @@
     }
     [self.navigationController pushViewController:vc animated:YES];
 }
-
+#pragma mark  -  cellDelegate
+- (void)clickButtonWithType:(KKBarButtonType)type item:(id)item {
+    if (type == KKBarButtonTypeComment) {
+        [[QYHTools sharedInstance] showCommentView];
+    }
+}
 - (void)jumpBtnClicked:(id)item {
+      [[QYHTools sharedInstance] shareVideo];
 //    STNoLikeMaskView *nolikeView = [[STNoLikeMaskView alloc] initWithFrame:CGRectMake(0,
 //                                                                                      0,
 //                                                                                      Window_W,
@@ -374,6 +380,7 @@
     }
     return YES;
 }
+
 - (void)setCurrentPlayingIndex:(NSInteger)currentPlayingIndex
 {
     if(_currentPlayingIndex!=currentPlayingIndex){

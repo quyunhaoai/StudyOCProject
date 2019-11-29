@@ -38,6 +38,7 @@
     [self.corverView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self);
     }];
+    
 }
 
 #pragma mark -- 视频播放
@@ -45,10 +46,9 @@
 - (void)startPlayVideo{
     
     [self destoryVideoPlayer];
-    
     [self showActivityViewWithImage:@"liveroom_rotate_55x55_"];
     
-//    @weakify(self);
+    @STweakify(self);
     [[KKAVPlayer sharedInstance]initPlayInfoWithUrl:self.playUrl
                                           mediaType:KKMediaTypeVideo
                                         networkType:self.netType
@@ -56,13 +56,13 @@
      {
      }compelete:^(KKAVPlayer *player){
          NSLog(@"compelete");
-//         @strongify(self);
+         @STstrongify(self);
          [[KKAVPlayer sharedInstance].playerLayer removeFromSuperlayer];
          [[KKAVPlayer sharedInstance] releasePlayer];
          [self startPlayVideo];
      } loadStatus:^(KKAVPlayer *player, AVPlayerStatus status) {
          NSLog(@"AVPlayerStatus status:%ld",status);
-//         @strongify(self);
+         @STstrongify(self);
          [self hiddenActivity];
          if(self.delegate && [self.delegate respondsToSelector:@selector(videoDidPlaying)]){
              [self.delegate videoDidPlaying];
@@ -73,13 +73,13 @@
          NSLog(@"willSeekToPosition");
      } seekComplete:^(KKAVPlayer *player,CGFloat prePos,CGFloat curtPos) {
      } buffering:^(KKAVPlayer *player) {
-//         @strongify(self);
+         @STstrongify(self);
          [self showActivityViewWithImage:@"liveroom_rotate_55x55_"];
      } bufferFinish:^(KKAVPlayer *player) {
-//         @strongify(self);
+         @STstrongify(self);
          [self hiddenActivity];
      } error:^(KKAVPlayer *player, NSError *error) {
-//         @strongify(self);
+         @STstrongify(self);
          [self hiddenActivity];
      }];
     

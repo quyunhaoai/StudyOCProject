@@ -279,7 +279,7 @@
 
 //关注
 - (void)addConcern {
-    
+    [[QYHTools sharedInstance] followBtnClick:[self.model.uid intValue] andButton:_focus];
     if([self.delegate respondsToSelector:@selector(handleAddConcerWithVideoModel:)]) {
         [self.delegate handleAddConcerWithVideoModel:self.model];
     }
@@ -287,6 +287,9 @@
 
 //进入个人主页
 - (void)pushToPersonalMessageVC {
+    if ([self.delegate respondsToSelector:@selector(handleClickPersonIcon:)]) {
+        [self.delegate handleClickPersonIcon:self.model];
+    }
 }
 
 //收藏视频

@@ -8,12 +8,12 @@
 
 #import "QYHTools.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-@interface QYHTools()
+#import <Photos/Photos.h>
+@interface QYHTools()<NSURLSessionDownloadDelegate,KKShareViewDelegate>
 {
-//    QYHTools *_instance;
-}
-//@property (nonatomic,strong) QYHTools *instance;
 
+}
+@property(nonatomic,strong)NSURLSessionDownloadTask *downloadTask;
 @end
 @implementation QYHTools
 /**
@@ -324,12 +324,213 @@
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library writeVideoAtPathToSavedPhotosAlbum:outputFileURL
                                 completionBlock:^(NSURL *assetURL, NSError *error) {
-                                    if (error) {
-                                        NSLog(@"保存视频失败:%@",error);
-                                    } else {
-                                        NSLog(@"保存视频到相册成功");
-                                    }
-                                }];
+        if (error) {
+            NSLog(@"保存视频失败:%@",error);
+        } else {
+            NSLog(@"保存视频到相册成功");
+        }
+    }];
+    
 }
 
+- (void)showCommentView {
+    KKNewsCommentView *view = [[KKNewsCommentView alloc]initWithNewsBaseInfo:@""];
+    view.topSpace = 249+STATUS_BAR_HEIGHT ;
+    view.navContentOffsetY = 0 ;
+    view.navTitleHeight = 44 ;
+    view.contentViewCornerRadius = 10 ;
+    view.cornerEdge = UIRectCornerTopRight|UIRectCornerTopLeft;
+    view.enableHorizonDrag = NO;
+    view.enableFreedomDrag = NO;
+    view.defaultHideAnimateWhenDragFreedom = NO;
+    [[UIApplication sharedApplication].keyWindow addSubview:view];
+    [view mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.top.mas_equalTo(0);
+        make.size.mas_equalTo(CGSizeMake(Window_W, Window_H));
+    }];
+    [view startShow];
+}
+
+#pragma mark  -  分享视图
+- (void)shareVideo{
+    KKShareView *view = [KKShareView new];
+    view.shareInfos = [self createShareItems];
+    view.frame = [[UIScreen mainScreen]bounds];
+    view.delegate = self ;
+    [[UIApplication sharedApplication].keyWindow addSubview:view];
+    [view showShareView];
+}
+
+#pragma mark -- 创建更多视图的item
+
+- (NSArray<NSArray<KKShareItem *> *> *)createShareItems{
+    KKShareItem *itemWTT = [[KKShareItem alloc]initWithShareType:KKShareTypeWeiTouTiao iconImageName:@"bespoke_editLive_n" title:@"转发"];
+    KKShareItem *sendfriend = [[KKShareItem alloc]initWithShareType:KKShareTypeQQ iconImageName:@"bespoke_editLive_n" title:@"私信好友"];
+    KKShareItem *itemWX = [[KKShareItem alloc]initWithShareType:KKShareTypeWXFriend iconImageName:@"bespoke_weixin_n" title:@"微信"];
+    KKShareItem *itemTime = [[KKShareItem alloc]initWithShareType:KKShareTypeWXTimesmp iconImageName:@"bespoke_pengyouquan_n" title:@"朋友圈"];
+    KKShareItem *itemWeiBo = [[KKShareItem alloc]initWithShareType:KKShareTypeWeiBo iconImageName:@"bespoke_weibo_n" title:@"微博"];
+    KKShareItem *itemSys = [[KKShareItem alloc]initWithShareType:KKShareTypeSysShare iconImageName:@"bespoke_editLive_n" title:@"系统分享"];
+    KKShareItem *report = [[KKShareItem alloc] initWithShareType:KKShareTypeReport iconImageName:@"bespoke_editLive_n" title:@"举报"];
+    KKShareItem *coll = [[KKShareItem alloc] initWithShareType:KKShareTypeCollect iconImageName:@"bespoke_editLive_n" title:@"收藏"];
+    KKShareItem *itemMsg = [[KKShareItem alloc]initWithShareType:KKShareTypeDown iconImageName:@"bespoke_editLive_n" title:@"保存到相册"];
+    KKShareItem *itemEmail = [[KKShareItem alloc]initWithShareType:KKShareTypeNolike iconImageName:@"bespoke_editLive_n" title:@"不感兴趣"];
+    KKShareItem *itemCopyLink = [[KKShareItem alloc]initWithShareType:KKShareTypeCopyLink iconImageName:@"bespoke_editLive_n" title:@"复制链接"];
+    
+    NSArray *array1 =@[itemWTT,sendfriend,itemWX,itemTime,itemWeiBo,itemSys];
+    NSArray *array2 =@[report,coll,itemMsg,itemEmail,itemCopyLink];
+    
+    return @[array1,array2];
+}
+
+#pragma mark -- KKShareViewDelegate
+
+- (void)shareWithType:(KKShareType)shareType{
+    switch (shareType) {
+        case KKShareTypeWXFriend:{
+            KKShareObject *shareItem = [KKShareObject new];
+            shareItem.title = @"粉号";
+            shareItem.desc = @"分享描述";
+            shareItem.shareImage = IMAGE_NAME(STSystemDefaultImageName);
+            [KKThirdTools shareToWXWithObject:shareItem scene:KKWXSceneTypeChat complete:^(KKErrorCode resultCode, NSString *resultString) {
+                
+            }];
+        }
+            break;
+        case KKShareTypeWXTimesmp:{
+            KKShareObject *shareItem = [KKShareObject new];
+            shareItem.title = @"粉号";
+            shareItem.desc = @"分享描述";
+            shareItem.shareImage = IMAGE_NAME(STSystemDefaultImageName);
+            [KKThirdTools shareToWXWithObject:shareItem scene:KKWXSceneTypeChat complete:^(KKErrorCode resultCode, NSString *resultString) {
+                
+            }];
+        }
+            break;
+        case KKShareTypeWeiBo:{
+            KKShareObject *shareItem = [KKShareObject new];
+            shareItem.title = @"粉号";
+            shareItem.desc = @"分享描述";
+            shareItem.shareImage = IMAGE_NAME(STSystemDefaultImageName);
+            [KKThirdTools shareToWbWithObject:shareItem complete:^(KKErrorCode resultCode, NSString *resultString) {
+                
+            }];
+        }
+            break;
+        case KKShareTypeCollect:{//收藏
+
+        }
+            break;
+        case KKShareTypeNolike:{//不感兴趣
+
+        }
+            break;
+        case KKShareTypeDown:{//保存到相册
+
+        }
+            break;
+        case KKShareTypeCopyLink:{//复制链接
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//            pasteboard.string =[NSString stringWithFormat:@"%@%@%@",self.heardItem.nickname,self.heardItem.video_desc, self.heardItem.video_url];
+            [MBManager showBriefAlert:@"复制成功"];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)followBtnClick:(int )userId andButton:(UIButton *)button {
+    NSString *key = [kUserDefaults objectForKey:STUserRegisterInfokey];
+    if ([key isNotBlank]) {
+         NSDictionary *params = @{@"i":@(1),
+                                  @"key":key,
+                                  @"uid":@(userId),
+        };
+        [[STHttpResquest sharedManager] requestWithMethod:POST
+                                                 WithPath:@"user_center/do_video_guanzhu"
+                                               WithParams:params
+                                         WithSuccessBlock:^(NSDictionary * _Nonnull dic){
+            NSInteger status = [[dic objectForKey:@"state"] integerValue];
+            NSString *msg = [[dic objectForKey:@"msg"] description];
+            if(status == 200){
+                NSDictionary *data = [dic objectForKey:@"data"];
+                int flag_type = [[data objectForKey:@"flag_type"] intValue];
+                if (flag_type == 1) {
+                    button.layer.backgroundColor = [[UIColor colorWithRed:58.0f/255.0f green:58.0f/255.0f blue:68.0f/255.0f alpha:1.0f] CGColor];
+                    [button setTitle:@"已订阅" forState:UIControlStateNormal];
+                } else {
+                    button.layer.backgroundColor = [[UIColor colorWithRed:255.0f/255.0f green:33.0f/255.0f blue:144.0f/255.0f alpha:1.0f] CGColor];
+                    [button setTitle:@"订阅+" forState:UIControlStateNormal];
+                }
+            }else {
+                if (msg.length>0) {
+                    [MBManager showBriefAlert:msg];
+                }
+            }
+        } WithFailurBlock:^(NSError * _Nonnull error) {
+            
+        }];
+    } else {
+        STLoginViewController *vc = [STLoginViewController new];
+        vc.barStyle = [UIApplication sharedApplication].statusBarStyle;
+        STBaseNav *nav = [[STBaseNav alloc] initWithRootViewController:vc];
+        [kRootViewController presentViewController:nav animated:YES completion:^{
+            
+        }];
+    }
+}
+
+/** 下载视频 */
+
+-(void)startDownLoadVedioWithUrl:(NSString *)url {
+
+//_model=model;
+    NSURLSessionConfiguration*config=[NSURLSessionConfiguration defaultSessionConfiguration];
+
+    NSURLSession*session=[NSURLSession sessionWithConfiguration:config
+                                                       delegate:self
+                                                  delegateQueue:[NSOperationQueue mainQueue]];
+
+    self.downloadTask=[session downloadTaskWithURL:[NSURL URLWithString:url]];
+
+    [self.downloadTask resume];
+
+}
+
+#pragma mark NSSessionUrlDelegate
+-(void)URLSession:(NSURLSession*)session downloadTask:(NSURLSessionDownloadTask*)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
+    double progress;
+//下载进度CGFloat
+    progress=totalBytesWritten/(double)totalBytesExpectedToWrite;
+    dispatch_async(dispatch_get_main_queue(),^{
+//进行UI操作 设置进度条
+        [WSProgressHUD showProgress:progress];
+    });
+
+}
+
+//下载完成 保存到本地相册
+
+-(void)URLSession:(NSURLSession*)session downloadTask:(NSURLSessionDownloadTask*)downloadTask didFinishDownloadingToURL:(NSURL*)location{
+//1.拿到cache文件夹的路径
+    NSString*cache=[NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES)lastObject];
+    NSLog(@"cache:%@",cache);
+//2,拿到cache文件夹和文件名
+    NSString*file=[cache stringByAppendingPathComponent:self.downloadTask.response.suggestedFilename];[[NSFileManager defaultManager]moveItemAtURL:location toURL:[NSURL fileURLWithPath:file]error:nil];
+//3，保存视频到相册
+    if(UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(file)){
+        //保存相册核心代码
+        UISaveVideoAtPathToSavedPhotosAlbum(file,self,nil,nil);
+        NSLog(@"保存相册!");
+    }
+    [WSProgressHUD dismiss];
+    [WSProgressHUD showSuccessWithStatus:@"保存成功"];
+    [self autoDismiss];
+}
+- (void)autoDismiss {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [WSProgressHUD dismiss];
+    });
+
+}
 @end

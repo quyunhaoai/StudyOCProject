@@ -79,6 +79,9 @@
 #import "NSDate+Compare.h"
 #import "NSData+CRC32.h"
 #import "NSData+Base64.h"
+#import "NSAttributedString+Extension.h"
+#import "NSNotification+Extension.h"
+#import "NSMutableAttributedString+TY.h"
 //=========================网络=====================
 #import "STHttpResquest.h"
 //=========================文件管理==================
@@ -91,6 +94,8 @@
 #import "STSearchView.h"
 #import "STLoginViewController.h"
 #import "KKAVPlayerView.h"
+#import "KKShareView.h"
+#import "KKNewsCommentView.h"
 //=====================chat=============
 #import "AccountTool.h"
 #import "Constant.h"

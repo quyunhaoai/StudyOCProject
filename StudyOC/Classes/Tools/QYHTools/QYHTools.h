@@ -57,22 +57,30 @@
  *  @^BLOCK 返回文件夹尺寸
  */
 + (void)getFileSize:(NSString *)directoryPath completion:(void(^)(NSInteger))completion;
-
-
 /**
  *  删除文件夹所有文件
  *
  *  @param directoryPath 文件夹路径
  */
 + (void)removeDirectoryPath:(NSString *)directoryPath;
-
 /// 获取当前VC
 - (UIViewController *)getCurrentVC;
 /*对象转字符串*/
 -(NSString*)DataTOjsonString:(id)object;
-                
-
 /// 保存视频到相册
 /// @param outputFileURL 沙盒路径
 - (void)saveVideoToALAssetsLibrary:(NSURL *)outputFileURL;
+/// 评论弹窗
+- (void)showCommentView;
+/// 分享更多
+- (void)shareVideo;
+/// 关注好友
+/// @param userId 用户ID
+- (void)followBtnClick:(int )userId andButton:(UIButton *)button;
+
+/// 下载视频
+/// @param url 地址
+-(void)startDownLoadVedioWithUrl:(NSString *)url;
+
+- (void)autoDismiss;
 @end

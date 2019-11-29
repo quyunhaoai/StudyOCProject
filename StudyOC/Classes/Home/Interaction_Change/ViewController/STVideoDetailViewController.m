@@ -16,10 +16,11 @@
 #define AuthorViewHeight 60
 #import "KKShareView.h"
 #import "KKShareObject.h"
+#import "CommentsPopView.h"
 static NSString *commentCellReuseable = @"commentCellReuseable";
 static NSString *relateVideoCellReuseable = @"relateVideoCellReuseable";
 static CGFloat detailVideoPlayViewHeight = 0 ;
-@interface STVideoDetailViewController ()<KKAVPlayerViewDelegate,UITableViewDelegate,UITableViewDataSource,KKAuthorInfoViewDelegate,KKShareViewDelegate>
+@interface STVideoDetailViewController ()<KKAVPlayerViewDelegate,UITableViewDelegate,UITableViewDataSource,KKAuthorInfoViewDelegate,KKShareViewDelegate,KKCommonDelegate>
 @property (strong, nonatomic) KKAVPlayerView *detailVideoPlayView; // 视图
 @property (strong, nonatomic) UIImageView *videoContentView; //  视图
 
@@ -277,13 +278,18 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
         }
             break;
         case KKShareTypeDown:{//保存到相册
-
+            [[QYHTools sharedInstance] startDownLoadVedioWithUrl:self.heardItem.video_url];
         }
             break;
         case KKShareTypeCopyLink:{//复制链接
-            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-            pasteboard.string =[NSString stringWithFormat:@"%@%@%@",self.heardItem.nickname,self.heardItem.video_desc, self.heardItem.video_url];
-            [MBManager showBriefAlert:@"复制成功"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+                NSString *copyStr = [NSString stringWithFormat:@"%@%@%@",self.heardItem.nickname,self.heardItem.video_desc, self.heardItem.video_url];
+                pasteboard.string =copyStr;
+                NSLog(@"%@",pasteboard.string);
+                [WSProgressHUD showSuccessWithStatus:@"复制成功"];
+                [[QYHTools sharedInstance] autoDismiss];
+            });
         }
             break;
         default:
@@ -293,21 +299,23 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
 
 #pragma mark  -  显示评论视图
 - (void)showCommentView{
-    KKNewsCommentView *view = [[KKNewsCommentView alloc]initWithNewsBaseInfo:@""];
-    view.topSpace = 249+STATUS_BAR_HEIGHT ;
-    view.navContentOffsetY = 0 ;
-    view.navTitleHeight = 44 ;
-    view.contentViewCornerRadius = 10 ;
-    view.cornerEdge = UIRectCornerTopRight|UIRectCornerTopLeft;
-    view.enableHorizonDrag = NO;
-    view.enableFreedomDrag = NO;
-    view.defaultHideAnimateWhenDragFreedom = NO;
-    [[UIApplication sharedApplication].keyWindow addSubview:view];
-    [view mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.left.top.mas_equalTo(0);
-        make.size.mas_equalTo(CGSizeMake(Window_W, Window_H));
-    }];
-    [view startShow];
+    CommentsPopView *view = [[CommentsPopView alloc] initWithAwemeId:@""];
+    [view show];
+//    KKNewsCommentView *view = [[KKNewsCommentView alloc]initWithNewsBaseInfo:@""];
+//    view.topSpace = 249+STATUS_BAR_HEIGHT ;
+//    view.navContentOffsetY = 0 ;
+//    view.navTitleHeight = 44 ;
+//    view.contentViewCornerRadius = 10 ;
+//    view.cornerEdge = UIRectCornerTopRight|UIRectCornerTopLeft;
+//    view.enableHorizonDrag = NO;
+//    view.enableFreedomDrag = NO;
+//    view.defaultHideAnimateWhenDragFreedom = NO;
+//    [[UIApplication sharedApplication].keyWindow addSubview:view];
+//    [view mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.left.top.mas_equalTo(0);
+//        make.size.mas_equalTo(CGSizeMake(Window_W, Window_H));
+//    }];
+//    [view startShow];
 }
 
 #pragma mark -- UITableViewDataSource,UITableViewDelegate
@@ -329,6 +337,7 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
     cell = [tableView dequeueReusableCellWithIdentifier:relateVideoCellReuseable];
     STVideoChannelModl *item =[STVideoChannelModl yy_modelWithDictionary:[self.relateVideoArray safeObjectAtIndex:indexPath.row]];
     [((KKRelateVideoCell *)cell) refreshData:item];
+    [(KKRelateVideoCell *)cell setDelegate:self];
     return cell;
 }
 
@@ -378,20 +387,15 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
     vc.title = @"个人主页";
     [self.navigationController pushViewController:vc animated:YES];
 }
-#pragma mark -- KKCommentDelegate
-
-- (void)diggBtnClick:(NSString *)commemtId callback:(void (^)(BOOL))callback{
-    NSLog(@"commentId:%@",commemtId);
+#pragma mark  -  cellDel
+- (void)clickButtonWithType:(KKBarButtonType)type item:(id)item {
+    if (type == KKBarButtonTypeMore) {
+        [[QYHTools sharedInstance] shareVideo];
+    }
 }
-
-- (void)showAllComment:(NSString *)commentId{
+- (void)jumpBtnClicked:(id)item {
+    [[QYHTools sharedInstance] shareVideo];
 }
-
-- (void)jumpToUserPage:(NSString *)userId{
-    
-    self.detailVideoPlayView.canHideStatusBar = NO ;
-}
-
 - (void)setConcern:(BOOL)isConcern userId:(NSString *)userId callback:(void (^)(BOOL))callback{
     if(callback){
         callback(YES);

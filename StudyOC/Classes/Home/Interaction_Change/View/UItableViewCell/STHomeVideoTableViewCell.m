@@ -307,6 +307,11 @@
         [self.delegate jumpBtnClicked:button];
     }
 }
+- (void)commentBtnClick:(UIButton *)button {
+    if ([self.delegate respondsToSelector:@selector(clickButtonWithType:item:)]) {
+        [self.delegate clickButtonWithType:KKBarButtonTypeComment item:button];
+    }
+}
 #pragma  mark  --  addBtn 懒加载
 - (UIButton *)addButton {
     
@@ -387,6 +392,7 @@
            UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
            [view setImage:[UIImage imageNamed:@"comment_icon_video"] forState:UIControlStateNormal];
            [view setUserInteractionEnabled:YES];
+            [view addTarget:self action:@selector(commentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
            view ;
        });
     }

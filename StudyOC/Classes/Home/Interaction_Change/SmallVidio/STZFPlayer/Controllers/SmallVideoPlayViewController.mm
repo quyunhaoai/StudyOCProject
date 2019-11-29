@@ -104,17 +104,17 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
             [self preLoadIndex:self.currentPlayIndex + 1];
         }
     });
-    
-//    UIButton *btn = [[UIButton alloc] init];
-//    [self.view addSubview:btn];
-//    [btn setImage:[UIImage imageNamed:@"Comment_Navi_button_back"] forState:UIControlStateNormal];
-//    [btn addTarget:self action:@selector(backToPreviousView:) forControlEvents:UIControlEventTouchUpInside];
-//    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.with.offset(10);
-//        make.top.with.offset(isIphoneX ? 24 : 0);
-//        make.size.mas_equalTo(CGSizeMake(60, 64));
-//    }];
-    
+    if (self.showBackBtn) {
+        UIButton *btn = [[UIButton alloc] init];
+        [self.view addSubview:btn];
+        [btn setImage:[UIImage imageNamed:@"Comment_Navi_button_back"] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(backToPreviousView:) forControlEvents:UIControlEventTouchUpInside];
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.with.offset(10);
+            make.top.with.offset(isIphoneX ? 24 : 0);
+            make.size.mas_equalTo(CGSizeMake(60, 64));
+        }];
+    }
 }
 
 #pragma mrak - UITableViewDataSource & UITableViewDelegate
@@ -129,8 +129,6 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
     cell.delegate = self;
     NSLog(@"cell的地址:%p   index:%ld   %ld",cell,indexPath.row,self.modelArray.count-2);
     cell.model = self.modelArray[indexPath.row];
-//    NSInteger rowIndex = indexPath.row;
-//    NSInteger index = self.modelArray.count - 2;
     return cell;
 }
 
@@ -263,25 +261,35 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
     [self.preloadVideoPlayerManager resetToPlayNewVideo];
 }
 
-
-
 #pragma mark - SmallVideoPlayCellDlegate
 
 //评论
 - (void)handleCommentVidieoModel:(SmallVideoModel *)smallVideoModel {
-//    CommentsPopView *popView = [[CommentsPopView alloc] initWithSmallVideoModel:smallVideoModel];
-//    [popView showToView:self.view];
+    [[QYHTools sharedInstance] showCommentView];
 }
-
-
+//分享
+- (void)handleShareVideoModel:(SmallVideoModel *)smallVideoModel {
+    [[QYHTools sharedInstance] shareVideo];
+}
+//喜欢
+- (void)handleFavoriteVdieoModel:(SmallVideoModel *)smallVdeoModel {
+    
+}
+//不喜欢
+-(void)handleDeleteFavoriteVdieoModel:(SmallVideoModel *)smallVdeoModel {
+    
+}
+//头像
+- (void)handleClickPersonIcon:(SmallVideoModel *)smallVideoModel {
+    STChildrenViewController *vc = [STChildrenViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 #pragma mark - Action
-- (void) backToPreviousView:(id)sender;
-{
+- (void) backToPreviousView:(id)sender;{
     [self.videoPlayerManager resetPlayer];
     [self.preloadVideoPlayerManager resetPlayer];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 #pragma mark - LazyLoad
 

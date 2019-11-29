@@ -43,6 +43,7 @@ static NSString *commentCellReuseable = @"commentCellReuseable";
         self.navTitleHeight = 44 ;
         self.contentViewCornerRadius = 10 ;
         self.cornerEdge = UIRectCornerTopRight|UIRectCornerTopLeft;
+        [self initUI];
     }
     return self ;
 }
@@ -51,8 +52,7 @@ static NSString *commentCellReuseable = @"commentCellReuseable";
 
 - (void)viewWillAppear{
     [super viewWillAppear];
-    [self initUI];
-//    [self loadCommentData];
+//    [self initUI];
 }
 
 - (void)viewWillDisappear{

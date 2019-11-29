@@ -197,18 +197,11 @@
 		A58DBF01238BC1DD00766617 /* KKWeiBoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBEF2238BC1DD00766617 /* KKWeiBoTool.m */; };
 		A58DBF02238BC1DD00766617 /* KKQQTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBEF5238BC1DD00766617 /* KKQQTool.m */; };
 		A58DBF29238BD74300766617 /* UITableViewCell+FSAutoCountHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF06238BD74100766617 /* UITableViewCell+FSAutoCountHeight.m */; };
-		A58DBF2A238BD74300766617 /* ZMPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF0A238BD74200766617 /* ZMPlaceholderTextView.m */; };
-		A58DBF2B238BD74300766617 /* ZMCusCommentListContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF0B238BD74200766617 /* ZMCusCommentListContentCell.m */; };
 		A58DBF2C238BD74300766617 /* LKContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF0C238BD74200766617 /* LKContentModel.m */; };
 		A58DBF2D238BD74300766617 /* LKMoreReplyContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF0D238BD74200766617 /* LKMoreReplyContentTableViewCell.m */; };
-		A58DBF2E238BD74300766617 /* ZMCusCommentListReplyContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF0F238BD74200766617 /* ZMCusCommentListReplyContentCell.m */; };
 		A58DBF2F238BD74300766617 /* LKMoreReplyContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58DBF10238BD74200766617 /* LKMoreReplyContentTableViewCell.xib */; };
-		A58DBF30238BD74300766617 /* ZMCusCommentToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF12238BD74200766617 /* ZMCusCommentToolView.m */; };
-		A58DBF31238BD74300766617 /* ZMCusCommentListTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF13238BD74200766617 /* ZMCusCommentListTableHeaderView.m */; };
 		A58DBF32238BD74300766617 /* LKCommentListContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF14238BD74200766617 /* LKCommentListContentCell.m */; };
 		A58DBF33238BD74300766617 /* LKCommentListReplyContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58DBF19238BD74200766617 /* LKCommentListReplyContentCell.xib */; };
-		A58DBF34238BD74300766617 /* ZMCusCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF1A238BD74200766617 /* ZMCusCommentView.m */; };
-		A58DBF35238BD74300766617 /* ZMCusCommentBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF1B238BD74200766617 /* ZMCusCommentBottomView.m */; };
 		A58DBF36238BD74300766617 /* ZMCusCommentListView.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF1C238BD74200766617 /* ZMCusCommentListView.m */; };
 		A58DBF37238BD74300766617 /* LKCommentListContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A58DBF1D238BD74200766617 /* LKCommentListContentCell.xib */; };
 		A58DBF38238BD74300766617 /* LKCommentListReplyContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A58DBF1E238BD74200766617 /* LKCommentListReplyContentCell.m */; };
@@ -341,6 +334,10 @@
 		A5A6DB86236830D300E476D8 /* icon_search_clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5A6DB80236830D300E476D8 /* icon_search_clear@2x.png */; };
 		A5A6DB87236830D300E476D8 /* icon_search_clear@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5A6DB81236830D300E476D8 /* icon_search_clear@3x.png */; };
 		A5A6DB8A23683F1100E476D8 /* QYHTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A6DB8923683F1100E476D8 /* QYHTools.m */; };
+		A5A705332390FD19001C343F /* CommentsPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A705322390FD19001C343F /* CommentsPopView.m */; };
+		A5A705362390FDAD001C343F /* LoadMoreControl.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A705352390FDAD001C343F /* LoadMoreControl.m */; };
+		A5A70539239100CD001C343F /* NSAttributedString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A70538239100CD001C343F /* NSAttributedString+Extension.m */; };
+		A5A7053C23910137001C343F /* NSNotification+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A7053B23910137001C343F /* NSNotification+Extension.m */; };
 		A5BC786B2371085400186F4B /* LPADLaunchController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC78692371085400186F4B /* LPADLaunchController.m */; };
 		A5BC786E2371086B00186F4B /* LPADLaunchView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC786D2371086B00186F4B /* LPADLaunchView.m */; };
 		A5BC78792371097200186F4B /* UIImage+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = A5BC78702371096D00186F4B /* UIImage+Size.m */; };
@@ -387,6 +384,9 @@
 		A5CB8FA32376437400165060 /* UIView+ActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CB8FA12376437400165060 /* UIView+ActivityIndicatorView.m */; };
 		A5D81ACB2355AD810008C198 /* STVideoHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D81ACA2355AD810008C198 /* STVideoHomeViewController.m */; };
 		A5D81ACF2355C9B90008C198 /* STInteractionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D81ACE2355C9B90008C198 /* STInteractionViewController.m */; };
+		A5E8C1E8238F7C6800E49467 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A559E46B237559AF0052DBB0 /* Photos.framework */; };
+		A5E8C1EA238F7C7500E49467 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5E8C1E9238F7C7500E49467 /* PhotosUI.framework */; };
+		A5E8C1EB238F7D7800E49467 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A559E469237559A20052DBB0 /* AssetsLibrary.framework */; };
 		A5EEFE5A2323449B0039F25C /* STSocialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EEFE592323449B0039F25C /* STSocialViewController.m */; };
 		A5EEFE5D232344AF0039F25C /* STChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5EEFE5C232344AF0039F25C /* STChatViewController.m */; };
 		A5F462AA235AB32C000471CF /* DRNRealTimeBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5F462A6235AB32B000471CF /* DRNRealTimeBlurView.m */; };
@@ -870,33 +870,19 @@
 		A58DBEF5238BC1DD00766617 /* KKQQTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKQQTool.m; sourceTree = "<group>"; };
 		A58DBF05238BD74100766617 /* UITableViewCell+FSAutoCountHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+FSAutoCountHeight.h"; sourceTree = "<group>"; };
 		A58DBF06238BD74100766617 /* UITableViewCell+FSAutoCountHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+FSAutoCountHeight.m"; sourceTree = "<group>"; };
-		A58DBF08238BD74200766617 /* ZMCusCommentBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMCusCommentBottomView.h; sourceTree = "<group>"; };
-		A58DBF09238BD74200766617 /* ZMCusCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMCusCommentView.h; sourceTree = "<group>"; };
-		A58DBF0A238BD74200766617 /* ZMPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMPlaceholderTextView.m; sourceTree = "<group>"; };
-		A58DBF0B238BD74200766617 /* ZMCusCommentListContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMCusCommentListContentCell.m; sourceTree = "<group>"; };
 		A58DBF0C238BD74200766617 /* LKContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKContentModel.m; sourceTree = "<group>"; };
 		A58DBF0D238BD74200766617 /* LKMoreReplyContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKMoreReplyContentTableViewCell.m; sourceTree = "<group>"; };
 		A58DBF0E238BD74200766617 /* ZMCusCommentListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMCusCommentListView.h; sourceTree = "<group>"; };
-		A58DBF0F238BD74200766617 /* ZMCusCommentListReplyContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMCusCommentListReplyContentCell.m; sourceTree = "<group>"; };
 		A58DBF10238BD74200766617 /* LKMoreReplyContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LKMoreReplyContentTableViewCell.xib; sourceTree = "<group>"; };
 		A58DBF11238BD74200766617 /* LKCommentListReplyContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCommentListReplyContentCell.h; sourceTree = "<group>"; };
-		A58DBF12238BD74200766617 /* ZMCusCommentToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMCusCommentToolView.m; sourceTree = "<group>"; };
-		A58DBF13238BD74200766617 /* ZMCusCommentListTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMCusCommentListTableHeaderView.m; sourceTree = "<group>"; };
 		A58DBF14238BD74200766617 /* LKCommentListContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCommentListContentCell.m; sourceTree = "<group>"; };
 		A58DBF15238BD74200766617 /* LKMoreReplyContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKMoreReplyContentTableViewCell.h; sourceTree = "<group>"; };
 		A58DBF16238BD74200766617 /* LKContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKContentModel.h; sourceTree = "<group>"; };
-		A58DBF17238BD74200766617 /* ZMCusCommentListContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMCusCommentListContentCell.h; sourceTree = "<group>"; };
-		A58DBF18238BD74200766617 /* ZMPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMPlaceholderTextView.h; sourceTree = "<group>"; };
 		A58DBF19238BD74200766617 /* LKCommentListReplyContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LKCommentListReplyContentCell.xib; sourceTree = "<group>"; };
-		A58DBF1A238BD74200766617 /* ZMCusCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMCusCommentView.m; sourceTree = "<group>"; };
-		A58DBF1B238BD74200766617 /* ZMCusCommentBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMCusCommentBottomView.m; sourceTree = "<group>"; };
 		A58DBF1C238BD74200766617 /* ZMCusCommentListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMCusCommentListView.m; sourceTree = "<group>"; };
 		A58DBF1D238BD74200766617 /* LKCommentListContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LKCommentListContentCell.xib; sourceTree = "<group>"; };
 		A58DBF1E238BD74200766617 /* LKCommentListReplyContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKCommentListReplyContentCell.m; sourceTree = "<group>"; };
-		A58DBF1F238BD74200766617 /* ZMCusCommentListReplyContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMCusCommentListReplyContentCell.h; sourceTree = "<group>"; };
 		A58DBF20238BD74200766617 /* LKCommentListContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKCommentListContentCell.h; sourceTree = "<group>"; };
-		A58DBF21238BD74200766617 /* ZMCusCommentListTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMCusCommentListTableHeaderView.h; sourceTree = "<group>"; };
-		A58DBF22238BD74200766617 /* ZMCusCommentToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMCusCommentToolView.h; sourceTree = "<group>"; };
 		A59031E7234D807500DC420D /* STLoginBottomButtonViews.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STLoginBottomButtonViews.h; sourceTree = "<group>"; };
 		A59031E8234D807500DC420D /* STLoginBottomButtonViews.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STLoginBottomButtonViews.m; sourceTree = "<group>"; };
 		A59031EA234DBF9800DC420D /* STLoginInputView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STLoginInputView.h; sourceTree = "<group>"; };
@@ -1153,6 +1139,14 @@
 		A5A6DB81236830D300E476D8 /* icon_search_clear@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_search_clear@3x.png"; sourceTree = "<group>"; };
 		A5A6DB8823683F1000E476D8 /* QYHTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYHTools.h; sourceTree = "<group>"; };
 		A5A6DB8923683F1100E476D8 /* QYHTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QYHTools.m; sourceTree = "<group>"; };
+		A5A705312390FD18001C343F /* CommentsPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsPopView.h; sourceTree = "<group>"; };
+		A5A705322390FD19001C343F /* CommentsPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsPopView.m; sourceTree = "<group>"; };
+		A5A705342390FDAC001C343F /* LoadMoreControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadMoreControl.h; sourceTree = "<group>"; };
+		A5A705352390FDAD001C343F /* LoadMoreControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadMoreControl.m; sourceTree = "<group>"; };
+		A5A70537239100CC001C343F /* NSAttributedString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Extension.h"; sourceTree = "<group>"; };
+		A5A70538239100CD001C343F /* NSAttributedString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Extension.m"; sourceTree = "<group>"; };
+		A5A7053A23910136001C343F /* NSNotification+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotification+Extension.h"; sourceTree = "<group>"; };
+		A5A7053B23910137001C343F /* NSNotification+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotification+Extension.m"; sourceTree = "<group>"; };
 		A5BC78692371085400186F4B /* LPADLaunchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPADLaunchController.m; sourceTree = "<group>"; };
 		A5BC786A2371085400186F4B /* LPADLaunchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPADLaunchController.h; sourceTree = "<group>"; };
 		A5BC786C2371086A00186F4B /* LPADLaunchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPADLaunchView.h; sourceTree = "<group>"; };
@@ -1234,6 +1228,7 @@
 		A5D81ACA2355AD810008C198 /* STVideoHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STVideoHomeViewController.m; sourceTree = "<group>"; };
 		A5D81ACD2355C9B90008C198 /* STInteractionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STInteractionViewController.h; sourceTree = "<group>"; };
 		A5D81ACE2355C9B90008C198 /* STInteractionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STInteractionViewController.m; sourceTree = "<group>"; };
+		A5E8C1E9238F7C7500E49467 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		A5EEFE582323449B0039F25C /* STSocialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSocialViewController.h; sourceTree = "<group>"; };
 		A5EEFE592323449B0039F25C /* STSocialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSocialViewController.m; sourceTree = "<group>"; };
 		A5EEFE5B232344AF0039F25C /* STChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STChatViewController.h; sourceTree = "<group>"; };
@@ -1460,12 +1455,15 @@
 				A581F83E236986F500FD82A0 /* CoreLocation.framework in Frameworks */,
 				A5841C64233E1995002A4879 /* Foundation.framework in Frameworks */,
 				A5841C62233E198B002A4879 /* UIKit.framework in Frameworks */,
+				A5E8C1EB238F7D7800E49467 /* AssetsLibrary.framework in Frameworks */,
 				A58DBEFD238BC1DD00766617 /* TencentOpenAPI.framework in Frameworks */,
 				A559E46A237559A20052DBB0 /* AssetsLibrary.framework in Frameworks */,
 				A5841C60233E17B7002A4879 /* libsqlite3.tbd in Frameworks */,
 				A558B074CADECEFF2AEBCCE7 /* libPods-StudyOC.a in Frameworks */,
+				A5E8C1EA238F7C7500E49467 /* PhotosUI.framework in Frameworks */,
 				A58DBEFC238BC1DD00766617 /* libWeiboSDK.a in Frameworks */,
 				A559E468237559900052DBB0 /* AVFoundation.framework in Frameworks */,
+				A5E8C1E8238F7C6800E49467 /* Photos.framework in Frameworks */,
 				A5FD220E233B109900E13ACD /* libmp3lame.a in Frameworks */,
 				A5694510237E58A200EA029B /* AddressBookUI.framework in Frameworks */,
 				A559E46C237559AF0052DBB0 /* Photos.framework in Frameworks */,
@@ -1478,6 +1476,7 @@
 		56F86B2ED6CA1952188DA278 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A5E8C1E9238F7C7500E49467 /* PhotosUI.framework */,
 				A569450F237E58A200EA029B /* AddressBookUI.framework */,
 				A569450D237E569100EA029B /* AddressBook.framework */,
 				A559E46B237559AF0052DBB0 /* Photos.framework */,
@@ -1880,6 +1879,7 @@
 		A53DE636237418C300911386 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A5A705302390FD05001C343F /* douYinCommentView */,
 				A595CECE23877A8F006A831E /* KKShareView */,
 				A594C4152386629A0039397A /* KKAttributeTextView */,
 				A594C400238661080039397A /* KKNewsCommentView */,
@@ -2145,6 +2145,10 @@
 				A55B00ED23323446006AB1E9 /* UIScrollView */,
 				A55B011323323447006AB1E9 /* UISearchBar */,
 				A55B00F623323447006AB1E9 /* UIView */,
+				A5A70537239100CC001C343F /* NSAttributedString+Extension.h */,
+				A5A70538239100CD001C343F /* NSAttributedString+Extension.m */,
+				A5A7053A23910136001C343F /* NSNotification+Extension.h */,
+				A5A7053B23910137001C343F /* NSNotification+Extension.m */,
 				A55B00D9233232F1006AB1E9 /* UITextField+Placeholder.h */,
 				A55B00D4233232F1006AB1E9 /* UITextField+Placeholder.m */,
 				A55B00D3233232F1006AB1E9 /* UIBarButtonItem+Item.h */,
@@ -2295,8 +2299,6 @@
 			children = (
 				A57EA88623851922000CC566 /* KKRelateVideoCell.h */,
 				A57EA88723851922000CC566 /* KKRelateVideoCell.m */,
-				A58548B2238298D7007C1B92 /* KKNewsCommentCell.h */,
-				A58548B3238298D7007C1B92 /* KKNewsCommentCell.m */,
 				A58548AF23829618007C1B92 /* KKVideoInfoView.h */,
 				A58548B023829619007C1B92 /* KKVideoInfoView.m */,
 				A58548AB23829526007C1B92 /* KKButton */,
@@ -2500,20 +2502,6 @@
 				A58DBF15238BD74200766617 /* LKMoreReplyContentTableViewCell.h */,
 				A58DBF0D238BD74200766617 /* LKMoreReplyContentTableViewCell.m */,
 				A58DBF10238BD74200766617 /* LKMoreReplyContentTableViewCell.xib */,
-				A58DBF17238BD74200766617 /* ZMCusCommentListContentCell.h */,
-				A58DBF0B238BD74200766617 /* ZMCusCommentListContentCell.m */,
-				A58DBF1F238BD74200766617 /* ZMCusCommentListReplyContentCell.h */,
-				A58DBF0F238BD74200766617 /* ZMCusCommentListReplyContentCell.m */,
-				A58DBF22238BD74200766617 /* ZMCusCommentToolView.h */,
-				A58DBF12238BD74200766617 /* ZMCusCommentToolView.m */,
-				A58DBF21238BD74200766617 /* ZMCusCommentListTableHeaderView.h */,
-				A58DBF13238BD74200766617 /* ZMCusCommentListTableHeaderView.m */,
-				A58DBF09238BD74200766617 /* ZMCusCommentView.h */,
-				A58DBF1A238BD74200766617 /* ZMCusCommentView.m */,
-				A58DBF08238BD74200766617 /* ZMCusCommentBottomView.h */,
-				A58DBF1B238BD74200766617 /* ZMCusCommentBottomView.m */,
-				A58DBF18238BD74200766617 /* ZMPlaceholderTextView.h */,
-				A58DBF0A238BD74200766617 /* ZMPlaceholderTextView.m */,
 			);
 			path = ZMCusCommentView;
 			sourceTree = "<group>";
@@ -2566,6 +2554,8 @@
 				A58DBF07238BD74200766617 /* ZMCusCommentView */,
 				A594C403238661080039397A /* KKNewsCommentView.h */,
 				A594C407238661080039397A /* KKNewsCommentView.m */,
+				A58548B2238298D7007C1B92 /* KKNewsCommentCell.h */,
+				A58548B3238298D7007C1B92 /* KKNewsCommentCell.m */,
 			);
 			path = KKNewsCommentView;
 			sourceTree = "<group>";
@@ -3060,6 +3050,17 @@
 				A5A6DB81236830D300E476D8 /* icon_search_clear@3x.png */,
 			);
 			path = resource;
+			sourceTree = "<group>";
+		};
+		A5A705302390FD05001C343F /* douYinCommentView */ = {
+			isa = PBXGroup;
+			children = (
+				A5A705342390FDAC001C343F /* LoadMoreControl.h */,
+				A5A705352390FDAD001C343F /* LoadMoreControl.m */,
+				A5A705312390FD18001C343F /* CommentsPopView.h */,
+				A5A705322390FD19001C343F /* CommentsPopView.m */,
+			);
+			path = douYinCommentView;
 			sourceTree = "<group>";
 		};
 		A5BC78682371082600186F4B /* AdLaunchController */ = {
@@ -4040,7 +4041,6 @@
 				A59577B9238D100400F68C20 /* HTTPMessage.m in Sources */,
 				A5FD2217233B109900E13ACD /* ChatAudioCell.m in Sources */,
 				A5A6CF95234F1D7900E19348 /* UIView+ST.m in Sources */,
-				A58DBF2B238BD74300766617 /* ZMCusCommentListContentCell.m in Sources */,
 				A54BBEAF23580053003567FA /* SPActivityIndicatorBallLoopScaleAnimation.m in Sources */,
 				A5BC78982371478700186F4B /* NSData+Base64.m in Sources */,
 				A5C4B64A236BCB6D00CCDEF1 /* STVideoListModel.m in Sources */,
@@ -4093,7 +4093,6 @@
 				A5FD229A233B110E00E13ACD /* FSMStateUtil.m in Sources */,
 				A591F125237A419300136FDE /* STSubscribeVideoViewController.m in Sources */,
 				A5A6CFA3234F3D7F00E19348 /* SVRadialGradientLayer.m in Sources */,
-				A58DBF2E238BD74300766617 /* ZMCusCommentListReplyContentCell.m in Sources */,
 				A58DBEF8238BC1DD00766617 /* KKWXPayObject.m in Sources */,
 				A54BBEB123580053003567FA /* SPActivityIndicatorLineScalePulseOutRapidAnimation.m in Sources */,
 				A5841C5E233E1031002A4879 /* STLoginViewController.m in Sources */,
@@ -4102,7 +4101,6 @@
 				A5FA18242326335C00FEB9D3 /* STHttpResquest.m in Sources */,
 				A55B012C23323447006AB1E9 /* UIView+GestureRecognizer.m in Sources */,
 				A5FD221A233B109900E13ACD /* ChatTipCell.m in Sources */,
-				A58DBF31238BD74300766617 /* ZMCusCommentListTableHeaderView.m in Sources */,
 				A59031EC234DBF9800DC420D /* STLoginInputView.m in Sources */,
 				A59577C4238D100400F68C20 /* HTTPServer.m in Sources */,
 				A5FD228D233B110E00E13ACD /* ChatTabbar.m in Sources */,
@@ -4176,7 +4174,6 @@
 				A5BC787D2371097200186F4B /* UIImage+TYLaunchImage.m in Sources */,
 				A58D12F2235073D300733533 /* FBShimmeringLayer.m in Sources */,
 				A54BBEA523580053003567FA /* SPActivityIndicatorAnimation.m in Sources */,
-				A58DBF35238BD74300766617 /* ZMCusCommentBottomView.m in Sources */,
 				A51FD1AB2322641400C125C9 /* STKWWebViewController.m in Sources */,
 				A543849423347F7F005CDA49 /* TYAttributedLabel.m in Sources */,
 				A59577A5238D100400F68C20 /* KTVHCDataUnit.m in Sources */,
@@ -4195,6 +4192,7 @@
 				A54BBE9923580053003567FA /* SPActivityIndicatorBallScaleMultipleAnimation.m in Sources */,
 				A5A6DB83236830D300E476D8 /* FLJSearchBar.m in Sources */,
 				A543849623347F7F005CDA49 /* TYTextContainer.m in Sources */,
+				A5A705362390FDAD001C343F /* LoadMoreControl.m in Sources */,
 				A59577BC238D100400F68C20 /* WebSocket.m in Sources */,
 				A5BC78A1237149AF00186F4B /* NSString+category.m in Sources */,
 				A54BBEBB23580053003567FA /* SPActivityIndicatorBallPulseSyncAnimation.m in Sources */,
@@ -4202,10 +4200,12 @@
 				A55B013E2332365B006AB1E9 /* KKSearchBar.m in Sources */,
 				A59577B4238D100400F68C20 /* HTTPDataResponse.m in Sources */,
 				A5FD2291233B110E00E13ACD /* PingFoundation.m in Sources */,
+				A5A70539239100CD001C343F /* NSAttributedString+Extension.m in Sources */,
 				A5FD2289233B110E00E13ACD /* NSDate+extension.m in Sources */,
 				A54BBEA223580053003567FA /* SPActivityIndicatorBallGridPulseAnimation.m in Sources */,
 				A543849123347F7F005CDA49 /* NSMutableAttributedString+TY.m in Sources */,
 				A5D81ACB2355AD810008C198 /* STVideoHomeViewController.m in Sources */,
+				A5A705332390FD19001C343F /* CommentsPopView.m in Sources */,
 				A59577BF238D100400F68C20 /* MultipartMessageHeader.m in Sources */,
 				A59577A3238D100400F68C20 /* KTVHCDataReader.m in Sources */,
 				A5FD22AF233B110E00E13ACD /* MYCoreTextLabel.m in Sources */,
@@ -4231,7 +4231,6 @@
 				A59577C8238D100400F68C20 /* ZFDouYinPlayerControlView.m in Sources */,
 				A5FD22AA233B110E00E13ACD /* TZPhotoPickerController.m in Sources */,
 				A58DBF2C238BD74300766617 /* LKContentModel.m in Sources */,
-				A58DBF2A238BD74300766617 /* ZMPlaceholderTextView.m in Sources */,
 				A54BBE9623580053003567FA /* SPActivityIndicatorBallPulseAnimation.m in Sources */,
 				A59577C3238D100400F68C20 /* DDRange.m in Sources */,
 				A5FD2287233B110E00E13ACD /* UIImageView+SDWebImage.m in Sources */,
@@ -4263,7 +4262,6 @@
 				A543849F2334ABAD005CDA49 /* STPopularitylistTableViewCell.m in Sources */,
 				A59577B1238D100400F68C20 /* KTVHCError.m in Sources */,
 				A595779D238D100400F68C20 /* KTVHCHTTPConnection.m in Sources */,
-				A58DBF34238BD74300766617 /* ZMCusCommentView.m in Sources */,
 				A5A17DD72328A1EB000B707B /* STChildrenModel.m in Sources */,
 				A543849023347F7F005CDA49 /* TYImageStorage.m in Sources */,
 				A59577B2238D100400F68C20 /* KTVHCDownload.m in Sources */,
@@ -4311,6 +4309,7 @@
 				A53136CC235407E000B2F13F /* UIImage+LCActionSheet.m in Sources */,
 				A54BBEB423580053003567FA /* SPActivityIndicatorRotatingSandglassAnimation.m in Sources */,
 				A59577C6238D100400F68C20 /* KTVHTTPCache.m in Sources */,
+				A5A7053C23910137001C343F /* NSNotification+Extension.m in Sources */,
 				A5FD22B5233B11EB00E13ACD /* ChatViewController.m in Sources */,
 				A509BCE0232A4ABC00C6CAE1 /* UIButton+RepeatEventInterval.m in Sources */,
 				A59577DC238D100400F68C20 /* CommentModel.m in Sources */,
@@ -4387,7 +4386,6 @@
 				A55B012723323447006AB1E9 /* UIScrollView+KKFinger.m in Sources */,
 				A55B012223323447006AB1E9 /* UILabel+KKClickable.m in Sources */,
 				A59577A2238D100400F68C20 /* KTVHCDataStorage.m in Sources */,
-				A58DBF30238BD74300766617 /* ZMCusCommentToolView.m in Sources */,
 				A520CDB1235D56B00020511E /* STSearchHotTableViewCell.m in Sources */,
 				A5FD229F233B110E00E13ACD /* Account.m in Sources */,
 				A5852704235ED553007FEC82 /* STSearchResultTableViewController.m in Sources */,
