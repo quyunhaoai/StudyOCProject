@@ -102,6 +102,12 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
         make.height.mas_equalTo(self.view).mas_offset(-AuthorViewHeight-detailVideoPlayViewHeight-self.videoInfoView.height).priority(998);
     }];
     [self videoContentViewAddSubView];
+    XYWeakSelf;
+    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.tableView.mj_header endRefreshing];
+        });
+    }];
 }
 #pragma mark -- 数据刷新
 
@@ -117,8 +123,6 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
             NSDictionary *dict = [dic objectForKey:@"data"];
             weakSelf.relateVideoArray = [[dict objectForKey:@"video_list"] mutableCopy];
             if (weakSelf.relateVideoArray.count) {
-//                [weakSelf loadHeadItem:[STVideoChannelModl yy_modelWithDictionary:weakSelf.relateVideoArray[0]]];
-//                [weakSelf.relateVideoArray removeObjectAtIndex:0];
                 [weakSelf.tableView reloadData];
             }
         }else {
@@ -126,8 +130,12 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
                 [MBManager showBriefAlert:msg];
             }
         }
+        weakSelf.isShowNoDataPageView = NO;
     } WithFailurBlock:^(NSError * _Nonnull error) {
-        
+        weakSelf.isShowNoDataPageView = YES;
+        [weakSelf.noDataView addTapGestureWithBlock:^(UIView *gestureView) {
+            [weakSelf refreshData];
+        }];
     }];
             
 }

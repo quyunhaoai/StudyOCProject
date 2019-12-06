@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "SmallVideoModel.h"
 @interface KKXiaoShiPingCell : UICollectionViewCell
 @property(nonatomic,readonly)UIView *contentBgView;
 @property(nonatomic,readonly)UIImageView *corverView;
+@property (strong, nonatomic) SmallVideoModel *model;    // 
 - (void)refreshWith:(id)item;
 @end

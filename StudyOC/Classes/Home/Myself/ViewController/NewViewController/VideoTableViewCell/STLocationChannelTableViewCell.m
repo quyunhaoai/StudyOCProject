@@ -23,7 +23,7 @@
 }
 
 + (CGFloat)techHeightForOjb:(id)obj {
-    return (Window_W-kkPaddingNormalLarge*2)*0.56 + 40 +34 + 20;
+    return (Window_W-kkPaddingNormalLarge*2)*0.56 + 40 +34 + 5;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -60,7 +60,7 @@
     
     [self.bgView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.top.right.mas_equalTo(self.contentView);
-        make.bottom.mas_equalTo(self.contentView).mas_offset(-20);
+        make.bottom.mas_equalTo(self.contentView).mas_offset(-5);
     }];
     [self.headerIconView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.bgView).mas_offset(kkPaddingNormalLarge);

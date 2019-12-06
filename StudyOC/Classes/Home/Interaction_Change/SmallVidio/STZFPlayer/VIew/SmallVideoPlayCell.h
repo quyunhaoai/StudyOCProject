@@ -10,6 +10,7 @@
 #import "SmallVideoModel.h"
 
 @protocol SmallVideoPlayCellDlegate <NSObject>
+@optional
 //关注
 - (void)handleAddConcerWithVideoModel:(SmallVideoModel *)smallVideoModel;
 //点击头像
@@ -23,9 +24,9 @@
 //分享
 - (void)handleShareVideoModel:(SmallVideoModel *)smallVideoModel;
 //设置铃声
-- (void)handleSetRingVideoModel:(SmallVideoModel *)smallVideoMoodel;
+//- (void)handleSetRingVideoModel:(SmallVideoModel *)smallVideoMoodel;
 //设置动态壁纸
-- (void)handleSetLivePhoto:(SmallVideoModel *)smallVideoModel;
+//- (void)handleSetLivePhoto:(SmallVideoModel *)smallVideoModel;
 
 @end
 

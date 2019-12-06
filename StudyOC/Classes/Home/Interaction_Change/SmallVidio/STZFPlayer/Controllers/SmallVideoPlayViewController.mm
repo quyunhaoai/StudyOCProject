@@ -11,12 +11,13 @@
 #import "SmallVideoModel.h"
 #import "DDVideoPlayerManager.h"
 #import "SDImageCache.h"
-//#import "CommentsPopView.h"
-//@class ContentBaseViewController;
+#import "CommentsPopView.h"
 #import "STInteractionViewController.h"
 #import "ContentBaseViewController.h"
-static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
 
+#import "STSmallPlayShopTableViewCell.h"
+static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
+static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlayShopTableViewCellIdentifier";
 @interface SmallVideoPlayViewController ()<UITableViewDataSource, UITableViewDelegate, ZFManagerPlayerDelegate, SmallVideoPlayCellDlegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -33,8 +34,10 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getResource];
-    self.currentPlayIndex = 0;
+    if (!self.modelArray.count) {
+        [self getResource];
+    }
+//    self.currentPlayIndex = 0;
     [self createUI];
     // app退到后台
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationWillResignActiveNotification object:nil];
@@ -87,8 +90,10 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
     self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.showsHorizontalScrollIndicator = NO;
+    self.tableView.showsVerticalScrollIndicator = NO;
     [self.tableView registerClass:[SmallVideoPlayCell class] forCellReuseIdentifier:SmallVideoCellIdentifier];
-
+    [self.tableView registerNib:STSmallPlayShopTableViewCell.loadNib forCellReuseIdentifier:STSmallPlayShopTableViewCellIdentifier];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.bottom.with.offset(0);
     }];
@@ -97,7 +102,9 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentPlayIndex inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentPlayIndex inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    });
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self playIndex:self.currentPlayIndex];
         if(self.modelArray.count > (self.currentPlayIndex + 1)) {
@@ -114,6 +121,13 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
             make.top.with.offset(isIphoneX ? 24 : 0);
             make.size.mas_equalTo(CGSizeMake(60, 64));
         }];
+    }else {
+        XYWeakSelf;
+        self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf.tableView.mj_header endRefreshing];
+            });
+        }];
     }
 }
 
@@ -125,10 +139,13 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
     return self.modelArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SmallVideoPlayCell *cell = [tableView dequeueReusableCellWithIdentifier:SmallVideoCellIdentifier forIndexPath:indexPath];
+    STSmallPlayShopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:STSmallPlayShopTableViewCellIdentifier forIndexPath:indexPath];
     cell.delegate = self;
-    NSLog(@"cell的地址:%p   index:%ld   %ld",cell,indexPath.row,self.modelArray.count-2);
     cell.model = self.modelArray[indexPath.row];
+//    SmallVideoPlayCell *cell = [tableView dequeueReusableCellWithIdentifier:SmallVideoCellIdentifier forIndexPath:indexPath];
+//    cell.delegate = self;
+//    NSLog(@"cell的地址:%p   index:%ld   %ld",cell,indexPath.row,self.modelArray.count-2);
+//    cell.model = self.modelArray[indexPath.row];
     return cell;
 }
 
@@ -153,6 +170,11 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
         NSLog(@"播放下一个");
         [self playIndex:self.currentPlayIndex];
     }
+//    if (currentIndex == 0) {
+//        self.tableView.bounces = NO;
+//    } else {
+//        self.tableView.bounces = YES;
+//    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -265,7 +287,7 @@ static NSString * const SmallVideoCellIdentifier = @"SmallVideoCellIdentifier";
 
 //评论
 - (void)handleCommentVidieoModel:(SmallVideoModel *)smallVideoModel {
-    [[QYHTools sharedInstance] showCommentView];
+    [[QYHTools sharedInstance] showCommentView:smallVideoModel.uid];
 }
 //分享
 - (void)handleShareVideoModel:(SmallVideoModel *)smallVideoModel {

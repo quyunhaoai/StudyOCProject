@@ -29,7 +29,7 @@
     if (self.viewArray == nil) {
         self.viewArray =@[[STAlbumSumViewController new],
                           [STLookPhotoSumViewController new],
-                          [STLocationChannelViewController new],
+                          [[STLocationChannelViewController alloc] initWithStyle:UITableViewStyleGrouped],
                             ];
     }
     [super viewDidLoad];

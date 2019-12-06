@@ -71,16 +71,19 @@
 /// @param outputFileURL 沙盒路径
 - (void)saveVideoToALAssetsLibrary:(NSURL *)outputFileURL;
 /// 评论弹窗
-- (void)showCommentView;
+- (void)showCommentView:(NSString *)uid;
 /// 分享更多
 - (void)shareVideo;
 /// 关注好友
 /// @param userId 用户ID
 - (void)followBtnClick:(int )userId andButton:(UIButton *)button;
-
 /// 下载视频
-/// @param url 地址
+/// @param url 地址 并保存到相册
 -(void)startDownLoadVedioWithUrl:(NSString *)url;
-
+/// WSProgressHUD消失
 - (void)autoDismiss;
+/// 保存图片到本地相册
+/// @param image 图片
+/// @param completionHandler 回调
++ (void)srh_saveImage:(UIImage *)image completionHandle:(void (^)(NSError *, NSString *))completionHandler;
 @end

@@ -9,6 +9,7 @@
 #import "QYHTools.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
+#import "CommentsPopView.h"
 @interface QYHTools()<NSURLSessionDownloadDelegate,KKShareViewDelegate>
 {
 
@@ -320,35 +321,71 @@
 
 //保存视频到相册
 - (void)saveVideoToALAssetsLibrary:(NSURL *)outputFileURL
-{
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library writeVideoAtPathToSavedPhotosAlbum:outputFileURL
-                                completionBlock:^(NSURL *assetURL, NSError *error) {
-        if (error) {
-            NSLog(@"保存视频失败:%@",error);
-        } else {
-            NSLog(@"保存视频到相册成功");
-        }
-    }];
-    
+{ //PHPhotoLibrary
+//    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//    [library writeVideoAtPathToSavedPhotosAlbum:outputFileURL
+//                                completionBlock:^(NSURL *assetURL, NSError *error) {
+//        if (error) {
+//            NSLog(@"保存视频失败:%@",error);
+//        } else {
+//            NSLog(@"保存视频到相册成功");
+//        }
+//    }];
 }
 
-- (void)showCommentView {
-    KKNewsCommentView *view = [[KKNewsCommentView alloc]initWithNewsBaseInfo:@""];
-    view.topSpace = 249+STATUS_BAR_HEIGHT ;
-    view.navContentOffsetY = 0 ;
-    view.navTitleHeight = 44 ;
-    view.contentViewCornerRadius = 10 ;
-    view.cornerEdge = UIRectCornerTopRight|UIRectCornerTopLeft;
-    view.enableHorizonDrag = NO;
-    view.enableFreedomDrag = NO;
-    view.defaultHideAnimateWhenDragFreedom = NO;
-    [[UIApplication sharedApplication].keyWindow addSubview:view];
-    [view mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.left.top.mas_equalTo(0);
-        make.size.mas_equalTo(CGSizeMake(Window_W, Window_H));
-    }];
-    [view startShow];
++ (void)srh_saveImage:(UIImage *)image completionHandle:(void (^)(NSError *, NSString *))completionHandler {
+    // 1. 获取照片库对象
+       PHPhotoLibrary *library = [PHPhotoLibrary sharedPhotoLibrary];
+       
+       // 假如外面需要这个 localIdentifier ，可以通过block传出去
+       __block NSString *localIdentifier = @"sss";
+       
+       // 2. 调用changeblock
+       [library performChanges:^{
+           
+           // 2.1 创建一个相册变动请求
+           PHAssetCollectionChangeRequest *collectionRequest = [self getCurrentPhotoCollectionWithAlbumName:@"photo"];
+           
+           // 2.2 根据传入的照片，创建照片变动请求
+           PHAssetChangeRequest *assetRequest = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+           
+           // 2.3 创建一个占位对象
+           PHObjectPlaceholder *placeholder = [assetRequest placeholderForCreatedAsset];
+           localIdentifier = placeholder.localIdentifier;
+           
+           // 2.4 将占位对象添加到相册请求中
+           [collectionRequest addAssets:@[placeholder]];
+           
+       } completionHandler:^(BOOL success, NSError * _Nullable error) {
+           
+           if (error) {
+//               [iConsole log:@"保存照片出错>>>%@", [error description]];
+               completionHandler(error, nil);
+           } else {
+               completionHandler(nil, localIdentifier);
+           }
+       }];
+}
++ (PHAssetCollectionChangeRequest *)getCurrentPhotoCollectionWithAlbumName:(NSString *)albumName {
+    // 1. 创建搜索集合
+    PHFetchResult *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+    
+    // 2. 遍历搜索集合并取出对应的相册，返回当前的相册changeRequest
+    for (PHAssetCollection *assetCollection in result) {
+        if ([assetCollection.localizedTitle containsString:albumName]) {
+            PHAssetCollectionChangeRequest *collectionRuquest = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:assetCollection];
+            return collectionRuquest;
+        }
+    }
+    
+    // 3. 如果不存在，创建一个名字为albumName的相册changeRequest
+    PHAssetCollectionChangeRequest *collectionRequest = [PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:albumName];
+    return collectionRequest;
+}
+#pragma mark  -  评论视图
+- (void)showCommentView:(NSString *)uid {
+    CommentsPopView *view = [[CommentsPopView alloc] initWithAwemeId:uid];
+    [view show];
 }
 
 #pragma mark  -  分享视图

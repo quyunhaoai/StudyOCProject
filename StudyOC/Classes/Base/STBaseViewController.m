@@ -7,6 +7,7 @@
 //
 
 #import "STBaseViewController.h"
+
 @interface STBaseViewController ()
 
 
@@ -43,7 +44,34 @@
 //    }
 //    return _isShowErrorPageView;
 //}
-
+- (void)setIsShowNoDataPageView:(BOOL)isShowNoDataPageView {
+    _isShowNoDataPageView = isShowNoDataPageView;
+    if (_isShowNoDataPageView) {
+        [self.view addSubview:self.noDataView];
+        [self.noDataView masMakeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.view).mas_offset(0);
+            make.left.right.mas_equalTo(self.view);
+            make.bottom.mas_equalTo(self.view);
+        }];
+        [self.view bringSubviewToFront:self.noDataView];
+    } else {
+        [self.noDataView removeFromSuperview];
+    }
+}
+#pragma  mark  --  noData 懒加载
+- (KKNoDataView *)noDataView {
+    
+    if (!_noDataView) {
+        _noDataView = ({
+            KKNoDataView *view = [KKNoDataView new];
+            view.tipImage = [UIImage imageNamed:@"not_found_loading_226x119_"];
+            view.tipText = @"在这个星球找不到你需要的信息";
+            view.backgroundColor = color_viewBG_1A1929;
+            view ;
+        });
+    }
+    return _noDataView;
+}
 
 - (void)customNavBarWithTitle:(NSString *)title {
     [self.view addSubview:self.navTitleView];

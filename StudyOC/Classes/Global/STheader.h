@@ -82,6 +82,7 @@
 #import "NSAttributedString+Extension.h"
 #import "NSNotification+Extension.h"
 #import "NSMutableAttributedString+TY.h"
+#import "SVProgressHUD+DGActivityIndicatorView.h"
 //=========================网络=====================
 #import "STHttpResquest.h"
 //=========================文件管理==================

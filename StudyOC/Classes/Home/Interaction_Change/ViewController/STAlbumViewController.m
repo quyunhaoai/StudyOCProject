@@ -273,7 +273,7 @@
 #pragma mark  -  cellDelegate
 - (void)clickButtonWithType:(KKBarButtonType)type item:(id)item {
     if (type == KKBarButtonTypeComment) {
-        [[QYHTools sharedInstance] showCommentView];
+        [[QYHTools sharedInstance] showCommentView:@""];
     }
 }
 - (void)jumpBtnClicked:(id)item {

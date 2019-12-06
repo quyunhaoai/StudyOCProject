@@ -36,8 +36,22 @@
 //+(CGFloat)cellHeight:(Comment *)comment;
 
 @end
+//@class Comment;
+@interface CommentListReplyCell : UITableViewCell
 
+@property (nonatomic, strong) UIImageView        *avatar;
+@property (nonatomic, strong) UIImageView        *likeIcon;
+@property (nonatomic, strong) UILabel            *nickName;
+@property (nonatomic, strong) UILabel            *extraTag;
+@property (nonatomic, strong) UILabel            *content;
+@property (nonatomic, strong) UILabel            *likeNum;
+@property (nonatomic, strong) UILabel            *date;
+@property (nonatomic, strong) UIView             *splitLine;
 
+//-(void)initData:(Comment *)comment;
+//+(CGFloat)cellHeight:(Comment *)comment;
+
+@end
 
 @protocol CommentTextViewDelegate
 

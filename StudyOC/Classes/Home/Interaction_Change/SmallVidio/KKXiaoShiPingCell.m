@@ -99,6 +99,14 @@
     self.diggLabel.text = diggCount;
 }
 
+- (void)setModel:(SmallVideoModel *)model {
+    _model = model;
+    [self.corverView sd_setImageWithURL:[NSURL URLWithString:model.cover_url] placeholderImage:[UIImage imageNamed:@""]];
+//    [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:model.head_url] placeholderImage:[UIImage imageNamed:@"comment_icon_placeholder"]];
+    self.titleLabel.text = model.name;
+    
+    self.diggLabel.text = @(model.score).stringValue;
+}
 #pragma mark -- 界面刷新
 
 - (void)refreshWith:(id)item{

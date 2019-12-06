@@ -52,7 +52,7 @@ static NSString *cellIdentifierPerson = @"STLocationChannelTableViewCellcellIden
     self.nData = [NSMutableArray arrayWithArray:dict[@"content"]];
     self.isLoadFinish = YES;
     XYWeakSelf;
-    self.tableView.mj_header = [SDRefreshHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
         weakSelf.isLoadFinish = YES;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSDictionary *dict = testDataDict()[@"data"];

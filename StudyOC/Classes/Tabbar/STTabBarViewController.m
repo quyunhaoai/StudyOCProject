@@ -73,12 +73,12 @@
     self.tabBar.backgroundImage = [UIImage imageWithColor:kBlackColor];
     STMySelfViewController *navTabVC = [STMySelfViewController new];
     navTabVC.tabBarItem
-    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"我的"]
+    = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"空间"]
                                     image:[[UIImage imageNamed:@"navigation_video"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                             selectedImage:[[UIImage imageNamed:@"navigation_video_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     
     STSocialViewController *collectionFoundVC = [[STSocialViewController alloc] init];
-    collectionFoundVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"主页"]
+    collectionFoundVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:[NSString stringWithFormat:@"电台"]
                                     image:[[UIImage imageNamed:@"navigationpowder"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                             selectedImage:[[UIImage imageNamed:@"navigationpowder_select"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     STInteractionViewController *interactionVC = [STInteractionViewController new];

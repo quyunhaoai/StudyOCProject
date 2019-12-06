@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KKNavTitleView.h"
+#import "KKNoDataView.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface STBaseViewController : UIViewController
@@ -16,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) BOOL isShowErrorPageView;
 @property (assign, nonatomic) BOOL isShowNoDataPageView; 
 @property (assign, nonatomic) NSInteger page;
-
+@property (strong, nonatomic) KKNoDataView *noDataView; //  视图
 /**
  初始化导航栏
 

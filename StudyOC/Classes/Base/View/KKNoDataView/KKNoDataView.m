@@ -63,7 +63,7 @@
     if(!_tipLabel){
         _tipLabel = ({
             UILabel *label = [UILabel new];
-            label.textColor = [UIColor blackColor];
+            label.textColor = [UIColor whiteColor];
             label.textAlignment = NSTextAlignmentCenter;
             label.font = [UIFont systemFontOfSize:15];
             label.backgroundColor = [UIColor clearColor];

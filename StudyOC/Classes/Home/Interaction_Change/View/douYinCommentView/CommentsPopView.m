@@ -7,19 +7,18 @@
 //
 
 #import "CommentsPopView.h"
-//#import "MenuPopView.h"
+#import "LKMoreReplyContentTableViewCell.h"
 #import "LoadMoreControl.h"
-//#import "NetworkHelper.h"
-//#import "Comment.h"
-
+#import "EmotionSelector.h"
+#import "ChatTextView.h"
 NSString * const kCommentListCell     = @"CommentListCell";
 NSString * const kCommentHeaderCell   = @"CommentHeaderCell";
 NSString * const kCommentFooterCell   = @"CommentFooterCell";
-
-@interface CommentsPopView () <UITableViewDelegate,UITableViewDataSource, UIGestureRecognizerDelegate,UIScrollViewDelegate, CommentTextViewDelegate>
+static NSString * const commentReplyCell = @"commentReplyCell";
+static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
+@interface CommentsPopView () <UITableViewDelegate,UITableViewDataSource, UIGestureRecognizerDelegate,UIScrollViewDelegate, ChatTextViewDelegate>
 
 @property (nonatomic, assign) NSString                         *awemeId;
-//@property (nonatomic, strong) Visitor                          *vistor;
 
 @property (nonatomic, assign) NSInteger                        pageIndex;
 @property (nonatomic, assign) NSInteger                        pageSize;
@@ -27,7 +26,7 @@ NSString * const kCommentFooterCell   = @"CommentFooterCell";
 @property (nonatomic, strong) UIView                           *container;
 @property (nonatomic, strong) UITableView                      *tableView;
 @property (nonatomic, strong) NSMutableArray                   *data;
-@property (nonatomic, strong) CommentTextView                  *textView;
+@property (nonatomic, strong) ChatTextView                     *textView;
 @property (nonatomic, strong) LoadMoreControl                  *loadMore;
 
 @end
@@ -97,62 +96,37 @@ NSString * const kCommentFooterCell   = @"CommentFooterCell";
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:CommentListCell.class forCellReuseIdentifier:kCommentListCell];
-        
-        _loadMore = [[LoadMoreControl alloc] initWithFrame:CGRectMake(0, 100, ScreenWidth, 50) surplusCount:10];
-        [_loadMore endLoading];
-        __weak __typeof(self) wself = self;
-        [_loadMore setOnLoad:^{
-            [wself loadData:wself.pageIndex pageSize:wself.pageSize];
-        }];
-        [_tableView addSubview:_loadMore];
+        [_tableView registerClass:CommentListReplyCell.class forCellReuseIdentifier:commentReplyCell];
+        [_tableView registerNib:[LKMoreReplyContentTableViewCell loadNib] forCellReuseIdentifier:commentMoreCell];
+//        _loadMore = [[LoadMoreControl alloc] initWithFrame:CGRectMake(0, 100, ScreenWidth, 50) surplusCount:10];
+//        [_loadMore setLoadingType:LoadStateIdle];
+//        __weak __typeof(self) wself = self;
+//        [_loadMore setOnLoad:^{
+//            [wself loadData:wself.pageIndex pageSize:wself.pageSize];
+//        }];
+//        [_tableView addSubview:_loadMore];
         
         [_container addSubview:_tableView];
         
-        _textView = [CommentTextView new];
+        _textView = [ChatTextView new];
         _textView.delegate = self;
-        
-//        [self loadData:_pageIndex pageSize:_pageSize];
         
     }
     return self;
 }
+#pragma mark  -  ChattextDel
+- (void)onSendImages:(NSMutableArray<UIImage *> *)images {
+    
+}
+- (void)onEditBoardHeightChange:(CGFloat)height {
 
+}
 // comment textView delegate
 -(void)onSendText:(NSString *)text {
-//    __weak __typeof(self) wself = self;
-//    PostCommentRequest *request = [PostCommentRequest new];
-//    request.aweme_id = _awemeId;
-//    request.udid = UDID;
-//    request.text = text;
-//    __block NSURLSessionDataTask *task = [NetworkHelper postWithUrlPath:PostComentPath request:request success:^(id data) {
-//        CommentResponse *response = [[CommentResponse alloc] initWithDictionary:data error:nil];
-//        Comment *comment = response.data;
-//        for(NSInteger i = wself.data.count-1; i>=0; i--) {
-//            if(wself.data[i].taskId == task.taskIdentifier) {
-//                wself.data[i] = comment;
-//                break;
-//            }
-//        }
-//        [UIWindow showTips:@"评论成功"];
-//    } failure:^(NSError *error) {
-//        [UIWindow showTips:@"评论失败"];
-//    }];
-//
-//    Comment *comment = [[Comment alloc] init:_awemeId text:text taskId:task.taskIdentifier];
-//    comment.user_type = @"visitor";
-//    comment.visitor = _vistor;
-    
-//    [UIView setAnimationsEnabled:NO];
-//    [_tableView beginUpdates];
-//    [_data insertObject:comment atIndex:0];
-//    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-//    [_tableView endUpdates];
-//    [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-//    [UIView setAnimationsEnabled:YES];
+
 }
 
-// tableView delegate
-
+#pragma mark  -  tableView delegate
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -161,44 +135,27 @@ NSString * const kCommentFooterCell   = @"CommentFooterCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return [CommentListCell cellHeight:_data[indexPath.row]];
     return KCellDefultHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CommentListCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommentListCell];
-//    [cell initData:_data[indexPath.row]];
-    return cell;
+    if (indexPath.row%2==0) {
+        CommentListCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommentListCell];
+        return cell;
+    } else {
+        CommentListReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:commentReplyCell];
+//        LKMoreReplyContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:commentMoreCell];
+        return cell;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    Comment *comment = _data[indexPath.row];
-//    if(!comment.isTemp && [@"visitor" isEqualToString:comment.user_type] && [MD5_UDID isEqualToString:comment.visitor.udid]) {
-//        MenuPopView *menu = [[MenuPopView alloc] initWithTitles:@[@"删除"]];
-//        __weak __typeof(self) wself = self;
-//        menu.onAction = ^(NSInteger index) {
-//            [wself deleteComment:comment];
-//        };
-//        [menu show];
-//    }∫
+    
 }
 
 //delete comment
 - (void)deleteComment:(id )comment {
-//    __weak __typeof(self) wself = self;
-//    DeleteCommentRequest *request = [DeleteCommentRequest new];
-//    request.cid = comment.cid;
-//    request.udid = UDID;
-//    [NetworkHelper deleteWithUrlPath:DeleteComentByIdPath request:request success:^(id data) {
-//        NSInteger index = [wself.data indexOfObject:comment];
-//        [wself.tableView beginUpdates];
-//        [wself.data removeObjectAtIndex:index];
-//        [wself.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
-//        [wself.tableView endUpdates];
-//        [UIWindow showTips:@"评论删除成功"];
-//    } failure:^(NSError *error) {
-//        [UIWindow showTips:@"评论删除失败"];
-//    }];
+    
 }
 
 //guesture
@@ -256,37 +213,7 @@ NSString * const kCommentFooterCell   = @"CommentFooterCell";
 
 //load data
 - (void)loadData:(NSInteger)pageIndex pageSize:(NSInteger)pageSize {
-//    __weak __typeof(self) wself = self;
-//    CommentListRequest *request = [CommentListRequest new];
-//    request.page = pageIndex;
-//    request.size = pageSize;
-//    request.aweme_id = _awemeId;
-//    [NetworkHelper getWithUrlPath:FindComentByPagePath request:request success:^(id data) {
-//        CommentListResponse *response = [[CommentListResponse alloc] initWithDictionary:data error:nil];
-//        NSArray<Comment *> *array = response.data;
-//
-//        wself.pageIndex++;
-//
-//        [UIView setAnimationsEnabled:NO];
-//        [wself.tableView beginUpdates];
-//        [wself.data addObjectsFromArray:array];
-//        NSMutableArray<NSIndexPath *> *indexPaths = [NSMutableArray array];
-//        for(NSInteger row = wself.data.count - array.count; row<wself.data.count; row++) {
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
-//            [indexPaths addObject:indexPath];
-//        }
-//        [wself.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-//        [wself.tableView endUpdates];
-//        [UIView setAnimationsEnabled:YES];
-//
-//        [wself.loadMore endLoading];
-//        if(!response.has_more) {
-//            [wself.loadMore loadingAll];
-//        }
-//        wself.label.text = [NSString stringWithFormat:@"%ld条评论",(long)response.total_count];
-//    } failure:^(NSError *error) {
-//        [wself.loadMore loadingFailed];
-//    }];
+
 }
 
 //UIScrollViewDelegate Delegate
@@ -316,7 +243,7 @@ NSString * const kCommentFooterCell   = @"CommentFooterCell";
         _avatar = [[UIImageView alloc] init];
         _avatar.image = [UIImage imageNamed:@"img_find_default"];
         _avatar.clipsToBounds = YES;
-        _avatar.layer.cornerRadius = 14;
+        _avatar.layer.cornerRadius = 17;
         [self addSubview:_avatar];
         
         _likeIcon = [[UIImageView alloc] init];
@@ -354,7 +281,7 @@ NSString * const kCommentFooterCell   = @"CommentFooterCell";
         
         [_avatar mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.equalTo(self).inset(15);
-            make.width.height.mas_equalTo(28);
+            make.width.height.mas_equalTo(34);
         }];
         [_likeIcon mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.right.equalTo(self).inset(15);
@@ -428,6 +355,106 @@ NSString * const kCommentFooterCell   = @"CommentFooterCell";
 }
 @end
 
+@implementation CommentListReplyCell
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if(self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = kClearColor;
+        self.clipsToBounds = YES;
+        _avatar = [[UIImageView alloc] init];
+        _avatar.image = [UIImage imageNamed:@"img_find_default"];
+        _avatar.clipsToBounds = YES;
+        _avatar.layer.cornerRadius = 14;
+        [self addSubview:_avatar];
+        
+        _likeIcon = [[UIImageView alloc] init];
+        _likeIcon.contentMode = UIViewContentModeCenter;
+        _likeIcon.image = [UIImage imageNamed:@"like_icon_video"];
+        [self addSubview:_likeIcon];
+        
+        _nickName = [[UILabel alloc] init];
+        _nickName.numberOfLines = 1;
+        _nickName.textColor = ColorWhiteAlpha60;
+        _nickName.font = FONT_10;
+        [self addSubview:_nickName];
+        
+        _content = [[UILabel alloc] init];
+        _content.numberOfLines = 0;
+        _content.textColor = ColorWhiteAlpha80;
+        _content.font = FONT_14;
+        [self addSubview:_content];
+        
+        _date = [[UILabel alloc] init];
+        _date.numberOfLines = 1;
+        _date.textColor = color_textBg_C7C7D1;
+        _date.font = FONT_10;
+        [self addSubview:_date];
+        
+        _likeNum = [[UILabel alloc] init];
+        _likeNum.numberOfLines = 1;
+        _likeNum.textColor = color_textBg_C7C7D1;
+        _likeNum.font = FONT_10;
+        [self addSubview:_likeNum];
+        
+        _splitLine = [[UIView alloc] init];
+        _splitLine.backgroundColor = ColorWhiteAlpha10;
+        [self addSubview:_splitLine];
+        
+        [_avatar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).inset(15);
+            make.left.equalTo(self).inset(15+34+10);
+            make.width.height.mas_equalTo(28);
+        }];
+        [_likeIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.equalTo(self).inset(15);
+            make.width.height.mas_equalTo(20);
+        }];
+        [_nickName mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(10);
+            make.left.equalTo(self.avatar.mas_right).offset(10);
+            make.right.equalTo(self.likeIcon.mas_left).inset(25);
+        }];
+        [_content mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.nickName.mas_bottom).offset(5);
+            make.left.equalTo(self.nickName);
+            make.width.mas_lessThanOrEqualTo(MaxContentWidth);
+        }];
+        [_date mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.content.mas_bottom).offset(5);
+            make.left.right.equalTo(self.nickName);
+        }];
+        [_likeNum mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.likeIcon);
+            make.top.equalTo(self.likeIcon.mas_bottom).offset(5);
+        }];
+        [_splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.date);
+            make.right.equalTo(self.likeIcon);
+            make.top.equalTo(self.date.mas_bottom).offset(9.5);
+            make.bottom.equalTo(self);
+            make.height.mas_equalTo(0.5);
+        }];
+    }
+    [self initDatatest];
+    return self;
+}
+
+-(void)initDatatest{
+    _nickName.text = @"美美";
+    self.avatar.image = IMAGE_NAME(STSystemDefaultImageName);
+    _content.text = @"自媒体自媒体自媒体";
+    _date.text =@"12-13-11";
+    _likeNum.text = @"123";
+}
+
+-(void)initData:(id )comment {
+}
+
++(CGFloat)cellHeight:(id )comment {
+    return KCellDefultHeight;
+}
+@end
 
 
 
@@ -486,6 +513,8 @@ static const CGFloat kCommentTextViewTopBottomInset          = 15;
         _atImageView = [[UIImageView alloc] init];
         _atImageView.contentMode = UIViewContentModeCenter;
         _atImageView.image = [UIImage imageNamed:@"iconWhiteaBefore"];
+        _atImageView.userInteractionEnabled = YES;
+        [_atImageView addTapGestureWithTarget:self action:@selector(atAction)];
         [_textView addSubview:_atImageView];
         [_container addSubview:_textView];
         
@@ -494,6 +523,10 @@ static const CGFloat kCommentTextViewTopBottomInset          = 15;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
+}
+
+- (void)atAction {//at好友
+    
 }
 
 - (void)layoutSubviews {
@@ -596,4 +629,3 @@ static const CGFloat kCommentTextViewTopBottomInset          = 15;
 }
 
 @end
-

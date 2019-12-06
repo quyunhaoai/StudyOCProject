@@ -153,7 +153,12 @@
 		A569450C237E448C00EA029B /* AddressBookClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A569450B237E448C00EA029B /* AddressBookClass.m */; };
 		A569450E237E569100EA029B /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A569450D237E569100EA029B /* AddressBook.framework */; };
 		A5694510237E58A200EA029B /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A569450F237E58A200EA029B /* AddressBookUI.framework */; };
+		A575D0CC2394FB4800530CBA /* EmotionSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = A575D0CB2394FB4800530CBA /* EmotionSelector.m */; };
+		A575D0CE2395000400530CBA /* emotion.json in Resources */ = {isa = PBXBuildFile; fileRef = A575D0CD2395000400530CBA /* emotion.json */; };
 		A57EA88823851922000CC566 /* KKRelateVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A57EA88723851922000CC566 /* KKRelateVideoCell.m */; };
+		A57FA3FB2397502800017CD0 /* STSmallPlayShopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A57FA3F92397502800017CD0 /* STSmallPlayShopTableViewCell.m */; };
+		A57FA3FC2397502800017CD0 /* STSmallPlayShopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A57FA3FA2397502800017CD0 /* STSmallPlayShopTableViewCell.xib */; };
+		A57FA3FF2397A77100017CD0 /* FocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = A57FA3FE2397A77100017CD0 /* FocusView.m */; };
 		A581F83E236986F500FD82A0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A581F83D236986F500FD82A0 /* CoreLocation.framework */; };
 		A5841C5E233E1031002A4879 /* STLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5841C5D233E1031002A4879 /* STLoginViewController.m */; };
 		A5841C60233E17B7002A4879 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A5841C5F233E17B7002A4879 /* libsqlite3.tbd */; };
@@ -308,6 +313,11 @@
 		A59BC6D3237BF1F600D017E6 /* STLocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A59BC6D2237BF1F600D017E6 /* STLocationTableViewController.m */; };
 		A59BC6D6237BF35500D017E6 /* STLocationHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = A59BC6D5237BF35500D017E6 /* STLocationHeadView.m */; };
 		A59FEC372320A9AE00C60BB5 /* STHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A59FEC362320A9AE00C60BB5 /* STHomeViewController.m */; };
+		A5A0BCB82396043D004EC1D5 /* Emoticons.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A5A0BCB72396043D004EC1D5 /* Emoticons.bundle */; };
+		A5A0BCBB23963B62004EC1D5 /* ChatTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A0BCBA23963B62004EC1D5 /* ChatTextView.m */; };
+		A5A0BCBE23963B70004EC1D5 /* PhotoSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A0BCBC23963B6F004EC1D5 /* PhotoSelector.m */; };
+		A5A0BCC223963C78004EC1D5 /* EmotionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A0BCC023963C78004EC1D5 /* EmotionHelper.m */; };
+		A5A0BCC523963CBA004EC1D5 /* NSTextAttachment+Emotion.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A0BCC323963CB9004EC1D5 /* NSTextAttachment+Emotion.m */; };
 		A5A17DD023288EDB000B707B /* STChildrenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A17DCF23288EDB000B707B /* STChildrenViewController.m */; };
 		A5A17DD32328A152000B707B /* STBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A17DD22328A152000B707B /* STBaseModel.m */; };
 		A5A17DD72328A1EB000B707B /* STChildrenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A5A17DD62328A1EB000B707B /* STChildrenModel.m */; };
@@ -785,8 +795,16 @@
 		A569450B237E448C00EA029B /* AddressBookClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBookClass.m; sourceTree = "<group>"; };
 		A569450D237E569100EA029B /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		A569450F237E58A200EA029B /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		A575D0CA2394FB4700530CBA /* EmotionSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmotionSelector.h; sourceTree = "<group>"; };
+		A575D0CB2394FB4800530CBA /* EmotionSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmotionSelector.m; sourceTree = "<group>"; };
+		A575D0CD2395000400530CBA /* emotion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emotion.json; sourceTree = "<group>"; };
 		A57EA88623851922000CC566 /* KKRelateVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKRelateVideoCell.h; sourceTree = "<group>"; };
 		A57EA88723851922000CC566 /* KKRelateVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKRelateVideoCell.m; sourceTree = "<group>"; };
+		A57FA3F82397502800017CD0 /* STSmallPlayShopTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSmallPlayShopTableViewCell.h; sourceTree = "<group>"; };
+		A57FA3F92397502800017CD0 /* STSmallPlayShopTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSmallPlayShopTableViewCell.m; sourceTree = "<group>"; };
+		A57FA3FA2397502800017CD0 /* STSmallPlayShopTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = STSmallPlayShopTableViewCell.xib; sourceTree = "<group>"; };
+		A57FA3FD2397A76E00017CD0 /* FocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FocusView.h; sourceTree = "<group>"; };
+		A57FA3FE2397A77100017CD0 /* FocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FocusView.m; sourceTree = "<group>"; };
 		A581F83D236986F500FD82A0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A5841C56233E0A15002A4879 /* STURLMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STURLMacros.h; sourceTree = "<group>"; };
 		A5841C5C233E1031002A4879 /* STLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STLoginViewController.h; sourceTree = "<group>"; };
@@ -1093,6 +1111,17 @@
 		A59BC6D5237BF35500D017E6 /* STLocationHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STLocationHeadView.m; sourceTree = "<group>"; };
 		A59FEC352320A9AE00C60BB5 /* STHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STHomeViewController.h; sourceTree = "<group>"; };
 		A59FEC362320A9AE00C60BB5 /* STHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STHomeViewController.m; sourceTree = "<group>"; };
+		A5A0BCB72396043D004EC1D5 /* Emoticons.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoticons.bundle; sourceTree = "<group>"; };
+		A5A0BCB923963B60004EC1D5 /* ChatTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTextView.h; sourceTree = "<group>"; };
+		A5A0BCBA23963B62004EC1D5 /* ChatTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTextView.m; sourceTree = "<group>"; };
+		A5A0BCBC23963B6F004EC1D5 /* PhotoSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoSelector.m; sourceTree = "<group>"; };
+		A5A0BCBD23963B70004EC1D5 /* PhotoSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSelector.h; sourceTree = "<group>"; };
+		A5A0BCC023963C78004EC1D5 /* EmotionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmotionHelper.m; sourceTree = "<group>"; };
+		A5A0BCC123963C78004EC1D5 /* EmotionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmotionHelper.h; sourceTree = "<group>"; };
+		A5A0BCC323963CB9004EC1D5 /* NSTextAttachment+Emotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextAttachment+Emotion.m"; sourceTree = "<group>"; };
+		A5A0BCC423963CBA004EC1D5 /* NSTextAttachment+Emotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTextAttachment+Emotion.h"; sourceTree = "<group>"; };
+		A5A0BCC623966238004EC1D5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		A5A0BCC72396623A004EC1D5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		A5A17DCE23288EDB000B707B /* STChildrenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STChildrenViewController.h; sourceTree = "<group>"; };
 		A5A17DCF23288EDB000B707B /* STChildrenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STChildrenViewController.m; sourceTree = "<group>"; };
 		A5A17DD12328A152000B707B /* STBaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STBaseModel.h; sourceTree = "<group>"; };
@@ -1663,6 +1692,8 @@
 				A51FB865231F3DDA00D818A8 /* LaunchScreen.storyboard */,
 				A51FB868231F3DDA00D818A8 /* Info.plist */,
 				A51FB869231F3DDA00D818A8 /* main.m */,
+				A575D0CD2395000400530CBA /* emotion.json */,
+				A5A0BCB72396043D004EC1D5 /* Emoticons.bundle */,
 			);
 			path = StudyOC;
 			sourceTree = "<group>";
@@ -2873,12 +2904,17 @@
 		A595778F238D100400F68C20 /* VIew */ = {
 			isa = PBXGroup;
 			children = (
+				A57FA3FD2397A76E00017CD0 /* FocusView.h */,
+				A57FA3FE2397A77100017CD0 /* FocusView.m */,
 				A5957795238D100400F68C20 /* FavoriteView.h */,
 				A5957791238D100400F68C20 /* FavoriteView.m */,
 				A5957790238D100400F68C20 /* SmallVideoPlayCell.h */,
 				A5957793238D100400F68C20 /* SmallVideoPlayCell.m */,
 				A5957794238D100400F68C20 /* SmallVideoCell.h */,
 				A5957792238D100400F68C20 /* SmallVideoCell.m */,
+				A57FA3F82397502800017CD0 /* STSmallPlayShopTableViewCell.h */,
+				A57FA3F92397502800017CD0 /* STSmallPlayShopTableViewCell.m */,
+				A57FA3FA2397502800017CD0 /* STSmallPlayShopTableViewCell.xib */,
 			);
 			path = VIew;
 			sourceTree = "<group>";
@@ -2906,6 +2942,17 @@
 				A595CED7238784A1006A831E /* STHeaderImageFriendCollectionViewCell.xib */,
 			);
 			path = KKShareView;
+			sourceTree = "<group>";
+		};
+		A5A0BCBF23963C78004EC1D5 /* Emotion */ = {
+			isa = PBXGroup;
+			children = (
+				A5A0BCC423963CBA004EC1D5 /* NSTextAttachment+Emotion.h */,
+				A5A0BCC323963CB9004EC1D5 /* NSTextAttachment+Emotion.m */,
+				A5A0BCC023963C78004EC1D5 /* EmotionHelper.m */,
+				A5A0BCC123963C78004EC1D5 /* EmotionHelper.h */,
+			);
+			path = Emotion;
 			sourceTree = "<group>";
 		};
 		A5A17DCD23288E2D000B707B /* ViewController */ = {
@@ -3055,6 +3102,13 @@
 		A5A705302390FD05001C343F /* douYinCommentView */ = {
 			isa = PBXGroup;
 			children = (
+				A5A0BCBF23963C78004EC1D5 /* Emotion */,
+				A5A0BCBD23963B70004EC1D5 /* PhotoSelector.h */,
+				A5A0BCBC23963B6F004EC1D5 /* PhotoSelector.m */,
+				A575D0CA2394FB4700530CBA /* EmotionSelector.h */,
+				A575D0CB2394FB4800530CBA /* EmotionSelector.m */,
+				A5A0BCB923963B60004EC1D5 /* ChatTextView.h */,
+				A5A0BCBA23963B62004EC1D5 /* ChatTextView.m */,
 				A5A705342390FDAC001C343F /* LoadMoreControl.h */,
 				A5A705352390FDAD001C343F /* LoadMoreControl.m */,
 				A5A705312390FD18001C343F /* CommentsPopView.h */,
@@ -3901,6 +3955,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = A51FB84E231F3DD900D818A8;
 			productRefGroup = A51FB858231F3DD900D818A8 /* Products */;
@@ -3935,6 +3990,7 @@
 				A53136D0235407E000B2F13F /* .gitkeep in Resources */,
 				A58DBEFE238BC1DD00766617 /* README.txt in Resources */,
 				A5BE5280236AE122001313AA /* Loading_7@2x.tiff in Resources */,
+				A57FA3FC2397502800017CD0 /* STSmallPlayShopTableViewCell.xib in Resources */,
 				A5BE5283236AE122001313AA /* Loading_2@2x.tiff in Resources */,
 				A59BC6C8237B8B2900D017E6 /* STRecommonPersonCollectionViewCell.xib in Resources */,
 				A5A6DB84236830D300E476D8 /* icon_search@3x.png in Resources */,
@@ -3942,12 +3998,14 @@
 				A5A6CFA8234F3D7F00E19348 /* LICENSE.txt in Resources */,
 				A5FD2215233B109900E13ACD /* ChatListCell.xib in Resources */,
 				A5BE526A236A8350001313AA /* CityData.plist in Resources */,
+				A5A0BCB82396043D004EC1D5 /* Emoticons.bundle in Resources */,
 				A595CED9238784A1006A831E /* STHeaderImageFriendCollectionViewCell.xib in Resources */,
 				A5A6CFA7234F3D7F00E19348 /* README.md in Resources */,
 				A5A6DB86236830D300E476D8 /* icon_search_clear@2x.png in Resources */,
 				A58D12EA2350732F00733533 /* WSProgressBundle.bundle in Resources */,
 				A5FD220C233B109900E13ACD /* TSMessagesDefaultDesign.json in Resources */,
 				A5FD22A7233B110E00E13ACD /* TZImagePickerController.bundle in Resources */,
+				A575D0CE2395000400530CBA /* emotion.json in Resources */,
 				A58D12E62350732F00733533 /* LICENSE in Resources */,
 				A5BE5285236AE122001313AA /* Loading_8@2x.tiff in Resources */,
 				A5FD2290233B110E00E13ACD /* README.md in Resources */,
@@ -4112,6 +4170,7 @@
 				A5EEFE5D232344AF0039F25C /* STChatViewController.m in Sources */,
 				A51FB85C231F3DD900D818A8 /* AppDelegate.m in Sources */,
 				A50104DA2356F2FB00BF65E4 /* STVideoChannelTableViewCell.m in Sources */,
+				A5A0BCC223963C78004EC1D5 /* EmotionHelper.m in Sources */,
 				A58DBEF6238BC1DD00766617 /* KKThirdTools.m in Sources */,
 				A509F9FC235178550035C2F8 /* STFoundPassWordResuldView.m in Sources */,
 				A5FD22AE233B110E00E13ACD /* MYCoretextResultTool.m in Sources */,
@@ -4140,6 +4199,7 @@
 				A595779C238D100400F68C20 /* KTVHCURLTool.m in Sources */,
 				A58548A0238246F9007C1B92 /* SVProgressHUD+DGActivityIndicatorView.m in Sources */,
 				A5FC3CCE2341AC4100C2F080 /* HWGuidePageManager.m in Sources */,
+				A5A0BCC523963CBA004EC1D5 /* NSTextAttachment+Emotion.m in Sources */,
 				A54BBEB823580053003567FA /* SPActivityIndicatorBallRotateAnimation.m in Sources */,
 				A5FD2299233B110E00E13ACD /* FSMEngine.m in Sources */,
 				A58526FE235EB080007FEC82 /* STSearchTextFildeView.m in Sources */,
@@ -4181,6 +4241,7 @@
 				A55B012323323447006AB1E9 /* UIFont+Standard.m in Sources */,
 				A5FD2288233B110E00E13ACD /* UIImage+colorImage.m in Sources */,
 				A5FD22A8233B110E00E13ACD /* TZProgressView.m in Sources */,
+				A57FA3FB2397502800017CD0 /* STSmallPlayShopTableViewCell.m in Sources */,
 				A5BC7892237114EE00186F4B /* UIView+ViewController.m in Sources */,
 				A54BBE9823580053003567FA /* SPActivityIndicator3DotsFadeAnimation.m in Sources */,
 				A5852707235ED6D8007FEC82 /* AKSearchHotDataTypeView.m in Sources */,
@@ -4292,6 +4353,7 @@
 				A509FA342351ABDA0035C2F8 /* XWCountryCodeController.m in Sources */,
 				A569450C237E448C00EA029B /* AddressBookClass.m in Sources */,
 				A509F9F9235168A70035C2F8 /* STFoundpassWordHeadIconView.m in Sources */,
+				A5A0BCBE23963B70004EC1D5 /* PhotoSelector.m in Sources */,
 				A5FE500C23595DA400EF029C /* UIImageView+Animate.m in Sources */,
 				A5FD22A9233B110E00E13ACD /* TZImageManager.m in Sources */,
 				A520CDB4235D57130020511E /* STSearchHistoryTableViewCell.m in Sources */,
@@ -4305,6 +4367,7 @@
 				A5FB9A79233072CE0014E16B /* YNPageViewController.m in Sources */,
 				A5BE5274236AE092001313AA /* SDRefreshHeader.m in Sources */,
 				A5FD266B233B64C500E13ACD /* STScanViewController.m in Sources */,
+				A5A0BCBB23963B62004EC1D5 /* ChatTextView.m in Sources */,
 				A59872422383EA6C00FA6045 /* STXiaoshipinDetailViewController.m in Sources */,
 				A53136CC235407E000B2F13F /* UIImage+LCActionSheet.m in Sources */,
 				A54BBEB423580053003567FA /* SPActivityIndicatorRotatingSandglassAnimation.m in Sources */,
@@ -4331,6 +4394,7 @@
 				A5C4B64D236BCC4000CCDEF1 /* VideoTeam.m in Sources */,
 				A594C421238686E70039397A /* ImageTitleButton.m in Sources */,
 				A54384A22334AC6F005CDA49 /* STRecommendTopTableViewCell.m in Sources */,
+				A57FA3FF2397A77100017CD0 /* FocusView.m in Sources */,
 				A5BC788C237114CA00186F4B /* UIButton+Badge.m in Sources */,
 				A5FD22A2233B110E00E13ACD /* TZVideoPlayerController.m in Sources */,
 				A5BE5260236A8335001313AA /* SLCityLocationView.m in Sources */,
@@ -4361,6 +4425,7 @@
 				A5FD229E233B110E00E13ACD /* AccountTool.m in Sources */,
 				A591F128237A424300136FDE /* STSubscribeVideoTableViewCell.m in Sources */,
 				A5A6CF96234F1D7900E19348 /* UIImagePickerController+ST.m in Sources */,
+				A575D0CC2394FB4800530CBA /* EmotionSelector.m in Sources */,
 				A559E46023751F7F0052DBB0 /* KKDragableBaseView.m in Sources */,
 				A5BE525E236A8335001313AA /* SLCityListViewController.m in Sources */,
 				A59577BE238D100400F68C20 /* MultipartFormDataParser.m in Sources */,
@@ -4450,6 +4515,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A51FB861231F3DD900D818A8 /* Base */,
+				A5A0BCC623966238004EC1D5 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -4458,6 +4524,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A51FB866231F3DDA00D818A8 /* Base */,
+				A5A0BCC72396623A004EC1D5 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -4469,6 +4536,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -4528,6 +4596,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
