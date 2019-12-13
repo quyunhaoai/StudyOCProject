@@ -140,7 +140,7 @@
 
 - (void)refreshData:(id)data {
     [self.activityView startAnimating];
-    [self.headerIconView setCornerImageWithURL:[NSURL URLWithString:@""] placeholder:IMAGE_NAME(STSystemDefaultImageName)];
+    [self.headerIconView setCornerImageWithURL:[NSURL URLWithString:@""] placeholder:IMAGE_NAME(@"userhead")];
     self.titleLabel.text = @"最靓丽的视频就在这里，拍摄了几天，容纳了众多美女参与";
     self.nameStringLabel.text = @"蔚蓝的天空";
     NSRange dddd = NSMakeRange(4, 4);
@@ -234,7 +234,7 @@
         [imageListView addSubview:icon];//175-4*4
         icon.frame = CGRectMake((159/5 * i) , 0, 35, 35);
         ViewBorderRadius(icon, 17.5, 2, kWhiteColor);
-        [icon setCornerImageWithURL:[NSURL URLWithString:@""] placeholder:IMAGE_NAME(STSystemDefaultImageName)];
+        [icon setCornerImageWithURL:[NSURL URLWithString:@""] placeholder:IMAGE_NAME(@"userhead")];
     }
 }
 

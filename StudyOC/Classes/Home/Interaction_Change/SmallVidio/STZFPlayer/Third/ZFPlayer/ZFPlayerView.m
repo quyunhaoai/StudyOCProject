@@ -36,7 +36,7 @@
 #import "ZFSuspendPlayerControlView.h"
 
 #define CellPlayerFatherViewTag  200
-
+#import "YPDouYinLikeAnimation.h"
 //忽略编译器的警告
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
@@ -90,7 +90,7 @@
 /** 单击 */
 @property (nonatomic, strong) UITapGestureRecognizer *singleTap;
 ///** 双击 */
-//@property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
+@property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
 /** 视频URL的数组 */
 @property (nonatomic, strong) NSArray                *videoURLArray;
 /** slider预览图 */
@@ -538,17 +538,17 @@ static NSString *JPVideoPlayerURL = @"www.newpan.com";
     [self addGestureRecognizer:self.singleTap];
     
     //    // 双击(播放/暂停)
-    //    self.doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapAction:)];
-    //    self.doubleTap.delegate                = self;
-    //    self.doubleTap.numberOfTouchesRequired = 1; //手指数
-    //    self.doubleTap.numberOfTapsRequired    = 2;
-    //    [self addGestureRecognizer:self.doubleTap];
+    self.doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapAction:)];
+    self.doubleTap.delegate                = self;
+    self.doubleTap.numberOfTouchesRequired = 1; //手指数
+    self.doubleTap.numberOfTapsRequired    = 2;
+    [self addGestureRecognizer:self.doubleTap];
     
     // 解决点击当前view时候响应其他控件事件
     [self.singleTap setDelaysTouchesBegan:YES];
-    //    [self.doubleTap setDelaysTouchesBegan:YES];
-    //    // 双击失败响应单击事件
-    //    [self.singleTap requireGestureRecognizerToFail:self.doubleTap];
+    [self.doubleTap setDelaysTouchesBegan:YES];
+//    // 双击失败响应单击事件
+    [self.singleTap requireGestureRecognizerToFail:self.doubleTap];
 }
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 //
@@ -1070,24 +1070,18 @@ static NSString *JPVideoPlayerURL = @"www.newpan.com";
             }
         }
     }
+    
 }
 
 ///**
-// *  双击播放/暂停
+// *  双击点赞
 // *
 // *  @param gesture UITapGestureRecognizer
 // */
-//- (void)doubleTapAction:(UIGestureRecognizer *)gesture {
-//    if (self.playDidEnd) { return;  }
-//    // 显示控制层
-//    [self.controlView zf_playerShowControlView];
-//    if (self.isPauseByUser) { [self play]; }
-//    else { [self pause]; }
-//    if (!self.isAutoPlay) {
-//        self.isAutoPlay = YES;
-//        [self configZFPlayer];
-//    }
-//}
+- (void)doubleTapAction:(UITapGestureRecognizer *)gesture {
+    [[YPDouYinLikeAnimation shareInstance] createAnimationWithTap:gesture];
+    [kNotificationCenter postNotificationName:STNotificationLikeStr object:nil];
+}
 
 - (void)shrikPanAction:(UIPanGestureRecognizer *)gesture {
     CGPoint point = [gesture locationInView:[UIApplication sharedApplication].keyWindow];

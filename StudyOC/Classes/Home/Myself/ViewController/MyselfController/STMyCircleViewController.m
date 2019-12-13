@@ -39,8 +39,8 @@ static NSString *CellIdentifier = @"STMyCircleViewController";
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     self.headerView = headerView;
-    self.tableView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);
-    self.tableView.contentOffset = CGPointMake(0, -150);
+    self.tableView.contentInset = UIEdgeInsetsMake(140, 0, 0, 0);
+    self.tableView.contentOffset = CGPointMake(0, -140);
     self.tableView.height = self.view.height-120;
     [self.tableView registerNib:[STFollowTableViewCell loadNib] forCellReuseIdentifier:CellIdentifier];
     UIView *head = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Window_W, 59)];
@@ -86,7 +86,7 @@ static NSString *CellIdentifier = @"STMyCircleViewController";
         make.top.mas_equalTo(self.headerView.mas_bottom);
         make.left.mas_equalTo(self.view);
         make.width.mas_equalTo(self.view);
-        make.height.mas_equalTo(@30);
+        make.height.mas_equalTo(@20);
     }];
     [self.tipView.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.mas_equalTo(self.tipView);
@@ -109,7 +109,7 @@ static NSString *CellIdentifier = @"STMyCircleViewController";
         [weakSelf.tipView removeFromSuperview];
     }];
 
-//  [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
+  [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
     
 }
 - (void)showRefreshTipParam:(NSArray *)array{

@@ -68,7 +68,7 @@ static const CGFloat kPhotoSelectorItemHeight      = 170;
         
         _album = [[UIButton alloc] initWithFrame:CGRectMake(15, 10, 40, 25)];
         _album.tag = kPhotoSelectorAlbumTag;
-        _album.titleLabel.font = FONT_16;
+        _album.titleLabel.font = FONT_12;
         [_album setTitle:@"相册" forState:UIControlStateNormal];
         [_album setTitleColor:color_tipRed_FF0000 forState:UIControlStateNormal];
         [_album addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -78,7 +78,7 @@ static const CGFloat kPhotoSelectorItemHeight      = 170;
         _originalPhoto = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_album.frame) + 10, 10, 60, 25)];
         _originalPhoto.tag = kPhotoSelectorOrigPhotoTag;
         [_originalPhoto setTitleEdgeInsets:UIEdgeInsetsMake(0, 2, 0, 0)];
-        _originalPhoto.titleLabel.font = FONT_16;
+        _originalPhoto.titleLabel.font = FONT_12;
         [_originalPhoto setTitle:@"原图" forState:UIControlStateNormal];
         [_originalPhoto setTitleColor:color_tipRed_FF0000 forState:UIControlStateNormal];
         [_originalPhoto setImage:[UIImage imageNamed:@"radio_button_unchecked_white"] forState:UIControlStateNormal];

@@ -10,7 +10,7 @@
 #import "LKMoreReplyContentTableViewCell.h"
 #import "LoadMoreControl.h"
 #import "EmotionSelector.h"
-#import "ChatTextView.h"
+#import "STEmotionChatTextView.h"
 NSString * const kCommentListCell     = @"CommentListCell";
 NSString * const kCommentHeaderCell   = @"CommentHeaderCell";
 NSString * const kCommentFooterCell   = @"CommentFooterCell";
@@ -26,7 +26,7 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
 @property (nonatomic, strong) UIView                           *container;
 @property (nonatomic, strong) UITableView                      *tableView;
 @property (nonatomic, strong) NSMutableArray                   *data;
-@property (nonatomic, strong) ChatTextView                     *textView;
+@property (nonatomic, strong) STEmotionChatTextView                     *textView;
 @property (nonatomic, strong) LoadMoreControl                  *loadMore;
 
 @end
@@ -74,7 +74,7 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
         [_container addSubview:_label];
         
         _close = [[UIImageView alloc] init];
-        _close.image = [UIImage imageNamed:@"close"];
+        _close.image = [UIImage imageNamed:@"close_follow"];
         _close.contentMode = UIViewContentModeCenter;
         [_close addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGuesture:)]];
         [_container addSubview:_close];
@@ -108,7 +108,7 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
         
         [_container addSubview:_tableView];
         
-        _textView = [ChatTextView new];
+        _textView = [STEmotionChatTextView new];
         _textView.delegate = self;
         
     }
@@ -283,10 +283,6 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
             make.top.left.equalTo(self).inset(15);
             make.width.height.mas_equalTo(34);
         }];
-        [_likeIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.right.equalTo(self).inset(15);
-            make.width.height.mas_equalTo(20);
-        }];
         [_nickName mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(10);
             make.left.equalTo(self.avatar.mas_right).offset(10);
@@ -300,6 +296,10 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
         [_date mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.content.mas_bottom).offset(5);
             make.left.right.equalTo(self.nickName);
+        }];
+        [_likeIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.equalTo(self).inset(15);
+            make.width.height.mas_equalTo(20);
         }];
         [_likeNum mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.likeIcon);

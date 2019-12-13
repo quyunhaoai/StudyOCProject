@@ -46,18 +46,18 @@
     [self builderTabbarView];
     [kNotificationCenter addObserver:self selector:@selector(changeVc:) name:@"2222" object:nil];
 //    [self showBageMethod];
-    [[UITabBar appearance] setShadowImage:[UIImage imageWithColor:ColorWhiteAlpha20 size:CGSizeMake(Window_W, 0.7)]];
+    [[UITabBar appearance] setShadowImage:[UIImage imageWithColor:kClearColor size:CGSizeMake(Window_W, 0.7)]];
 }
 - (void)changeVc:(NSNotification *)not {
     NSString *obj = (NSString *)not.object;
     if ([obj isEqualToString:@"2"]) {
         self.tabBar.backgroundColor = kClearColor;
         self.tabBar.backgroundImage = [UIImage imageWithColor:kClearColor];
-        [self.tabBar setShadowImage:[UIImage imageWithColor:ColorWhiteAlpha20 size:CGSizeMake(Window_W, 0.7)]];
+        [self.tabBar setShadowImage:[UIImage imageWithColor:kClearColor size:CGSizeMake(Window_W, 0.7)]];
     } else {
         self.tabBar.backgroundColor = kBlackColor;
         self.tabBar.backgroundImage = [UIImage imageWithColor:kBlackColor];
-        [self.tabBar setShadowImage:[UIImage imageWithColor:kBlackColor size:CGSizeMake(Window_W, 0.7)]];
+        [self.tabBar setShadowImage:[UIImage imageWithColor:kClearColor size:CGSizeMake(Window_W, 0.7)]];
     }
 }
 - (void)showBageMethod {
@@ -118,6 +118,7 @@
     }
     self.viewControllers = navCtrls;
 }
+
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     if ([item.title isEqualToString:@"频道"]) {
         self.tabBar.backgroundColor = kClearColor;
@@ -126,9 +127,10 @@
     } else {
         self.tabBar.backgroundColor = kBlackColor;
         self.tabBar.backgroundImage = [UIImage imageWithColor:kBlackColor];
-        [self.tabBar setShadowImage:[UIImage imageWithColor:kBlackColor size:CGSizeMake(Window_W, 0.7)]];
+        [self.tabBar setShadowImage:[UIImage imageWithColor:kClearColor size:CGSizeMake(Window_W, 0.7)]];
     }
 }
+
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if (self.selectedViewController == viewController && self.selectedViewController == _navTabVC) {
 //        if ([_swappableImageView.layer animationForKey:@"rotationAnimation"]) {

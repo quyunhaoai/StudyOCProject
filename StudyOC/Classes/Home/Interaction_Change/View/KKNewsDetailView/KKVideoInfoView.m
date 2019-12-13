@@ -51,7 +51,7 @@
     [self addSubview:self.splitViewBottom];
     
     [self.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self).mas_offset(kkPaddingNormal);
+        make.top.mas_equalTo(self).mas_offset(kkPaddingSmall);
         make.left.mas_equalTo(self).mas_offset(kkPaddingNormal);
         make.width.mas_equalTo(TitleWidth);
         make.height.mas_equalTo(0);
@@ -164,7 +164,7 @@
         tipBtn.titleLabel.font = FONT_10;
         [tipBtn setTitle:title
                 forState:UIControlStateNormal];
-
+        [tipBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
         CGSize size = [_tagArray[i] sizeWithAttributes:@{NSFontAttributeName:tipBtn.titleLabel.font}];
         tipBtn.frame = CGRectMake(CGRectGetMaxX(_lastFrame) + 10,
                                   CGRectGetMinY(_lastFrame),
@@ -176,6 +176,16 @@
             [self.tagView addSubview:tipBtn];
         }
     }
+}
+
+- (void)clickBtn:(UIButton *)button {
+    STSearchView *searchVC = [[STSearchView alloc] initWithFrame:CGRectMake(0, 0, Window_W, Window_H)];
+//    searchVC.currentViewController = self;
+    [[UIApplication sharedApplication].keyWindow addSubview:searchVC];
+    [UIView animateWithDuration:0.3 animations:^{
+        searchVC.alpha = 1.0;
+        searchVC.frame = CGRectMake(0, 0, Window_W, Window_H);
+    } completion:nil];
 }
 #pragma mark -- @property setter
 

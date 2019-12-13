@@ -10,7 +10,7 @@
 #import "FavoriteView.h"
 #import "FocusView.h"
 @interface STSmallPlayShopTableViewCell ()
-@property (nonatomic, strong) FocusView        *focus;
+@property (nonatomic, strong) FocusView        *focus;//关注
 @property (nonatomic, strong) UIImageView *coverImageView;
 
 @property (nonatomic, strong) UIImageView *share;
@@ -19,11 +19,10 @@
 @property (nonatomic, strong) UIImageView *comment;
 @property (nonatomic, strong) UILabel *commentNum;
 
-@property (nonatomic, strong) FavoriteView *favorite;
+@property (nonatomic, strong) FavoriteView *favorite;//点赞
 @property (nonatomic, strong) UILabel *favoriteNum;
 
 @property (nonatomic, weak)IBOutlet UIImageView *avatar;
-//@property (nonatomic, strong) UIButton *focus;
 
 @property (nonatomic, weak)IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak)IBOutlet UILabel *artistLabel;
@@ -192,8 +191,12 @@
 //    }];
 //    [self.focus addTapGestureWithTarget:self action:@selector(addConcern)];
     [self.contentView bringSubviewToFront:self.liveIconBtn];
+    
+    [kNotificationCenter addObserver:self selector:@selector(ccc) name:STNotificationLikeStr object:nil];
 }
-
+- (void)ccc {
+    self.favorite.isChoose = YES;
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

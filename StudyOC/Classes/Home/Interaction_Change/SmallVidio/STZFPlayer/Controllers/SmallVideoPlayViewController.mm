@@ -39,22 +39,30 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
     }
 //    self.currentPlayIndex = 0;
     [self createUI];
+
+}
+- (void)addNotification {
     // app退到后台
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationWillResignActiveNotification object:nil];
     // app进入前台
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayground) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayground:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)removeNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 /**
  *  应用退到后台
  */
-- (void)appDidEnterBackground {
+- (void)appDidEnterBackground:(NSNotification *)notifi {
     [self.videoPlayerManager autoPause];
 }
-
+//appDidEnterBackground
 /**
  *  应用进入前台
  */
-- (void)appDidEnterPlayground {
+- (void)appDidEnterPlayground:(NSNotification *)notifi {
     STBaseNav *vc =(STBaseNav *)self.tabBarController.selectedViewController;
     STInteractionViewController *cc;
     for (UIViewController *vv in vc.childViewControllers) {
@@ -66,12 +74,20 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
         [self.videoPlayerManager autoPlay];
     }
 }
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self removeNotification];
+}
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.videoPlayerManager autoPause];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self addNotification];
+}
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.videoPlayerManager autoPlay];
@@ -128,6 +144,10 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
                 [weakSelf.tableView.mj_header endRefreshing];
             });
         }];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, Window_H-TAB_BAR_HEIGHT, Window_W, 0.7)];
+        [self.view addSubview:line];
+        line.backgroundColor = [UIColor whiteColor];
+        
     }
 }
 

@@ -10,6 +10,7 @@
 #import "STLookPhotoViewController.h"
 #import "STXiaoshipinDetailViewController.h"
 #import "SmallVideoPlayViewController.h"
+#import "INDouyinRefreshViewController.h"
 @interface STLookPhotoSumViewController ()<JXCategoryListContentViewDelegate>
 {
     BOOL isOff;
@@ -26,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kBlackColor;
-    SmallVideoPlayViewController *vc = [SmallVideoPlayViewController new];
+    INDouyinRefreshViewController *vc = [INDouyinRefreshViewController new];
     vc.view.frame = CGRectMake(0, 0, Window_W, Window_H);
     [self.view addSubview:vc.view];
     self.currentVC = vc;
@@ -37,7 +38,7 @@
 - (void)changeVc:(NSNotification *)not {
     NSString *obj = (NSString *)not.object;
      if ([obj isEqualToString:@"2"]) {
-         [self replaceController:self.currentVC newController:[SmallVideoPlayViewController new] andIndex:0];
+         [self replaceController:self.currentVC newController:[INDouyinRefreshViewController new] andIndex:0];
      } else {
          [self replaceController:self.currentVC newController:[STLookPhotoViewController new] andIndex:1];
      }  	

@@ -9,6 +9,9 @@
 #import "STChatHomeViewController.h"
 #import "STPowderMaterViewController.h"
 #import "JXCategoryIndicatorDotLineView.h"
+
+#import "STPrivateChatViewController.h"
+#import "STGroupChatViewController.h"
 @interface STChatHomeViewController ()
 
 @end
@@ -48,8 +51,8 @@
 }
 
 - (NSArray *)viewControllerArray {
-    NSArray *_viewControllerArray = @[[STPowderMaterViewController new],
-                                      [STPowderMaterViewController new],
+    NSArray *_viewControllerArray = @[[STPrivateChatViewController new],
+                                      [STGroupChatViewController new],
                                      ];
     return _viewControllerArray;
 }

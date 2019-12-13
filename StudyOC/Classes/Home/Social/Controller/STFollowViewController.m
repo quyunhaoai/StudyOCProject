@@ -40,8 +40,8 @@ static NSString *CellIdentifier = @"STFollowViewController";
     headerView.titleLabArray = @[@"关注我的234",@"我关注的345",@"访问我的123"];
     headerView.backgroundColor = color_cellBg_151420;
     self.headerView = headerView;
-    self.tableView.contentInset = UIEdgeInsetsMake(150, 0, 0, 0);
-    self.tableView.contentOffset = CGPointMake(0, -150);
+    self.tableView.contentInset = UIEdgeInsetsMake(140, 0, 0, 0);
+    self.tableView.contentOffset = CGPointMake(0, -140);
     self.tableView.height = self.view.height-120;
     [self.tableView registerNib:[STFollowTableViewCell loadNib] forCellReuseIdentifier:CellIdentifier];
     self.recommonView.frame = CGRectMake(0, 0, Window_W, 214);
@@ -60,7 +60,7 @@ static NSString *CellIdentifier = @"STFollowViewController";
         make.top.mas_equalTo(self.headerView.mas_bottom);
         make.left.mas_equalTo(self.view);
         make.width.mas_equalTo(self.view);
-        make.height.mas_equalTo(@30);
+        make.height.mas_equalTo(@20);
     }];
     [self.tipView.titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.mas_equalTo(self.tipView);
@@ -83,7 +83,7 @@ static NSString *CellIdentifier = @"STFollowViewController";
         [weakSelf.tipView removeFromSuperview];
     }];
 
-//  [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
+  [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
     
 }
 - (void)showRefreshTipParam:(NSArray *)array{
@@ -100,6 +100,7 @@ static NSString *CellIdentifier = @"STFollowViewController";
         }];
     }
 }
+
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

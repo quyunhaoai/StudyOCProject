@@ -46,7 +46,7 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
         [self addGestureRecognizer:tapGestureRecognizer];
         
         _container = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, 0)];
-        _container.backgroundColor = ColorBlackAlpha60;
+        _container.backgroundColor = kGrayColor;
         [self addSubview:_container];
         
         _containerBoardHeight = SafeAreaBottomHeight;
@@ -56,7 +56,7 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
         _textView.backgroundColor = kClearColor;
         _textView.clipsToBounds = NO;
         _textView.textColor = kWhiteColor;
-        _textView.font = FONT_16;
+        _textView.font = FONT_12;
         _textView.returnKeyType = UIReturnKeySend;
         _textView.scrollEnabled = NO;
         _textView.textContainer.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -65,9 +65,9 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
         _textHeight = ceilf(_textView.font.lineHeight);
         [_textView setInputAccessoryView:[UIView new]];
         _placeholderLabel = [[UILabel alloc]init];
-        _placeholderLabel.text = @"有爱评论，说点儿好听的~";
+        _placeholderLabel.text = @"发送消息...";
         _placeholderLabel.textColor = kGrayColor;
-        _placeholderLabel.font = FONT_16;
+        _placeholderLabel.font = FONT_12;
         _placeholderLabel.frame = CGRectMake(kChatTextViewLeftInset, 0, ScreenWidth - kChatTextViewLeftInset - kChatTextViewRightInset, 50);
         [_textView addSubview:_placeholderLabel];
 
@@ -85,15 +85,14 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
         
         _photoBtn = [[UIButton alloc] init];
         _photoBtn.tag = kChatTextViewPhotoTag;
-        [_photoBtn setImage:[UIImage imageNamed:@"iconWhiteaBefore"] forState:UIControlStateNormal];
-        [_photoBtn setImage:[UIImage imageNamed:@"iconWhiteaBefore"] forState:UIControlStateSelected];
+        [_photoBtn setImage:[UIImage imageNamed:@"outline_photo_white"] forState:UIControlStateNormal];
+        [_photoBtn setImage:[UIImage imageNamed:@"outline_photo_red"] forState:UIControlStateSelected];
         [_photoBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGuesture:)]];
         [_textView addSubview:_photoBtn];
         
         [self addObserver:self forKeyPath:@"containerBoardHeight" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillhide:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
 }
@@ -126,13 +125,13 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
             _textView.textColor = kWhiteColor;
             
             [_emotionBtn setImage:[UIImage imageNamed:@"baseline_emotion_white"] forState:UIControlStateNormal];
-            [_photoBtn setImage:[UIImage imageNamed:@"iconWhiteaBefore"] forState:UIControlStateNormal];
+            [_photoBtn setImage:[UIImage imageNamed:@"outline_photo_white"] forState:UIControlStateNormal];
         }else {
             _container.backgroundColor = kWhiteColor;
             _textView.textColor = kBlackColor;
             
             [_emotionBtn setImage:[UIImage imageNamed:@"baseline_emotion_grey"] forState:UIControlStateNormal];
-            [_photoBtn setImage:[UIImage imageNamed:@"iconWhiteaBefore"] forState:UIControlStateNormal];
+            [_photoBtn setImage:[UIImage imageNamed:@"outline_photo_grey"] forState:UIControlStateNormal];
         }
     }else {
         return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -144,8 +143,8 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
     [super layoutSubviews];
     [self updateContainerFrame];
     
-    _emotionBtn.frame = CGRectMake(ScreenWidth - 50, 0, 50, 50);
-    _photoBtn.frame = CGRectMake(ScreenWidth - 85, 0, 50, 50);
+    _photoBtn.frame = CGRectMake(ScreenWidth - 50, 0, 50, 50);
+    _emotionBtn.frame = CGRectMake(ScreenWidth - 85, 0, 50, 50);
     
     UIBezierPath* rounded = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10.0f, 10.0f)];
     CAShapeLayer* shape = [[CAShapeLayer alloc] init];
@@ -164,7 +163,7 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
 }
 
 - (void)updateContainerFrame {
-    CGFloat textViewHeight = _containerBoardHeight > SafeAreaBottomHeight ? _textHeight + 2*kChatTextViewTopBottomInset : FONT_16.lineHeight + 2*kChatTextViewTopBottomInset;
+    CGFloat textViewHeight = _containerBoardHeight > SafeAreaBottomHeight ? _textHeight + 2*kChatTextViewTopBottomInset : FONT_12.lineHeight + 2*kChatTextViewTopBottomInset;
     _textView.frame = CGRectMake(0, 0, ScreenWidth,  textViewHeight);
     [UIView animateWithDuration:0.25f
                           delay:0.0f
@@ -181,7 +180,7 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
 }
 
 - (void)updateSelectorFrame:(BOOL)animated {
-    CGFloat textViewHeight = _containerBoardHeight > 0 ? _textHeight + 2*kChatTextViewTopBottomInset : FONT_16.lineHeight + 2*kChatTextViewTopBottomInset;
+    CGFloat textViewHeight = _containerBoardHeight > 0 ? _textHeight + 2*kChatTextViewTopBottomInset : FONT_12.lineHeight + 2*kChatTextViewTopBottomInset;
     if(animated) {
         switch (self.editMessageType) {
             case EditEmotionMessage:
@@ -241,9 +240,7 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
     [self updateSelectorFrame:YES];
     
 }
-- (void)keyboardWillhide:(UITextView *)textView {
-    [self hideContainerBoard];
-}
+
 -(void)textViewDidChange:(UITextView *)textView {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithAttributedString:textView.attributedText];
     if(!textView.hasText) {
@@ -297,8 +294,28 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
                 }
                 break;
             case kChatTextViewPhotoTag: {
-                [self hideContainerBoard];
-                //at好友
+                PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+                if(PHAuthorizationStatusAuthorized == status) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.photoBtn setSelected:!self.photoBtn.selected];
+                        [self.emotionBtn setSelected:NO];
+                        if(self.photoBtn.isSelected) {
+                            self.editMessageType = EditPhotoMessage;
+                            [self setContainerBoardHeight:PhotoSelectorHeight];
+                            [self updateContainerFrame];
+                            [self updateSelectorFrame:YES];
+                            [self.textView resignFirstResponder];
+                        }else {
+                            [self hideContainerBoard];
+                        }
+                    });
+                }else {
+//                    [UIWindow showTips:@"请在设置中开启图库读取权限"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+                    });
+                }
+                break;
             }
         }
     }

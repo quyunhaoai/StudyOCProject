@@ -18,5 +18,7 @@ UIKIT_EXTERN NSString *const STUserRegisterInfoDict;
 UIKIT_EXTERN NSString *const STUserRegisterInfokey;
 
 UIKIT_EXTERN NSString *const STimagDefault;
+
+UIKIT_EXTERN NSString *const STNotificationLikeStr;
 NS_ASSUME_NONNULL_END
 

@@ -23,12 +23,12 @@ pod 'PPNetworkHelper', '~> 0.8.0'
 pod 'YYModel', '~> 1.0.4'
 pod 'YYCache'
 pod 'SuperPlayer'
-
+pod 'YYText'
 pod 'JXCategoryView'   
 pod 'YYWebImage'
 pod 'YYImage/WebP'
 pod 'WMZDialog'
 pod 'JTSImageViewController'
 pod 'IQKeyboardManager' #iOS8 and later
-
+pod 'MCFireworksButton'
 end

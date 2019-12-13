@@ -258,7 +258,10 @@ static NSString *cellIdentifierPerson = @"STLocationChannelTableViewCellcellIden
 }
 
 #pragma mark  -  CellDelegate
-
+- (void)jumpBtnClicked:(id)item {
+    [[QYHTools sharedInstance] shareVideo];
+    
+}
 - (void)didSelectWithView:(UIView *)view andCommonCell:(NSIndexPath *)index {
     STChildrenViewController *vc = [STChildrenViewController new];
     if (view.tag == 1) {
@@ -289,6 +292,7 @@ static NSString *cellIdentifierPerson = @"STLocationChannelTableViewCellcellIden
         if (self.playTableCellView) {
             self.playTableCellView.smallWindosView.hidden = YES;
             [self.playerView resetPlayer];
+            self.playerView = nil;
         }
         STLocationChannelTableViewCell* videoCell =(STLocationChannelTableViewCell *)[self.tableView cellForRowAtIndexPath:middleIndexPath];
         videoCell.smallWindosView.hidden = NO;
@@ -297,7 +301,6 @@ static NSString *cellIdentifierPerson = @"STLocationChannelTableViewCellcellIden
         playerModel.videoURL = @"http://1253131631.vod2.myqcloud.com/26f327f9vodgzp1253131631/f4c0c9e59031868222924048327/f0.mp4";
         self.playerView.autoPlay = YES;
         self.playerView.loop = YES;
-
         [_playerView playWithModel:playerModel];
         self.playTableCellView = videoCell;
     }
@@ -325,16 +328,19 @@ static NSString *cellIdentifierPerson = @"STLocationChannelTableViewCellcellIden
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.playerView resetPlayer];
+    self.playerView = nil;
     if (self.playTableCellView) {
         self.playTableCellView.smallWindosView.hidden = YES;
+        self.playTableCellView = nil;
     }
 }
 
 - (void)didMoveToParentViewController:(nullable UIViewController *)parent
 {
-//    if (parent == nil) {
+    if (parent == nil) {
         [self.playerView resetPlayer];
-//    }
+        self.playerView = nil;
+    }
     if (self.playTableCellView) {
         self.playTableCellView.smallWindosView.hidden = YES;
     }

@@ -10,11 +10,7 @@
 
 @interface KKVideoInfoView : UIView
 @property(nonatomic,copy)NSString *title;
-//@property(nonatomic,copy)NSString *playCount;
-//@property(nonatomic,copy)NSString *publicTime;
 @property(nonatomic,copy)NSString *descText;
-//@property(nonatomic,copy)NSString *diggCount;
-//@property(nonatomic,copy)NSString *disDiggCount;
 @property (strong, nonatomic) UILabel *commentLabel; //  视图
 @property (strong, nonatomic) UILabel *likeLabel; //  标签
 @property (strong, nonatomic) UIButton *likeBtn; //  标签

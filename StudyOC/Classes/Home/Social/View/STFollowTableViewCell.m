@@ -27,9 +27,37 @@
     [super setFrame:frame];
 }
 - (IBAction)buttonClick:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(jumpBtnClicked:)]) {
-        [self.delegate jumpBtnClicked:@""];
+    NSInteger a = sender.tag;
+    switch (a) {
+        case 1000:{
+            //分享更多
+            [[QYHTools sharedInstance] shareVideo];
+        }
+            
+            break;
+        case 1001:{
+            //评论
+            [[QYHTools sharedInstance] showCommentView:@""];
+        }
+            
+            break;
+        case 1002:{
+            //喜欢点赞
+        }
+            
+            break;
+        case 1003:{
+            //访问主页
+            if ([self.delegate respondsToSelector:@selector(jumpBtnClicked:)]) {
+                [self.delegate jumpBtnClicked:@""];
+            }
+        }
+            
+            break;
+        default:
+            break;
     }
+
 }
 - (CAGradientLayer *)gradientLayer{
     if(!_gradientLayer){

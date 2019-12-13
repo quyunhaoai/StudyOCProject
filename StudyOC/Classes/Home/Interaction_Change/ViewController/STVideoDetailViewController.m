@@ -111,7 +111,7 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
 }
 #pragma mark -- 数据刷新
 
-- (void)refreshData{
+- (void)refreshData{//请求数据，第一条单独出来， 其他s做一个集合，然后点击下面的列表在请求另外的一个接口， 同时移出x当前列表的数据，加载新的列表数据。、
     XYWeakSelf;
     NSDictionary *params = @{@"i":@(1),
                              @"page":@(self.page),
