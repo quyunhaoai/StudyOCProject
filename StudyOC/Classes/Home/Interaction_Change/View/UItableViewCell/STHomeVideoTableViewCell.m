@@ -7,13 +7,13 @@
 
 #import "STHomeVideoTableViewCell.h"
 #import "TagView.h"
-
+#import <MCFireworksButton.h>
 #import "DRNRealTimeBlurView.h"
 @interface STHomeVideoTableViewCell()
 
 @property (strong, nonatomic) UILabel *shareLab; //  视图
 @property (strong, nonatomic) UILabel *likeLabel; //  标签
-@property (strong, nonatomic) UIButton *likeBtn; //  标签
+@property (strong, nonatomic) MCFireworksButton *likeBtn; //  标签
 @property (nonatomic,strong) UIButton *commentButton; // 按钮
 @property (strong, nonatomic) DRNRealTimeBlurView *blurView; // 视图
 @property (strong, nonatomic) TagView *tagView; // 视图
@@ -32,7 +32,6 @@
     return cell;
 }
 + (CGFloat)techHeightForOjb:(id)obj {
-//    return (Window_W)*0.56 + kWidth(44) + kkPaddingNormalLarge + kkPaddingSmall*2 + 24+kkPaddingSmall + 15;
     return kkPaddingNormalLarge + kWidth(44) + kkPaddingSmall + kkPaddingTiny + Window_W*0.56 + 50;
 }
 
@@ -109,7 +108,6 @@
         make.height.mas_equalTo(self.nameStringLabel);
         make.width.mas_equalTo((Window_W-24)/2);
     }];
-
     [self.rightBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.descLabel.mas_right).mas_offset(kkPaddingNormalLarge);
         make.centerY.mas_equalTo(self.descLabel);
@@ -126,7 +124,6 @@
         make.height.mas_equalTo(17);
         make.width.mas_equalTo(100);
     }];
-
     [self.bgView addSubview:self.likeBtn];
     [self.bgView addSubview:self.likeLabel];
     [self.bgView addSubview:self.commentButton];
@@ -173,9 +170,6 @@
     self.vipImageView.hidden = NO;
     [self.descLabel setTextAlignment:NSTextAlignmentLeft];
     self.commentLabel.font = FONT_14;
-//    [self setData];
-//    [self.playVideoBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    self.coverView.userInteractionEnabled = NO;
 }
 - (void)addPlayView {
     [self playBtnClick:nil];
@@ -185,19 +179,6 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(clickImageWithItem:rect:fromView:image:indexPath:)]) {
         [self.delegate clickImageWithItem:self.model rect:self.coverView.frame fromView:self.contentView image:self.coverView.image indexPath:self.indexPath];
     }
-//    _playerView = [[SuperPlayerView alloc] init];
-//
-//    _playerView.fatherView = self.coverView;//b播放器的父视图
-////    self.playerView.delegate = self;
-//    SPWeiboControlView *weiboStly = [[SPWeiboControlView alloc] init];
-//    weiboStly.moreBtn.hidden = YES;
-//    weiboStly.muteBtn.hidden = YES;
-//    self.playerView.controlView = weiboStly;
-//    SuperPlayerModel *playerModel = [[SuperPlayerModel alloc] init];
-//    playerModel.videoURL = @"http://mp.youqucheng.com/addons/project/data/uploadfiles/video/1_06257727562426755.mp4?t=0.7643188466880166";
-//    self.playerView.autoPlay = YES;
-//    self.playerView.loop = YES;
-//    [_playerView playWithModel:playerModel];
 }
 //- (void)setData {
 //    [self.headerIconView setCornerImageWithURL:[NSURL URLWithString:@""] placeholder:IMAGE_NAME(STSystemDefaultImageName)];
@@ -274,34 +255,34 @@
     }
 }
 
-- (void)setIsShowWithdram:(BOOL)isShowWithdram {
-    _isShowWithdram = isShowWithdram;
-    if (_isShowWithdram) {
-          _blurView = [[DRNRealTimeBlurView alloc] initWithFrame:CGRectMake(0, 0, (Window_W), (Window_W)*0.56)];
-          TYAttributedLabel *tipLab = [[TYAttributedLabel alloc] init];
-          tipLab.frame = _blurView.bounds;
-          tipLab.text = [NSString stringWithFormat:@"%@\n%@\n刷新后将不在显示",checkNull(self.withdrawDic[@"content"]),checkNull(self.withdrawDic[@"channel"])];
-          tipLab.textColor = kWhiteColor;
-          tipLab.font = FONT_12;
-          tipLab.textAlignment = kCTTextAlignmentCenter;
-          tipLab.verticalAlignment = TYVerticalAlignmentCenter;
-          tipLab.characterSpacing = 1;
-          tipLab.linesSpacing = 20;
-          tipLab.lineBreakMode = kCTLineBreakByTruncatingTail;
-          tipLab.numberOfLines = 3;
-          [_blurView addSubview:tipLab];
-          [self.coverView addSubview:_blurView];
-          [self.bgView addSubview:self.withdrawButton];
-          [self.withdrawButton mas_makeConstraints:^(MASConstraintMaker *make) {
-              make.bottom.mas_equalTo(self.bgView.mas_bottom);
-              make.top.mas_equalTo(self.coverView.mas_bottom);
-              make.right.left.mas_equalTo(self.coverView);
-          }];
-    } else {
-        [self.withdrawButton removeFromSuperview];
-        [self.blurView removeFromSuperview];
-    }
-}
+//- (void)setIsShowWithdram:(BOOL)isShowWithdram {
+//    _isShowWithdram = isShowWithdram;
+//    if (_isShowWithdram) {
+//          _blurView = [[DRNRealTimeBlurView alloc] initWithFrame:CGRectMake(0, 0, (Window_W), (Window_W)*0.56)];
+//          TYAttributedLabel *tipLab = [[TYAttributedLabel alloc] init];
+//          tipLab.frame = _blurView.bounds;
+//          tipLab.text = [NSString stringWithFormat:@"%@\n%@\n刷新后将不在显示",checkNull(self.withdrawDic[@"content"]),checkNull(self.withdrawDic[@"channel"])];
+//          tipLab.textColor = kWhiteColor;
+//          tipLab.font = FONT_12;
+//          tipLab.textAlignment = kCTTextAlignmentCenter;
+//          tipLab.verticalAlignment = TYVerticalAlignmentCenter;
+//          tipLab.characterSpacing = 1;
+//          tipLab.linesSpacing = 20;
+//          tipLab.lineBreakMode = kCTLineBreakByTruncatingTail;
+//          tipLab.numberOfLines = 3;
+//          [_blurView addSubview:tipLab];
+//          [self.coverView addSubview:_blurView];
+//          [self.bgView addSubview:self.withdrawButton];
+//          [self.withdrawButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//              make.bottom.mas_equalTo(self.bgView.mas_bottom);
+//              make.top.mas_equalTo(self.coverView.mas_bottom);
+//              make.right.left.mas_equalTo(self.coverView);
+//          }];
+//    } else {
+//        [self.withdrawButton removeFromSuperview];
+//        [self.blurView removeFromSuperview];
+//    }
+//}
 - (void)moreBtnClicked:(UIButton *)button {
     if ([self.delegate respondsToSelector:@selector(jumpBtnClicked:)]) {
         [self.delegate jumpBtnClicked:button];
@@ -314,11 +295,10 @@
 }
 #pragma  mark  --  addBtn 懒加载
 - (UIButton *)addButton {
-    
     if (!_addButton) {
         _addButton =({
             UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
-            [view setTitle:@"订阅+" forState:UIControlStateNormal];
+            [view setTitle:@"主页" forState:UIControlStateNormal];
             [view.titleLabel setFont:FONT_11];
             view.layer.cornerRadius = 2;
             view.layer.masksToBounds = YES;
@@ -334,56 +314,75 @@
 }
 
 - (void)addBtnClick:(UIButton *)button {
-    NSString *key = [kUserDefaults objectForKey:STUserRegisterInfokey];
-    if ([key isNotBlank]) {
-         NSDictionary *params = @{@"i":@(1),
-                                  @"key":key,
-                                  @"uid":@(self.model.uid),
-        };
-        [[STHttpResquest sharedManager] requestWithMethod:POST
-                                                 WithPath:@"user_center/do_video_guanzhu"
-                                               WithParams:params
-                                         WithSuccessBlock:^(NSDictionary * _Nonnull dic){
-            NSInteger status = [[dic objectForKey:@"state"] integerValue];
-            NSString *msg = [[dic objectForKey:@"msg"] description];
-            if(status == 200){
-                NSDictionary *data = [dic objectForKey:@"data"];
-                int flag_type = [[data objectForKey:@"flag_type"] intValue];
-                if (flag_type == 1) {
-                    button.layer.backgroundColor = [[UIColor colorWithRed:58.0f/255.0f green:58.0f/255.0f blue:68.0f/255.0f alpha:1.0f] CGColor];
-                    [button setTitle:@"已订阅" forState:UIControlStateNormal];
-                } else {
-                    button.layer.backgroundColor = [[UIColor colorWithRed:255.0f/255.0f green:33.0f/255.0f blue:144.0f/255.0f alpha:1.0f] CGColor];
-                    [button setTitle:@"订阅+" forState:UIControlStateNormal];
-                }
-            }else {
-                if (msg.length>0) {
-                    [MBManager showBriefAlert:msg];
-                }
-            }
-        } WithFailurBlock:^(NSError * _Nonnull error) {
-            
-        }];
-    } else {
-        STLoginViewController *vc = [STLoginViewController new];
-        vc.barStyle = [UIApplication sharedApplication].statusBarStyle;
-        STBaseNav *nav = [[STBaseNav alloc] initWithRootViewController:vc];
-        [kRootViewController presentViewController:nav animated:YES completion:^{
-            
-        }];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(jumpToUserPage:)]) {
+        [self.delegate jumpToUserPage:@""];
     }
+//    NSString *key = [kUserDefaults objectForKey:STUserRegisterInfokey];
+//    if ([key isNotBlank]) {
+//         NSDictionary *params = @{@"i":@(1),
+//                                  @"key":key,
+//                                  @"uid":@(self.model.uid),
+//        };
+//        [[STHttpResquest sharedManager] requestWithMethod:POST
+//                                                 WithPath:@"user_center/do_video_guanzhu"
+//                                               WithParams:params
+//                                         WithSuccessBlock:^(NSDictionary * _Nonnull dic){
+//            NSInteger status = [[dic objectForKey:@"state"] integerValue];
+//            NSString *msg = [[dic objectForKey:@"msg"] description];
+//            if(status == 200){
+//                NSDictionary *data = [dic objectForKey:@"data"];
+//                int flag_type = [[data objectForKey:@"flag_type"] intValue];
+//                if (flag_type == 1) {
+//                    button.layer.backgroundColor = [[UIColor colorWithRed:58.0f/255.0f green:58.0f/255.0f blue:68.0f/255.0f alpha:1.0f] CGColor];
+//                    [button setTitle:@"已订阅" forState:UIControlStateNormal];
+//                } else {
+//                    button.layer.backgroundColor = [[UIColor colorWithRed:255.0f/255.0f green:33.0f/255.0f blue:144.0f/255.0f alpha:1.0f] CGColor];
+//                    [button setTitle:@"订阅+" forState:UIControlStateNormal];
+//                }
+//            }else {
+//                if (msg.length>0) {
+//                    [MBManager showBriefAlert:msg];
+//                }
+//            }
+//        } WithFailurBlock:^(NSError * _Nonnull error) {
+//
+//        }];
+//    } else {
+//        STLoginViewController *vc = [STLoginViewController new];
+//        vc.barStyle = [UIApplication sharedApplication].statusBarStyle;
+//        STBaseNav *nav = [[STBaseNav alloc] initWithRootViewController:vc];
+//        [kRootViewController presentViewController:nav animated:YES completion:^{
+//
+//        }];
+//    }
 }
 
-- (UIButton *)likeBtn {
+- (MCFireworksButton *)likeBtn {
     if (!_likeBtn) {
         _likeBtn =  ({
-                   UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
-                   [view setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
-                   [view setUserInteractionEnabled:YES];
-                   view ;
-               });
+           MCFireworksButton *view = [MCFireworksButton buttonWithType:UIButtonTypeCustom];
+             view.particleImage = [UIImage imageNamed:@"like_icon_video"];
+             view.particleScale = 0.05;
+             view.particleScaleRange = 0.02;
+            [view setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+            [view setUserInteractionEnabled:YES];
+             [view addTarget:self action:@selector(likeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+           view ;
+       });
     }
     return _likeBtn;
+}
+
+- (void)likeBtnClick:(MCFireworksButton *)sender {
+    sender.selected= !sender.selected;
+    if (sender.selected) {
+        [sender popOutsideWithDuration:0.5];
+        [sender setImage:[UIImage imageNamed:@"smallVideo_home_like_after"] forState:UIControlStateNormal];
+    }
+    else {
+        [sender popInsideWithDuration:0.4];
+        [sender setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+    }
 }
 
 - (UIButton *)commentButton {
@@ -398,20 +397,19 @@
     }
     return _commentButton;
 }
-#pragma  mark  --  smallWindows 懒加载
-- (UIView *)smallWindosView {
-    if (!_smallWindosView) {
-        _smallWindosView = ({
-            UIView *view = [[UIView alloc]init];
-            view;
-        });
-    }
-    return _smallWindosView;
-}
+//#pragma  mark  --  smallWindows 懒加载
+//- (UIView *)smallWindosView {
+//    if (!_smallWindosView) {
+//        _smallWindosView = ({
+//            UIView *view = [[UIView alloc]init];
+//            view;
+//        });
+//    }
+//    return _smallWindosView;
+//}
 
 #pragma  mark  --  shareLab 懒加载
 - (UILabel *)shareLab {
-    
     if (!_shareLab) {
         _shareLab = ({
                    UILabel *view = [UILabel new];

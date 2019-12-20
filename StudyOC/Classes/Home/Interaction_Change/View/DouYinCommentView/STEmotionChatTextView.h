@@ -28,6 +28,7 @@ typedef NS_ENUM(NSUInteger,ChatEditMessageType) {
 
 
 @interface STEmotionChatTextView : UIView
+
 @property (nonatomic, strong) UIView                 *container;
 @property (nonatomic, strong) UITextView             *textView;
 @property (nonatomic, assign) ChatEditMessageType    editMessageType;

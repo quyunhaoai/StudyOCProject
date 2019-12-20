@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MCFireworksButton.h>
 
 @interface CommentsPopView:UIView
 
@@ -24,7 +25,7 @@
 @interface CommentListCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView        *avatar;
-@property (nonatomic, strong) UIImageView        *likeIcon;
+@property (nonatomic, strong) MCFireworksButton  *likeIcon;
 @property (nonatomic, strong) UILabel            *nickName;
 @property (nonatomic, strong) UILabel            *extraTag;
 @property (nonatomic, strong) UILabel            *content;
@@ -33,14 +34,14 @@
 @property (nonatomic, strong) UIView             *splitLine;
 
 //-(void)initData:(Comment *)comment;
-//+(CGFloat)cellHeight:(Comment *)comment;
++(CGFloat)cellHeight:(id )comment;
 
 @end
 //@class Comment;
 @interface CommentListReplyCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView        *avatar;
-@property (nonatomic, strong) UIImageView        *likeIcon;
+@property (nonatomic, strong) MCFireworksButton  *likeIcon;
 @property (nonatomic, strong) UILabel            *nickName;
 @property (nonatomic, strong) UILabel            *extraTag;
 @property (nonatomic, strong) UILabel            *content;
@@ -69,5 +70,15 @@
 
 - (void)show;
 - (void)dismiss;
+
+@end
+
+@interface CommentListMoreCell : UITableViewCell
+
+@property (nonatomic, strong) UILabel            *content;
+@property (nonatomic, strong) UIView             *splitLine;
+
+//-(void)initData:(Comment *)comment;
+//+(CGFloat)cellHeight:(Comment *)comment;
 
 @end

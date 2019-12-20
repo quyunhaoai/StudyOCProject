@@ -352,16 +352,32 @@
     return _moreButton;
 }
 
-- (UIButton *)likeBtn {
+- (MCFireworksButton *)likeBtn {
     if (!_likeBtn) {
         _likeBtn =  ({
-                   UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
-                   [view setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
-                   [view setUserInteractionEnabled:YES];
-                   view ;
-               });
+           MCFireworksButton *view = [MCFireworksButton buttonWithType:UIButtonTypeCustom];
+            view.particleImage = [UIImage imageNamed:@"like_icon_video"];
+            view.particleScale = 0.05;
+            view.particleScaleRange = 0.02;
+           [view setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+           [view setUserInteractionEnabled:YES];
+            [view addTarget:self action:@selector(likeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+           view ;
+       });
     }
     return _likeBtn;
+}
+
+- (void)likeBtnClick:(MCFireworksButton *)sender {
+        sender.selected= !sender.selected;
+        if (sender.selected) {
+            [sender popOutsideWithDuration:0.5];
+            [sender setImage:[UIImage imageNamed:@"smallVideo_home_like_after"] forState:UIControlStateNormal];
+        }
+        else {
+            [sender popInsideWithDuration:0.4];
+            [sender setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+        }
 }
 
 - (UIButton *)commentButton {

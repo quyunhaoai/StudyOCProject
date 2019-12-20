@@ -54,6 +54,7 @@ static NSString *CellIdentifier = @"STFollowViewController";
         [weakSelf.tableView.mj_header endRefreshing];
     }];
 }
+
 - (void)refreshData:(BOOL)header shouldShowTips:(BOOL)showTip {
     [self.tableView addSubview:self.tipView];
     [self.tipView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -86,6 +87,7 @@ static NSString *CellIdentifier = @"STFollowViewController";
   [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
     
 }
+
 - (void)showRefreshTipParam:(NSArray *)array{
     [self showRefreshTip:[[array safeObjectAtIndex:0]boolValue] animate:[[array safeObjectAtIndex:1]boolValue]];
 }

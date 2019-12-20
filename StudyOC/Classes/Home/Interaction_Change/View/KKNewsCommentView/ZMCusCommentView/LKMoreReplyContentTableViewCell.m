@@ -8,20 +8,20 @@
 
 #import "LKMoreReplyContentTableViewCell.h"
 
-#import "UITableViewCell+FSAutoCountHeight.h"
+//#import "UITableViewCell+FSAutoCountHeight.h"
 
 @implementation LKMoreReplyContentTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.FS_cellBottomView = self.moreLabel;//尽量传入底视图，不传也不会报错
+//    self.FS_cellBottomView = self.moreLabel;//尽量传入底视图，不传也不会报错
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
+//- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+//    [super setSelected:selected animated:animated];
+//
+//    // Configure the view for the selected state
+//}
 
 @end

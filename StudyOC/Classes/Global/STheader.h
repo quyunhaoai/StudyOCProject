@@ -32,6 +32,8 @@
 #import <SuperPlayer.h>
 #import <WMZDialog.h>
 #import "JMDropMenu.h"
+#import <YYText/YYText.h>
+#import <KafkaRefresh.h>
 //========================UI扩展======================
 #import "UIImage+Extend.h"
 #import "UIImage+Image.h"

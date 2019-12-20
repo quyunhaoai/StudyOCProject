@@ -17,6 +17,7 @@
 #import "KKShareView.h"
 #import "KKShareObject.h"
 #import "CommentsPopView.h"
+#import "STCustomHeader.h"
 static NSString *commentCellReuseable = @"commentCellReuseable";
 static NSString *relateVideoCellReuseable = @"relateVideoCellReuseable";
 static CGFloat detailVideoPlayViewHeight = 0 ;
@@ -102,10 +103,15 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
         make.height.mas_equalTo(self.view).mas_offset(-AuthorViewHeight-detailVideoPlayViewHeight-self.videoInfoView.height).priority(998);
     }];
     [self videoContentViewAddSubView];
-    XYWeakSelf;
-    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+//    XYWeakSelf;
+//    self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [weakSelf.tableView.mj_header endRefreshing];
+//        });
+//    }];
+    [self.tableView bindGlobalStyleForHeadRefreshHandler:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakSelf.tableView.mj_header endRefreshing];
+            [self.tableView.headRefreshControl endRefreshing];
         });
     }];
 }

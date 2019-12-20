@@ -30,16 +30,16 @@
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self == [super initWithFrame:frame]) {
-        [self setBackgroundColor:[UIColor whiteColor]];
+//        [self setBackgroundColor:[UIColor whiteColor]];
         //cancel按钮显示
-        self.showsCancelButton = YES;
+//        self.showsCancelButton = YES;
         //光标颜色tintColor
 //        self.tintColor = [UIColor clearColor];
-        self.backgroundImage = [UIImage imageWithColor:[UIColor blackColor] size:CGSizeMake(100, self.bounds.size.height)];
+//        self.backgroundImage = [UIImage imageWithColor:[UIColor blackColor] size:CGSizeMake(100, self.bounds.size.height)];
 //        [self setImage:[UIImage imageNamed:@"icon_search"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
 //        [self setImage:[UIImage imageNamed:@"icon_search_clear"] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
         //ios11 之前这个高度决定textfield高度 默认28
-        [self setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(100, self.bounds.size.height)] forState:UIControlStateNormal];
+//        [self setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(100, self.bounds.size.height)] forState:UIControlStateNormal];
         
         self.originPositionSearchOffSet = UIOffsetMake(10, 0);
         //搜索图标偏移
@@ -324,7 +324,7 @@
 //    searchField.layer.borderWidth = 1;
 //    searchField.layer.cornerRadius = 12;
 //    searchField.layer.masksToBounds = YES;
-//    searchField.font = FONT_11;
+//    searchField.font = FONT_12;
 //    searchField.textColor =kWhiteColor;
     return searchField;
 }
@@ -365,6 +365,8 @@
 - (void)setTitleColor:(UIColor *)titleColor {
     _titleColor = titleColor;
     UITextField *textField = [self textField];
+//    textField.background = [UIImage imageWithColor:kWhiteColor size:CGSizeMake(100, 25)];
+//    textField.subviews[0].backgroundColor = [UIColor whiteColor];
     textField.textColor = _titleColor;
 }
 

@@ -194,9 +194,14 @@
     
     [kNotificationCenter addObserver:self selector:@selector(ccc) name:STNotificationLikeStr object:nil];
 }
+
 - (void)ccc {
-    self.favorite.isChoose = YES;
+    if (self.favorite.isChoose) {
+        return;
+    }
+    [self.favorite startChoose:YES animation:YES];
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -11,6 +11,7 @@
 #import "STBaseNav.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import "LBPGuideView.h"
+
 @interface AppDelegate ()
 
 @end
@@ -20,12 +21,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {//程序加载完毕
     [self loadWindows];
+    [[KafkaRefreshDefaults standardRefreshDefaults] setHeadDefaultStyle:KafkaRefreshStyleReplicatorCircle];//全局下拉刷新
+    [[KafkaRefreshDefaults standardRefreshDefaults] setThemeColor:kWhiteColor];
+//    [[KafkaRefreshDefaults standardRefreshDefaults] setHeadPullingText:@"下拉刷新"];
+//    [[KafkaRefreshDefaults standardRefreshDefaults] setReadyText:@"松开刷新"];
+//    [[KafkaRefreshDefaults standardRefreshDefaults] setRefreshingText:@"正在努力的加载"];
     
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
           
 //    [LBPGuideView showGuideViewWithImages:@[@"IMG_1",@"IMG_2",@"IMG_3",@"IMG_4",@"IMG_5"]];
-    
     
     return YES;
 }

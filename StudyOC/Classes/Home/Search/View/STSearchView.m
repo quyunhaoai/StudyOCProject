@@ -20,7 +20,7 @@
 @interface STSearchView ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UISearchBarDelegate>
 @property (strong, nonatomic) UITableView *tableView; //  视图
 @property (nonatomic,strong) UIButton *rightNavBtn; //  按钮
-@property (strong, nonatomic) STSearchTextFildeView *searchTextField;  // 文本框
+//@property (strong, nonatomic) STSearchTextFildeView *searchTextField;  // 文本框
 
 @property(nonatomic , strong)NSMutableArray * serverDataArr;
 
@@ -160,9 +160,9 @@
 
 #pragma mark  -  textfieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ([textField.text isNotBlank]) {
-        [self searchTitleToPushResultWithString:self.searchTextField.text];
-    }
+//    if ([textField.text isNotBlank]) {
+//        [self searchTitleToPushResultWithString:self.searchTextField.text];
+//    }
     return YES;
 }
 - (void)searchTitleToPushResultWithString:(NSString *)string {
@@ -213,12 +213,14 @@
     [searchBar setCancelBtnTitleColor:kWhiteColor];
     [searchBar setImage:[UIImage imageNamed:@"searchIcon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     [searchBar setImage:[UIImage imageNamed:@"icon_search_clear"] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
+    searchBar.backgroundImage = [UIImage imageWithColor:kBlackColor size:CGSizeMake(100, 25)];
+    [searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:kBlackColor size:CGSizeMake(100, 25)] forState:UIControlStateNormal];
     [searchView addSubview:searchBar];
     self.searchBar = searchBar;
 }
 
 - (void)rightBtnClick:(UIButton *)button {
-    [self.searchTextField resignFirstResponder];
+//    [self.searchTextField resignFirstResponder];
 
       [UIView animateWithDuration:0.3f
                        animations:^{
@@ -390,7 +392,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.searchTextField resignFirstResponder];
+//    [self.searchTextField resignFirstResponder];
 }
 
 

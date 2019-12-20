@@ -31,4 +31,5 @@ pod 'WMZDialog'
 pod 'JTSImageViewController'
 pod 'IQKeyboardManager' #iOS8 and later
 pod 'MCFireworksButton'
+pod 'KafkaRefresh'
 end

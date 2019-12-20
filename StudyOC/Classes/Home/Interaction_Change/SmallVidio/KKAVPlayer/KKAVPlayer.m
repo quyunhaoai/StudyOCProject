@@ -156,7 +156,7 @@
         [self.playerLayer removeFromSuperlayer];
         self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
         //设置模式
-        self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+        self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         self.playerLayer.contentsScale = [UIScreen mainScreen].scale;
     }
     

@@ -53,9 +53,6 @@
 - (void)removeDelegate:(id<ChatHandlerDelegate>)delegate;
 //发送消息
 - (void)sendMessage:(ChatModel *)chatModel timeOut:(NSUInteger)timeOut tag:(long)tag;
-
-
-
 //发送文本消息
 - (void)sendTextMessage:(ChatModel *)textModel;
 

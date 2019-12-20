@@ -261,15 +261,15 @@
     [self.tableView addSubview:self.videoPlayView];
 }
 
-- (void)didSelectWithView:(UIView *)view andCommonCell:(NSIndexPath *)index {
-    STChildrenViewController *vc = [STChildrenViewController new];
-    if (view.tag == 1) {
-        vc.title = @"活动&编剧";
-    } else {
-        vc.title = @"个人主页";
-    }
-    [self.navigationController pushViewController:vc animated:YES];
-}
+//- (void)didSelectWithView:(UIView *)view andCommonCell:(NSIndexPath *)index {
+//    STChildrenViewController *vc = [STChildrenViewController new];
+//    if (view.tag == 1) {
+//        vc.title = @"活动&编剧";
+//    } else {
+//        vc.title = @"个人主页";
+//    }
+//    [self.navigationController pushViewController:vc animated:YES];
+//}
 #pragma mark  -  cellDelegate
 - (void)clickButtonWithType:(KKBarButtonType)type item:(id)item {
     if (type == KKBarButtonTypeComment) {

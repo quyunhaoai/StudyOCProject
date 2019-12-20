@@ -11,13 +11,16 @@
 #import "LoadMoreControl.h"
 #import "EmotionSelector.h"
 #import "STEmotionChatTextView.h"
+#import "BigCommentTableViewCell.h"
 NSString * const kCommentListCell     = @"CommentListCell";
 NSString * const kCommentHeaderCell   = @"CommentHeaderCell";
 NSString * const kCommentFooterCell   = @"CommentFooterCell";
 static NSString * const commentReplyCell = @"commentReplyCell";
 static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
 @interface CommentsPopView () <UITableViewDelegate,UITableViewDataSource, UIGestureRecognizerDelegate,UIScrollViewDelegate, ChatTextViewDelegate>
-
+{
+    CGFloat cellHeight ;
+}
 @property (nonatomic, assign) NSString                         *awemeId;
 
 @property (nonatomic, assign) NSInteger                        pageIndex;
@@ -96,8 +99,8 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:CommentListCell.class forCellReuseIdentifier:kCommentListCell];
-        [_tableView registerClass:CommentListReplyCell.class forCellReuseIdentifier:commentReplyCell];
-        [_tableView registerNib:[LKMoreReplyContentTableViewCell loadNib] forCellReuseIdentifier:commentMoreCell];
+        [_tableView registerClass:CommentListMoreCell.class forCellReuseIdentifier:commentMoreCell];
+        [_tableView registerClass:BigCommentTableViewCell.class forCellReuseIdentifier:commentReplyCell];
 //        _loadMore = [[LoadMoreControl alloc] initWithFrame:CGRectMake(0, 100, ScreenWidth, 50) surplusCount:10];
 //        [_loadMore setLoadingType:LoadStateIdle];
 //        __weak __typeof(self) wself = self;
@@ -110,7 +113,7 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
         
         _textView = [STEmotionChatTextView new];
         _textView.delegate = self;
-        
+        cellHeight = 150;
     }
     return self;
 }
@@ -133,24 +136,39 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _data.count;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+       return [CommentListCell cellHeight:@""];
+    } else if (indexPath.row == 1){
+        return cellHeight;
+    }
     return KCellDefultHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row%2==0) {
+    if (indexPath.row==0) {
         CommentListCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommentListCell];
         return cell;
+    } else if(indexPath.row ==1) {
+        BigCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:commentReplyCell];
+        CommentModel *model = [[CommentModel alloc] init];
+        model.height = cellHeight;
+        cell.bigCommentModel = model;
+        return cell;
     } else {
-        CommentListReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:commentReplyCell];
-//        LKMoreReplyContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:commentMoreCell];
+        CommentListMoreCell *cell = [tableView dequeueReusableCellWithIdentifier:commentMoreCell];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:CommentListMoreCell.class]) {
+        cellHeight += 150;
+        [self.tableView reloadData];
+    }
 }
 
 //delete comment
@@ -160,7 +178,8 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
 
 //guesture
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if ([NSStringFromClass([touch.view.superview class]) isEqualToString:@"CommentListCell"]) {
+    NSLog(@"%@",NSStringFromClass([touch.view.superview class]));
+    if ([NSStringFromClass([touch.view.superview class]) isEqualToString:@"CommentListCell"]||[NSStringFromClass([touch.view.superview class]) isEqualToString:@"CommentListMoreCell"]||[NSStringFromClass([touch.view.superview class]) isEqualToString:@"CommentListReplyCell"]) {
         return NO;
     }else {
         return YES;
@@ -245,10 +264,15 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
         _avatar.clipsToBounds = YES;
         _avatar.layer.cornerRadius = 17;
         [self addSubview:_avatar];
-        
-        _likeIcon = [[UIImageView alloc] init];
-        _likeIcon.contentMode = UIViewContentModeCenter;
-        _likeIcon.image = [UIImage imageNamed:@"like_icon_video"];
+
+        MCFireworksButton *view = [MCFireworksButton buttonWithType:UIButtonTypeCustom];
+          view.particleImage = [UIImage imageNamed:@"like_icon_video"];
+          view.particleScale = 0.05;
+          view.particleScaleRange = 0.02;
+         [view setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+         [view setUserInteractionEnabled:YES];
+          [view addTarget:self action:@selector(likeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _likeIcon = view;
         [self addSubview:_likeIcon];
         
         _nickName = [[UILabel alloc] init];
@@ -303,7 +327,7 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
         }];
         [_likeNum mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.likeIcon);
-            make.top.equalTo(self.likeIcon.mas_bottom).offset(5);
+            make.top.equalTo(self.likeIcon.mas_bottom).offset(2);
         }];
         [_splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.date);
@@ -324,34 +348,29 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
     _date.text =@"12-13-11";
     _likeNum.text = @"123";
 }
-
+- (void)likeBtnClick:(MCFireworksButton *)sender {
+    sender.selected= !sender.selected;
+    if (sender.selected) {
+        [sender popOutsideWithDuration:0.5];
+        [sender setImage:[UIImage imageNamed:@"smallVideo_home_like_after"] forState:UIControlStateNormal];
+        [_likeNum setTextColor:color_tipFeng_FF2190];
+    }
+    else {
+        [sender popInsideWithDuration:0.4];
+        [sender setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+        [_likeNum setTextColor:color_textBg_C7C7D1];
+    }
+}
 -(void)initData:(id )comment {
-//    NSURL *avatarUrl;
-//    if([@"user" isEqualToString:comment.user_type]) {
-//        avatarUrl = [NSURL URLWithString:comment.user.avatar_thumb.url_list.firstObject];
-//        _nickName.text = comment.user.nickname;
-//    }else {
-//        avatarUrl = [NSURL URLWithString:comment.visitor.avatar_thumbnail.url];
-//        _nickName.text = [comment.visitor formatUDID];
-//    }
-//
-//    __weak __typeof(self) wself = self;
-//    [_avatar setImageWithURL:avatarUrl completedBlock:^(UIImage *image, NSError *error) {
-//        image = [image drawCircleImage];
-//        wself.avatar.image = image;
-//    }];
-//    _content.text = comment.text;
-//    _date.text = [NSDate formatTime:comment.create_time];
-//    _likeNum.text = [NSString formatCount:comment.digg_count];
+
     
 }
 
 +(CGFloat)cellHeight:(id )comment {
-//    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:comment.text];
-//    [attributedString addAttribute:NSFontAttributeName value:MediumFont range:NSMakeRange(0, attributedString.length)];
-//    CGSize size = [attributedString multiLineSize:MaxContentWidth];
-//    return size.height + 30 + SmallFont.lineHeight * 2;
-    return KCellDefultHeight;
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"自媒体自媒体自媒体"];
+    [attributedString addAttribute:NSFontAttributeName value:FONT_14 range:NSMakeRange(0, attributedString.length)];
+    CGSize size = [attributedString multiLineSize:MaxContentWidth];
+    return size.height + 30 + FONT_12.lineHeight * 2;
 }
 @end
 
@@ -368,9 +387,14 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
         _avatar.layer.cornerRadius = 14;
         [self addSubview:_avatar];
         
-        _likeIcon = [[UIImageView alloc] init];
-        _likeIcon.contentMode = UIViewContentModeCenter;
-        _likeIcon.image = [UIImage imageNamed:@"like_icon_video"];
+        MCFireworksButton *view = [MCFireworksButton buttonWithType:UIButtonTypeCustom];
+          view.particleImage = [UIImage imageNamed:@"like_icon_video"];
+          view.particleScale = 0.05;
+          view.particleScaleRange = 0.02;
+         [view setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+         [view setUserInteractionEnabled:YES];
+          [view addTarget:self action:@selector(likeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        _likeIcon = view;
         [self addSubview:_likeIcon];
         
         _nickName = [[UILabel alloc] init];
@@ -426,7 +450,7 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
         }];
         [_likeNum mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.likeIcon);
-            make.top.equalTo(self.likeIcon.mas_bottom).offset(5);
+            make.top.equalTo(self.likeIcon.mas_bottom).offset(2);
         }];
         [_splitLine mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.date);
@@ -454,6 +478,21 @@ static NSString * const commentMoreCell = @"LKMoreReplyContentTableViewCell";
 +(CGFloat)cellHeight:(id )comment {
     return KCellDefultHeight;
 }
+
+- (void)likeBtnClick:(MCFireworksButton *)sender {
+    sender.selected= !sender.selected;
+    if (sender.selected) {
+        [sender popOutsideWithDuration:0.5];
+        [sender setImage:[UIImage imageNamed:@"smallVideo_home_like_after"] forState:UIControlStateNormal];
+        [_likeNum setTextColor:color_tipFeng_FF2190];
+    }
+    else {
+        [sender popInsideWithDuration:0.4];
+        [sender setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+        [_likeNum setTextColor:color_textBg_C7C7D1];
+    }
+}
+
 @end
 
 
@@ -626,6 +665,32 @@ static const CGFloat kCommentTextViewTopBottomInset          = 15;
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+@end
+
+@implementation CommentListMoreCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        [self setUI];
+    }
+    return self;
+}
+
+- (void)setUI {
+    self.backgroundColor = kClearColor;
+    _content = [[UILabel alloc] init];
+    _content.numberOfLines = 0;
+    _content.textColor = ColorWhiteAlpha80;
+    _content.font = FONT_14;
+    _content.text = @"展开查看更多回复";
+    [self addSubview:_content];
+    
+    [self.content mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).inset(15+34+10);
+        make.top.right.bottom.equalTo(self);
+    }];
 }
 
 @end

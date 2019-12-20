@@ -10,7 +10,8 @@
 #import "EmotionSelector.h"
 #import "PhotoSelector.h"
 #import "EmotionHelper.h"
-
+#import "STAtFriendView.h"
+#import "ZJContactViewController.h"
 static const NSInteger kChatTextViewEmotionTag   = 0x01;
 static const NSInteger kChatTextViewPhotoTag     = 0x02;
 
@@ -18,7 +19,7 @@ static const CGFloat kChatTextViewLeftInset      = 15;
 static const CGFloat kChatTextViewRightInset     = 85;
 static const CGFloat kChatTextViewTopBottomInset = 15;
 
-@interface STEmotionChatTextView ()<UITextViewDelegate, UIGestureRecognizerDelegate, EmotionSelectorDelegate, PhotoSelectorDelegate> {
+@interface STEmotionChatTextView ()<UITextViewDelegate, UIGestureRecognizerDelegate, EmotionSelectorDelegate, PhotoSelectorDelegate,ZJContactViewControllerDelegate> {
     EmotionSelector        *emotionSelector;
     PhotoSelector          *photoSelector;
 }
@@ -298,12 +299,28 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
                 break;
             case kChatTextViewPhotoTag: {
                 [self hideContainerBoard];
-                //at好友
+                
+                ZJContactViewController *view = [[ZJContactViewController alloc] initWithFrame:SCREEN_BOUNDS];
+                view.delegate = self;
+                view.navTitleHeight = NAVIGATION_BAR_HEIGHT;
+                view.navContentOffsetY = 10;
+                view.topSpace = 0;
+                view.enableHorizonDrag = NO;
+                view.enableFreedomDrag = NO;
+                view.defaultHideAnimateWhenDragFreedom = NO;
+                view.enableVerticalDrag = NO;
+                [[UIApplication sharedApplication].keyWindow addSubview:view];
+                [view popIn];
             }
         }
     }
 }
-
+#pragma mark  -  ZJDelegate
+- (void)returnPersonName:(NSString *)personName {
+    [self.textView becomeFirstResponder];
+    self.placeholderLabel.hidden = YES;
+    self.textView.text = [NSString stringWithFormat:@"@%@",personName];
+}
 //删除
 - (void)onDelete {
     [_textView deleteBackward];

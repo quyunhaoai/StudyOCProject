@@ -37,26 +37,22 @@
     [self addSubview:self.detailLabel];
     [self addSubview:self.concernBtn];
     [self addSubview:self.vipImageView];
-    
     [self.header mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self).mas_offset(kkPaddingNormal).priority(998);
         make.centerY.mas_equalTo(self);
         make.size.mas_equalTo(_headerSize);
     }];
-    
     [self.concernBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).mas_offset(-kkPaddingNormal).priority(998);
         make.centerY.mas_equalTo(self.header);
         make.size.mas_equalTo(CGSizeMake(ConcernWdith, 25));
     }];
-    
     [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.header.mas_right).mas_offset(10).priority(998);
         make.right.mas_equalTo(self.concernBtn.mas_left).mas_offset(-5).priority(998);
         make.bottom.mas_equalTo(self.header.mas_centerY).mas_offset(-2);
         make.height.mas_equalTo(LabelHeight);
     }];
-    
     [self.detailLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(self.nameLabel);
         make.top.mas_equalTo(self.header.mas_centerY).mas_offset(2);
@@ -72,44 +68,47 @@
 #pragma mark -- 关注按钮点击
 
 - (void)concernBtnClick:(UIButton *)button{
-    NSString *key = [kUserDefaults objectForKey:STUserRegisterInfokey];
-    if ([key isNotBlank]) {
-         NSDictionary *params = @{@"i":@(1),
-                                  @"key":key,
-                                  @"uid":@(self.userId),
-        };
-        [[STHttpResquest sharedManager] requestWithMethod:POST
-                                                 WithPath:@"user_center/do_video_guanzhu"
-                                               WithParams:params
-                                         WithSuccessBlock:^(NSDictionary * _Nonnull dic){
-            NSInteger status = [[dic objectForKey:@"state"] integerValue];
-            NSString *msg = [[dic objectForKey:@"msg"] description];
-            if(status == 200){
-                NSDictionary *data = [dic objectForKey:@"data"];
-                int flag_type = [[data objectForKey:@"flag_type"] intValue];
-                if (flag_type == 1) {
-                    button.layer.backgroundColor = [[UIColor colorWithRed:58.0f/255.0f green:58.0f/255.0f blue:68.0f/255.0f alpha:1.0f] CGColor];
-                    [button setTitle:@"已订阅" forState:UIControlStateNormal];
-                } else {
-                    button.layer.backgroundColor = [[UIColor colorWithRed:255.0f/255.0f green:33.0f/255.0f blue:144.0f/255.0f alpha:1.0f] CGColor];
-                    [button setTitle:@"订阅+" forState:UIControlStateNormal];
-                }
-            }else {
-                if (msg.length>0) {
-                    [MBManager showBriefAlert:msg];
-                }
-            }
-        } WithFailurBlock:^(NSError * _Nonnull error) {
-            
-        }];
-    } else {
-        STLoginViewController *vc = [STLoginViewController new];
-        vc.barStyle = [UIApplication sharedApplication].statusBarStyle;
-        STBaseNav *nav = [[STBaseNav alloc] initWithRootViewController:vc];
-        [kRootViewController presentViewController:nav animated:YES completion:^{
-            
-        }];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(clickedUserHeadWithUserId:)]){
+        [self.delegate clickedUserHeadWithUserId:STRING_FROM_INTAGER(self.userId)];
     }
+//    NSString *key = [kUserDefaults objectForKey:STUserRegisterInfokey];
+//    if ([key isNotBlank]) {
+//         NSDictionary *params = @{@"i":@(1),
+//                                  @"key":key,
+//                                  @"uid":@(self.userId),
+//        };
+//        [[STHttpResquest sharedManager] requestWithMethod:POST
+//                                                 WithPath:@"user_center/do_video_guanzhu"
+//                                               WithParams:params
+//                                         WithSuccessBlock:^(NSDictionary * _Nonnull dic){
+//            NSInteger status = [[dic objectForKey:@"state"] integerValue];
+//            NSString *msg = [[dic objectForKey:@"msg"] description];
+//            if(status == 200){
+//                NSDictionary *data = [dic objectForKey:@"data"];
+//                int flag_type = [[data objectForKey:@"flag_type"] intValue];
+//                if (flag_type == 1) {
+//                    button.layer.backgroundColor = [[UIColor colorWithRed:58.0f/255.0f green:58.0f/255.0f blue:68.0f/255.0f alpha:1.0f] CGColor];
+//                    [button setTitle:@"已订阅" forState:UIControlStateNormal];
+//                } else {
+//                    button.layer.backgroundColor = [[UIColor colorWithRed:255.0f/255.0f green:33.0f/255.0f blue:144.0f/255.0f alpha:1.0f] CGColor];
+//                    [button setTitle:@"订阅+" forState:UIControlStateNormal];
+//                }
+//            }else {
+//                if (msg.length>0) {
+//                    [MBManager showBriefAlert:msg];
+//                }
+//            }
+//        } WithFailurBlock:^(NSError * _Nonnull error) {
+//
+//        }];
+//    } else {
+//        STLoginViewController *vc = [STLoginViewController new];
+//        vc.barStyle = [UIApplication sharedApplication].statusBarStyle;
+//        STBaseNav *nav = [[STBaseNav alloc] initWithRootViewController:vc];
+//        [kRootViewController presentViewController:nav animated:YES completion:^{
+//
+//        }];
+//    }
 }
 
 #pragma mark -- @property setter
@@ -133,6 +132,7 @@
         }];
     }
 }
+
 - (UIImageView *)vipImageView {
     if (!_vipImageView) {
         _vipImageView =  ({
@@ -146,6 +146,7 @@
     }
     return _vipImageView;
 }
+
 - (void)setHeaderSize:(CGSize)headerSize{
     _headerSize = headerSize;
     ViewBorderRadius(self.header, 4, 2, [UIColor colorWithRed:199.0f/255.0f green:199.0f/255.0f blue:209.0f/255.0f alpha:1.0f]);
@@ -191,7 +192,6 @@
             view.contentMode = UIViewContentModeScaleAspectFill ;
             view.layer.masksToBounds = YES ;
             view.userInteractionEnabled = YES ;
-
             @STweakify(self);
             [view addTapGestureWithBlock:^(UIView *gestureView) {
                 @STstrongify(self);
@@ -199,7 +199,6 @@
                     [self.delegate clickedUserHeadWithUserId:STRING_FROM_INTAGER(self.userId)];
                 }
             }];
-            
             view ;
         });
     }
@@ -238,7 +237,7 @@
     if(!_concernBtn){
         _concernBtn = ({
             UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
-            [view setTitle:@"+关注" forState:UIControlStateNormal];
+            [view setTitle:@"主页" forState:UIControlStateNormal];
             [view setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [view setBackgroundImage:[UIImage imageWithColor:COLOR_HEX_RGB(0xFF2190)] forState:UIControlStateNormal];
 //            [view setTitle:@"已关注" forState:UIControlStateSelected];

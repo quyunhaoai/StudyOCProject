@@ -20,7 +20,7 @@ typedef void(^ClickBlock)(BOOL isSelected);
 
 - (void)resetView;
 
-//-(void)startChoose:(BOOL)isChoose animation:(BOOL)animation;
+-(void)startChoose:(BOOL)isChoose animation:(BOOL)animation;
 
 @end
 
