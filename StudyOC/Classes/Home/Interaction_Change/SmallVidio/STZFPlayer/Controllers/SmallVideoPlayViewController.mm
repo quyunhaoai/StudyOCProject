@@ -37,10 +37,9 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
     if (!self.modelArray.count) {
         [self getResource];
     }
-//    self.currentPlayIndex = 0;
     [self createUI];
-
 }
+
 - (void)addNotification {
     // app退到后台
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -74,6 +73,7 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
         [self.videoPlayerManager autoPlay];
     }
 }
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self removeNotification];
@@ -88,6 +88,7 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
     [super viewWillAppear:animated];
     [self addNotification];
 }
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.videoPlayerManager autoPlay];
@@ -139,7 +140,7 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
         }];
     }else {
         XYWeakSelf;
-        self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+        self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [weakSelf.tableView.mj_header endRefreshing];
             });
@@ -147,7 +148,6 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, Window_H-TAB_BAR_HEIGHT, Window_W, 0.7)];
         [self.view addSubview:line];
         line.backgroundColor = [UIColor whiteColor];
-        
     }
 }
 
@@ -155,26 +155,20 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.modelArray.count;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     STSmallPlayShopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:STSmallPlayShopTableViewCellIdentifier forIndexPath:indexPath];
     cell.delegate = self;
     cell.model = self.modelArray[indexPath.row];
-//    SmallVideoPlayCell *cell = [tableView dequeueReusableCellWithIdentifier:SmallVideoCellIdentifier forIndexPath:indexPath];
-//    cell.delegate = self;
-//    NSLog(@"cell的地址:%p   index:%ld   %ld",cell,indexPath.row,self.modelArray.count-2);
-//    cell.model = self.modelArray[indexPath.row];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return SCREEN_HEIGHT;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -190,11 +184,6 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
         NSLog(@"播放下一个");
         [self playIndex:self.currentPlayIndex];
     }
-//    if (currentIndex == 0) {
-//        self.tableView.bounces = NO;
-//    } else {
-//        self.tableView.bounces = YES;
-//    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
@@ -208,7 +197,6 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
 - (void)playIndex:(NSInteger)currentIndex {
     NSLog(@"播放下一个");
     SmallVideoPlayCell *currentCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:currentIndex inSection:0]];
-    
     NSString *artist = nil;
     NSString *title = nil;
     NSString *cover_url = nil;
@@ -216,10 +204,8 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
     NSURL *originVideoURL = nil;
     BOOL useDownAndPlay = NO;
     AVLayerVideoGravity videoGravity = AVLayerVideoGravityResizeAspect;
-    
     //关注,推荐
     SmallVideoModel *currentPlaySmallVideoModel = self.modelArray[currentIndex];
-    
     artist = currentPlaySmallVideoModel.artist;
     title = currentPlaySmallVideoModel.name;
     cover_url = currentPlaySmallVideoModel.cover_url;
@@ -231,16 +217,15 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
     } else {
         videoGravity = AVLayerVideoGravityResizeAspect;
     }
-    
     self.fatherView = currentCell.playerFatherView;
-    self.videoPlayerManager.playerModel.videoGravity = videoGravity;
-    self.videoPlayerManager.playerModel.fatherView       = self.fatherView;
-    self.videoPlayerManager.playerModel.title            = title;
-    self.videoPlayerManager.playerModel.artist = artist;
-    self.videoPlayerManager.playerModel.placeholderImageURLString = cover_url;
-    self.videoPlayerManager.playerModel.videoURL = videoURL;
-    self.videoPlayerManager.originVideoURL = originVideoURL;
-    self.videoPlayerManager.playerModel.useDownAndPlay = YES;
+    self.videoPlayerManager.playerModel.videoGravity                = videoGravity;
+    self.videoPlayerManager.playerModel.fatherView                  = self.fatherView;
+    self.videoPlayerManager.playerModel.title                       = title;
+    self.videoPlayerManager.playerModel.artist                      = artist;
+    self.videoPlayerManager.playerModel.placeholderImageURLString   = cover_url;
+    self.videoPlayerManager.playerModel.videoURL                    = videoURL;
+    self.videoPlayerManager.originVideoURL                          = originVideoURL;
+    self.videoPlayerManager.playerModel.useDownAndPlay              = YES;
     //如果设备存储空间不足200M,那么不要边下边播
     if([self deviceFreeMemorySize] < 200) {
         self.videoPlayerManager.playerModel.useDownAndPlay = NO;
@@ -311,7 +296,8 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
 }
 //分享
 - (void)handleShareVideoModel:(SmallVideoModel *)smallVideoModel {
-    [[QYHTools sharedInstance] shareVideo];
+    KKShareObject *obj = [KKShareObject new];
+    [[QYHTools sharedInstance] shareVideo:obj];
 }
 //喜欢
 - (void)handleFavoriteVdieoModel:(SmallVideoModel *)smallVdeoModel {
@@ -324,6 +310,7 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
 //头像
 - (void)handleClickPersonIcon:(SmallVideoModel *)smallVideoModel {
     STChildrenViewController *vc = [STChildrenViewController new];
+    vc.title = @"个人主页";
     [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - Action

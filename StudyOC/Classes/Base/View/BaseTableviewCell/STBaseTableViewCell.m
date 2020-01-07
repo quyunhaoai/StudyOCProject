@@ -7,7 +7,7 @@
 //
 
 #import "STBaseTableViewCell.h"
-
+#import "EmotionHelper.h"
 @implementation STBaseTableViewCell
 + (CGFloat)techHeightForOjb:(id)obj {
     return 0.f;
@@ -314,4 +314,17 @@
 - (void)withdrawAction:(UIButton *)button {
     
 }
+
+//cell默认文字样式
+-(NSDictionary* )attributes {
+    return @{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:kWhiteColor};
+}
+
+-(NSMutableAttributedString *)cellAttributedString:(NSString *)content {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:content];
+    [attributedString addAttributes:[self attributes] range:NSMakeRange(0, attributedString.length)];
+    attributedString = [EmotionHelper stringToEmotion:attributedString];
+    return attributedString;
+}
+
 @end

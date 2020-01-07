@@ -458,39 +458,17 @@ static NSString *JPVideoPlayerURL = @"www.newpan.com";
         [self playResource];
     }
 }
-
 //播放资源
 - (void)playResource {
     // 初始化playerItem
-    
     self.playerItem = [AVPlayerItem playerItemWithAsset:self.urlAsset];
     // 每次都重新创建Player，替换replaceCurrentItemWithPlayerItem:，该方法阻塞线程
     self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
-    
     // 初始化playerLayer
     self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-    
-    //    self.backgroundColor = [UIColor blackColor];
-    //    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
     // 此处为默认视频填充模式
     //    if(self.playerModel.videoGravity.length) {
     self.playerLayer.videoGravity = self.playerModel.videoGravity;
-    //    } else {
-    //        //获取视频尺寸
-    //        NSArray *array = self.urlAsset.tracks;
-    //        CGSize videoSize = CGSizeZero;
-    //        for (AVAssetTrack *track in array) {
-    //            if ([track.mediaType isEqualToString:AVMediaTypeVideo]) {
-    //                videoSize = track.naturalSize;
-    //            }
-    //        }
-    //        if(videoSize.width / videoSize.height >= 1.0) {
-    //            self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    //        } else {
-    //             self.playerLayer.videoGravity = AVLayerVideoGravityResize;
-    //        }
-    //    }
-    
     // 增加下面这行可以解决iOS10兼容性问题了
     if ([self.player respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
         if (@available(iOS 10.0, *)) {
@@ -499,9 +477,6 @@ static NSString *JPVideoPlayerURL = @"www.newpan.com";
             // Fallback on earlier versions
         }
     }
-  
-//    // 自动播放
-//    self.isAutoPlay = YES;
     // 添加播放进度计时器
     [self createTimer];
     // 获取系统音量
@@ -523,9 +498,6 @@ static NSString *JPVideoPlayerURL = @"www.newpan.com";
     }
     
 }
-
-
-
 /**
  *  创建手势
  */
@@ -550,20 +522,6 @@ static NSString *JPVideoPlayerURL = @"www.newpan.com";
 //    // 双击失败响应单击事件
     [self.singleTap requireGestureRecognizerToFail:self.doubleTap];
 }
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//
-//}
-//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-//    if (self.isAutoPlay) {
-//        UITouch *touch = [touches anyObject];
-//        if(touch.tapCount == 1) {
-//            [self performSelector:@selector(singleTapAction:) withObject:@(NO) ];
-//        } else if (touch.tapCount == 2) {
-//            //            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(singleTapAction:) object:nil];
-//            //            [self doubleTapAction:touch.gestureRecognizers.lastObject];
-//        }
-//    }
-//}
 
 - (void)createTimer {
     __weak typeof(self) weakSelf = self;
@@ -581,7 +539,6 @@ static NSString *JPVideoPlayerURL = @"www.newpan.com";
         }
     }];
 }
-
 /**
  *  获取系统音量
  */
@@ -1444,32 +1401,6 @@ static NSString *JPVideoPlayerURL = @"www.newpan.com";
     _scrollView = scrollView;
     if (scrollView) { [scrollView addObserver:self forKeyPath:kZFPlayerViewContentOffset options:NSKeyValueObservingOptionNew context:nil]; }
 }
-
-///**
-// *  设置playerLayer的填充模式
-// *
-// *  @param playerLayerGravity playerLayerGravity
-// */
-//- (void)setPlayerLayerGravity:(ZFPlayerLayerGravity)playerLayerGravity {
-//    _playerLayerGravity = playerLayerGravity;
-//    switch (playerLayerGravity) {
-//        case ZFPlayerLayerGravityResize:
-//            self.playerLayer.videoGravity = AVLayerVideoGravityResize;
-//            self.videoGravity = AVLayerVideoGravityResize;
-//            break;
-//        case ZFPlayerLayerGravityResizeAspect:
-//            self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-//            self.videoGravity = AVLayerVideoGravityResizeAspect;
-//            break;
-//        case ZFPlayerLayerGravityResizeAspectFill:
-//            self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-//            self.videoGravity = AVLayerVideoGravityResizeAspectFill;
-//            break;
-//        default:
-//            break;
-//    }
-//}
-
 /**
  *  是否有下载功能
  */

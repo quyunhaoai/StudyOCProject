@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (CGFloat)techHeightForOjb:(id)obj;
 - (void)refreshData:(id)data;
 - (void)moreBtnClicked:(UIButton *)button;
+//cell默认文字样式
+- (NSDictionary* )attributes;
+- (NSMutableAttributedString *)cellAttributedString:(NSString *)content;
 @end
 
 NS_ASSUME_NONNULL_END

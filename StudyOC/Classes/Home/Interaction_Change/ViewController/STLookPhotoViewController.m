@@ -215,7 +215,7 @@ static CGFloat space = 0.5 ;
             view.contentInset = UIEdgeInsetsMake(8, 0, 0, 0);
             [view registerClass:[KKXiaoShiPingCell class] forCellWithReuseIdentifier:cellReuseIdentifier];
             XYWeakSelf;
-            view.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+            view.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
                 [weakSelf refreshData:YES shouldShowTips:YES];
             }];
             

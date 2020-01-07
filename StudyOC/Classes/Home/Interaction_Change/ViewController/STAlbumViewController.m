@@ -41,21 +41,14 @@
     return self.view;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-//    [self.tableView.mj_header beginRefreshing];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.page = 1;
     _visibleIndexArray = [NSMutableArray array];
     [self requestUrl];
     XYWeakSelf;
-    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
         [weakSelf requestUrl];
-//        [weakSelf.tableView.mj_header endRefreshing];
-//        [weakSelf refreshData:YES shouldShowTips:YES];
     }];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         weakSelf.page ++;
@@ -63,7 +56,6 @@
     }];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
-
 }
 
 - (void)requestUrl {
@@ -215,10 +207,6 @@
     return view;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self addOneIndexPathToVisibleIndexArrayWithValue:indexPath];
 }
@@ -261,44 +249,28 @@
     [self.tableView addSubview:self.videoPlayView];
 }
 
-//- (void)didSelectWithView:(UIView *)view andCommonCell:(NSIndexPath *)index {
-//    STChildrenViewController *vc = [STChildrenViewController new];
-//    if (view.tag == 1) {
-//        vc.title = @"活动&编剧";
-//    } else {
-//        vc.title = @"个人主页";
-//    }
-//    [self.navigationController pushViewController:vc animated:YES];
-//}
 #pragma mark  -  cellDelegate
 - (void)clickButtonWithType:(KKBarButtonType)type item:(id)item {
     if (type == KKBarButtonTypeComment) {
-        [[QYHTools sharedInstance] showCommentView:@""];
+        STVideoChannelModl *model = (STVideoChannelModl *)item;
+        KKShareObject *obj = [KKShareObject new];
+        obj.title = model.video_title;
+        obj.dataUrl = model.video_url;
+        obj.desc = model.video_desc;
+        obj.shareContent = model.video_desc;
+        obj.linkUrl = model.video_thumb;
+        [[QYHTools sharedInstance] showCommentView:model.video_id];
     }
 }
 - (void)jumpBtnClicked:(id)item {
-      [[QYHTools sharedInstance] shareVideo];
-//    STNoLikeMaskView *nolikeView = [[STNoLikeMaskView alloc] initWithFrame:CGRectMake(0,
-//                                                                                      0,
-//                                                                                      Window_W,
-//                                                                                      Window_H)];
-//    [nolikeView showMaskViewIn:[[UIApplication sharedApplication] keyWindow]];
-//    if ([item isKindOfClass:[UIButton class]]) {
-//        UIButton *button = (UIButton *)item;
-//        self.currentTableViewCellView = (UITableViewCell *)button.superview.superview.superview;
-//    }
-//    XYWeakSelf;
-//    nolikeView.btnClickedBlock = ^(UIButton * _Nonnull sender,NSMutableDictionary *dict) {
-//        if ([self.currentTableViewCellView isKindOfClass:[STHomeVideoTableViewCell class]]) {
-//            [(STHomeVideoTableViewCell *)weakSelf.currentTableViewCellView setWithdrawDic:[dict mutableCopy]];
-//            [(STHomeVideoTableViewCell *)weakSelf.currentTableViewCellView setIsShowWithdram:YES];
-//        }
-//    };
-}
-
-- (void)withdrawMothed:(UIButton *)button {
-//    NSIndexPath *path = [self.tableView indexPathForCell:self.currentTableViewCellView];
-//    [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+    STVideoChannelModl *model = (STVideoChannelModl *)item;
+    KKShareObject *obj = [KKShareObject new];
+    obj.title = model.video_title;
+    obj.dataUrl = model.video_url;
+    obj.desc = model.video_desc;
+    obj.shareContent = model.video_desc;
+    obj.linkUrl = model.video_thumb;
+    [[QYHTools sharedInstance] shareVideo:obj];
 }
 
 - (void)jumpToUserPage:(NSString *)userId {
@@ -441,13 +413,6 @@
     [self.videoPlayView removeFromSuperview];
     self.videoPlayView = nil;
 }
-
-//- (void)didMoveToParentViewController:(nullable UIViewController *)parent
-//{
-//    if (parent == nil) {
-//        [self.videoPlayView destoryVideoPlayer];
-//    }
-//}
 
 #pragma  mark  --  headerView 懒加载
 - (SDCycleScrollView *)headerView {

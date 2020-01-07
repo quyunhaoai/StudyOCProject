@@ -13,7 +13,7 @@
 {
     BOOL isOff;
 }
-@property (strong, nonatomic) UIViewController *currentVC;    // 
+@property (strong, nonatomic) UIViewController *currentVC;
 @end
 
 @implementation STAlbumSumViewController
@@ -22,7 +22,6 @@
 }
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-//    self.view.frame = CGRectMake(0, 0, Window_W, Window_H);
 }
 
 - (void)viewDidLoad {
@@ -46,10 +45,6 @@
     } else {
         [self replaceController:self.currentVC newController:[STAlbumViewController new] andIndex:1];
     }
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-
 }
 
 //  切换各个标签内容

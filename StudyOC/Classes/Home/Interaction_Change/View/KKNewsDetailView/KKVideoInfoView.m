@@ -369,15 +369,17 @@
 }
 
 - (void)likeBtnClick:(MCFireworksButton *)sender {
-        sender.selected= !sender.selected;
-        if (sender.selected) {
-            [sender popOutsideWithDuration:0.5];
-            [sender setImage:[UIImage imageNamed:@"smallVideo_home_like_after"] forState:UIControlStateNormal];
-        }
-        else {
-            [sender popInsideWithDuration:0.4];
-            [sender setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
-        }
+    sender.selected= !sender.selected;
+    if (sender.selected) {
+        [sender popOutsideWithDuration:0.5];
+        [sender setImage:[UIImage imageNamed:@"smallVideo_home_like_after"] forState:UIControlStateNormal];
+        self.likeLabel.textColor = KKColor(243, 55, 102, 1);
+    }
+    else {
+        [sender popInsideWithDuration:0.4];
+        [sender setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+        self.likeLabel.textColor = color_textBg_C7C7D1;
+    }
 }
 
 - (UIButton *)commentButton {

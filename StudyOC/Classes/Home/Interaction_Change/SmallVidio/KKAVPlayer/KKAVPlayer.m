@@ -7,7 +7,8 @@
 //
 
 #import "KKAVPlayer.h"
-
+#import "KJPlayerTool.h"
+#import "KJPlayerURLConnection.h"
 @interface KKAVPlayer()
 @property (nonatomic) AVPlayer *player;//播放器对象
 @property (nonatomic,readwrite) AVPlayerLayer *playerLayer;//视频渲染图层
@@ -18,7 +19,7 @@
 @property (nonatomic,assign,readwrite)float currentPlayTime;//当前播放的时间
 @property (nonatomic,assign,readwrite)float totalTime;//总时长
 @property (nonatomic,assign,readwrite)float curtPosition;//当前播放的位置
-
+@property (nonatomic,strong) KJPlayerURLConnection *kPlayerURLConnection;
 @end
 
 @implementation KKAVPlayer
@@ -144,27 +145,58 @@
     self.totalTime = 0 ;
     
     NSURL *url = nil ;
-    if(self.netType == KKNetworkTypeNet){
-        url = [NSURL URLWithString:self.mediaUrl];
-    }else{
-        url = [NSURL fileURLWithPath:self.mediaUrl];
+    url = [NSURL URLWithString:self.mediaUrl];
+    ///1.判断本地是否有缓存
+    NSString *path = [KJPlayerTool kj_playerGetIntegrityPathWithUrl:url];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        self.netType = KKNetworkTypeLocal;
+        url = [NSURL fileURLWithPath:path];
+    }else {
+        self.netType = KKNetworkTypeNet;
     }
-    self.curtPlayerItem = [AVPlayerItem playerItemWithURL:url];
-    self.player = [AVPlayer playerWithPlayerItem:self.curtPlayerItem];
-    
-    if(self.mediaType == KKMediaTypeVideo){
+    if (self.netType == KKNetworkTypeLocal) {
+        AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
+        self.curtPlayerItem = [AVPlayerItem playerItemWithAsset:asset];
+        if (!self.player) {
+            self.player = [AVPlayer playerWithPlayerItem:self.curtPlayerItem];
+        } else {
+            [self.player replaceCurrentItemWithPlayerItem:self.curtPlayerItem];
+        }
         [self.playerLayer removeFromSuperlayer];
         self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
-        //设置模式
+        self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        self.playerLayer.contentsScale = [UIScreen mainScreen].scale;
+    } else {
+        self.kPlayerURLConnection = [[KJPlayerURLConnection alloc] init];
+        [self kSetBlock]; /// 设置回调代理
+        NSURL *playUrl = [self.kPlayerURLConnection kSetComponentsWithUrl:url];
+        AVURLAsset *asset = [AVURLAsset URLAssetWithURL:playUrl options:nil];
+        [asset.resourceLoader setDelegate:self.kPlayerURLConnection queue:dispatch_get_main_queue()];
+        self.curtPlayerItem = [AVPlayerItem playerItemWithAsset:asset];
+        if (!self.player) {
+            self.player = [AVPlayer playerWithPlayerItem:self.curtPlayerItem];
+        } else {
+            [self.player replaceCurrentItemWithPlayerItem:self.curtPlayerItem];
+        }
+        [self.playerLayer removeFromSuperlayer];
+        self.playerLayer = [AVPlayerLayer playerLayerWithPlayer:self.player];
         self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         self.playerLayer.contentsScale = [UIScreen mainScreen].scale;
     }
-    
     [self addProgressObserver];
     [self addObserverToPlayerItem:self.curtPlayerItem];
     [self addNotification];
 }
-
+#pragma mark - block
+- (void)kSetBlock{
+//    PLAYER_WEAKSELF;
+    self.kPlayerURLConnection.kPlayerURLConnectionDidFinishLoadingAndSaveFileBlcok = ^(BOOL completeLoad, BOOL saveSuccess) {
+        NSLog(@"-下载视频-%d,save:%d",completeLoad,saveSuccess);
+    };
+    self.kPlayerURLConnection.kPlayerURLConnectiondidFailWithErrorCodeBlcok = ^(NSInteger errorCode) {
+        NSLog(@"-下载视频错误代码-%ld",errorCode);
+    };
+}
 #pragma mark -- 重置播放的回调
 
 - (void)resetProcess:(progressCallback)progressCallback
@@ -354,6 +386,7 @@
             if(self.delegate && [self.delegate respondsToSelector:@selector(player:bufferPercent:)]){
                 [self.delegate player:self bufferPercent:self.totalBuffer/self.totalTime];
             }
+//            [self kDownloadProgressWithItem:playerItem];
         }else if ([keyPath isEqualToString:@"playbackBufferEmpty"]){
             if(self.bufferingCallback){
                 self.bufferingCallback(self);

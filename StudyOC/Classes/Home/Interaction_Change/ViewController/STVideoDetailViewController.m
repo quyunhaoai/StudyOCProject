@@ -18,9 +18,10 @@
 #import "KKShareObject.h"
 #import "CommentsPopView.h"
 #import "STCustomHeader.h"
-static NSString *commentCellReuseable = @"commentCellReuseable";
+
 static NSString *relateVideoCellReuseable = @"relateVideoCellReuseable";
 static CGFloat detailVideoPlayViewHeight = 0 ;
+
 @interface STVideoDetailViewController ()<KKAVPlayerViewDelegate,UITableViewDelegate,UITableViewDataSource,KKAuthorInfoViewDelegate,KKShareViewDelegate,KKCommonDelegate>
 @property (strong, nonatomic) KKAVPlayerView *detailVideoPlayView; // 视图
 @property (strong, nonatomic) UIImageView *videoContentView; //  视图
@@ -29,7 +30,6 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
 @property(nonatomic)UITableView *tableView;
 @property(nonatomic)KKVideoInfoView *videoInfoView;
 
-@property(nonatomic,copy)NSMutableArray *commentArray;//评论数组
 @property(nonatomic,copy)NSMutableArray *relateVideoArray;
 
 @property(nonatomic,assign)UIStatusBarStyle barStyle;
@@ -60,7 +60,6 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
         _videoContentView = ({
             UIImageView *view = [UIImageView new];
             view.userInteractionEnabled = YES;
-//            view.backgroundColor = [UIColor redColor];
             view.contentMode = UIViewContentModeScaleAspectFill;
             view.clipsToBounds = YES;
             view;
@@ -69,12 +68,6 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
     return _videoContentView;
 }
 
-//- (void)didMoveToParentViewController:(nullable UIViewController *)parent
-//{
-//    if (parent == nil) {
-//        [self.detailVideoPlayView destoryVideoPlayer];
-//    }
-//}
 #pragma mark -- 初始化UI
 
 - (void)initUI{
@@ -103,15 +96,10 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
         make.height.mas_equalTo(self.view).mas_offset(-AuthorViewHeight-detailVideoPlayViewHeight-self.videoInfoView.height).priority(998);
     }];
     [self videoContentViewAddSubView];
-//    XYWeakSelf;
-//    self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [weakSelf.tableView.mj_header endRefreshing];
-//        });
-//    }];
-    [self.tableView bindGlobalStyleForHeadRefreshHandler:^{
+    XYWeakSelf;
+    self.tableView.mj_footer = [MJRefreshAutoFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.tableView.headRefreshControl endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
         });
     }];
 }
@@ -143,7 +131,6 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
             [weakSelf refreshData];
         }];
     }];
-            
 }
         
 - (void)loadHeadItem:(STVideoChannelModl *)model{
@@ -156,8 +143,8 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
         make.top.mas_equalTo(self.videoInfoView.mas_bottom);
         make.height.mas_equalTo(self.view).mas_offset(-AuthorViewHeight-detailVideoPlayViewHeight-self.videoInfoView.height).priority(998);
     }];
-    self.videoInfoView.likeLabel.text = STRING_FROM_INTAGER(model.zan_volume);
-    self.videoInfoView.commentLabel.text = STRING_FROM_INTAGER(model.comment_volume);
+    self.videoInfoView.likeLabel.text = model.zan_volume?STRING_FROM_INTAGER(model.zan_volume):@"赞";
+    self.videoInfoView.commentLabel.text = model.comment_volume?STRING_FROM_INTAGER(model.comment_volume):@"评论";
     self.videoInfoView.tagArray = model.video_type;
     self.authorView.name = model.nickname;
     self.authorView.headUrl = model.headimg;
@@ -313,23 +300,11 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
 
 #pragma mark  -  显示评论视图
 - (void)showCommentView{
-    CommentsPopView *view = [[CommentsPopView alloc] initWithAwemeId:@""];
+    if (self.heardItem == nil) {
+        return;
+    }
+    CommentsPopView *view = [[CommentsPopView alloc] initWithAwemeId:self.heardItem.video_id];
     [view show];
-//    KKNewsCommentView *view = [[KKNewsCommentView alloc]initWithNewsBaseInfo:@""];
-//    view.topSpace = 249+STATUS_BAR_HEIGHT ;
-//    view.navContentOffsetY = 0 ;
-//    view.navTitleHeight = 44 ;
-//    view.contentViewCornerRadius = 10 ;
-//    view.cornerEdge = UIRectCornerTopRight|UIRectCornerTopLeft;
-//    view.enableHorizonDrag = NO;
-//    view.enableFreedomDrag = NO;
-//    view.defaultHideAnimateWhenDragFreedom = NO;
-//    [[UIApplication sharedApplication].keyWindow addSubview:view];
-//    [view mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.left.top.mas_equalTo(0);
-//        make.size.mas_equalTo(CGSizeMake(Window_W, Window_H));
-//    }];
-//    [view startShow];
 }
 
 #pragma mark -- UITableViewDataSource,UITableViewDelegate
@@ -396,20 +371,26 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
         callback(YES);
     }
 }
+
 - (void)clickedUserHeadWithUserId:(NSString *)userId {
     STChildrenViewController *vc = [STChildrenViewController new];
     vc.title = @"个人主页";
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 #pragma mark  -  cellDel
 - (void)clickButtonWithType:(KKBarButtonType)type item:(id)item {
     if (type == KKBarButtonTypeMore) {
-        [[QYHTools sharedInstance] shareVideo];
+        KKShareObject *obj = [KKShareObject new];
+        [[QYHTools sharedInstance] shareVideo:obj];
     }
 }
+
 - (void)jumpBtnClicked:(id)item {
-    [[QYHTools sharedInstance] shareVideo];
+        KKShareObject *obj = [KKShareObject new];
+        [[QYHTools sharedInstance] shareVideo:obj];
 }
+
 - (void)setConcern:(BOOL)isConcern userId:(NSString *)userId callback:(void (^)(BOOL))callback{
     if(callback){
         callback(YES);
@@ -489,13 +470,6 @@ static CGFloat detailVideoPlayViewHeight = 0 ;
         });
     }
     return _videoInfoView;
-}
-
-- (NSMutableArray *)commentArray {
-    if (!_commentArray) {
-        _commentArray = [NSMutableArray new];
-    }
-    return _commentArray;
 }
 
 - (NSMutableArray *)relateVideoArray{

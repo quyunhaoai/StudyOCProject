@@ -7,7 +7,7 @@
 //
 
 #import "BigCommentTableViewCell.h"
-#import "CommentsPopView.h"
+#import "SmallSectionHeader.h"
 #define NAMEFONE 15
 #define ADDRESSFONE 17
 #define kScreenW [UIScreen mainScreen].bounds.size.width
@@ -22,12 +22,12 @@
 
 - (void)loadAllViews {
     self.backgroundColor = kClearColor;
-    self.sectionTagArray = [NSMutableArray array];
     self.smallCommentTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 10) style:UITableViewStylePlain];
     self.smallCommentTableView.delegate = self;
     self.smallCommentTableView.dataSource = self;
     self.smallCommentTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.smallCommentTableView.scrollEnabled = NO;
+    self.smallCommentTableView.bounces = NO;
     self.smallCommentTableView.backgroundColor = kClearColor;
     [self addSubview:self.smallCommentTableView];
 }
@@ -35,7 +35,11 @@
 - (void)setBigCommentModel:(CommentModel *)bigCommentModel {
     _bigCommentModel = bigCommentModel;
     CGFloat height = _bigCommentModel.height;
-    self.smallCommentTableView.frame = CGRectMake(0, 0, kScreenW, height);
+    for (NSDictionary *dict in _bigCommentModel.recent_replay) {
+        CommentModel *model = [CommentModel yy_modelWithDictionary:dict];
+        height = height +model.height;
+    }
+    self.smallCommentTableView.frame = CGRectMake(0, 0, kScreenW, height+(_bigCommentModel.first_hasmore?30:0));
     [self.smallCommentTableView reloadData];
 }
 
@@ -44,21 +48,36 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.bigCommentModel.height/75;
+    return self.bigCommentModel.recent_replay.count+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier = @"SmallCommentTableViewCell";
-    CommentListReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[CommentListReplyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    if (indexPath.row == 0) {
+        static NSString *kCommentListCell= @"kCommentListCell";
+        CommentListCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommentListCell];
+        if (cell == nil) {
+            cell = [[CommentListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCommentListCell];
+        }
+        [cell initData:_bigCommentModel];
+        return cell;
+    } else {
+        static NSString *identifier = @"SmallCommentTableViewCell";
+        CommentListReplyCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[CommentListReplyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        [cell initData:[CommentModel yy_modelWithDictionary:_bigCommentModel.recent_replay[indexPath.row-1]]];
+        return cell;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 75;
+    if (indexPath.row == 0) {
+        return _bigCommentModel.height;
+    } else {
+        CommentModel *model = [CommentModel yy_modelWithDictionary:_bigCommentModel.recent_replay[indexPath.row-1]];
+        return model.height;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -66,24 +85,40 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.0001f;
+    return [SmallSectionHeader getSmallSectioHeaderHeight:_bigCommentModel];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return nil;
+    SmallSectionHeader *header = [[SmallSectionHeader alloc] init];
+    header.smallCommentModel = self.bigCommentModel;
+    header.moreBtn.tag = 100+section;
+    [header.moreBtn addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    return header;		
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.0001f;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (indexPath.row == 0) {
+        if ([self.delegate respondsToSelector:@selector(didClickBigCommentTableViewCell:andReplyType:)]) {
+            _bigCommentModel.indexRow = self.indexRow;
+            [self.delegate didClickBigCommentTableViewCell:_bigCommentModel andReplyType:commentType];
+        }
+    } else {
+        CommentModel *model = [CommentModel yy_modelWithDictionary:_bigCommentModel.recent_replay[indexPath.row-1]];
+        model.indexRow = self.indexRow;
+        if ([self.delegate respondsToSelector:@selector(didClickBigCommentTableViewCell:andReplyType:)]) {
+            [self.delegate didClickBigCommentTableViewCell:model andReplyType:replyCommentType];
+        }
+    }
+}
+
 - (void)moreBtnClick:(UIButton *)button {
-//    CGFloat height = 200.0;
-//    self.smallCommentTableView.frame = CGRectMake(0, 0, kScreenW, height);
-//    NSIndexSet *section = [NSIndexSet indexSetWithIndex:button.tag - 100];
-//    [self.smallCommentTableView reloadSections:section withRowAnimation:UITableViewRowAnimationAutomatic];
-    if ([self.delegate respondsToSelector:@selector(moreBtnDidClickAndRefreshBigCommentTableView)]) {
-        [self.delegate moreBtnDidClickAndRefreshBigCommentTableView];
+    if ([self.delegate respondsToSelector:@selector(didMoreDataBigCommentTableViewCell:)]) {
+        [self.delegate didMoreDataBigCommentTableViewCell:self.indexRow];
     }
 }
 

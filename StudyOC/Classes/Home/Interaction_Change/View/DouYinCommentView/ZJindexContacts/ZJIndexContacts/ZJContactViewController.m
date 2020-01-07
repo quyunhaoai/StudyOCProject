@@ -34,7 +34,7 @@ static CGFloat const kSearchBarHeight = 40.f;
 @implementation ZJContactViewController
 - (void)viewWillAppear {
     [super viewWillAppear];
-    self.dragContentView.backgroundColor = color_viewBG_1A1929;
+    self.dragContentView.backgroundColor = color_cellBg_151420;
     self.navTitleView.title = @"@好友";
     self.navTitleView.titleLabel.textColor = kWhiteColor;
     self.navTitleView.splitView.hidden = YES;

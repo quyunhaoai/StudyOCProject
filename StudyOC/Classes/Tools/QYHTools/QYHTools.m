@@ -15,6 +15,7 @@
 
 }
 @property(nonatomic,strong)NSURLSessionDownloadTask *downloadTask;
+@property (strong, nonatomic) KKShareObject *shareInfo;
 @end
 @implementation QYHTools
 /**
@@ -319,6 +320,49 @@
     return result;
 }
 
+-(UIViewController *)getCurrentUIVC
+{
+    UIViewController  *superVC = [self getCurrentVC];
+    
+    if ([superVC isKindOfClass:[UITabBarController class]]) {
+        
+        UIViewController  *tabSelectVC = ((UITabBarController*)superVC).selectedViewController;
+        
+        if ([tabSelectVC isKindOfClass:[UINavigationController class]]) {
+            
+            return ((UINavigationController*)tabSelectVC).viewControllers.lastObject;
+        }
+        return tabSelectVC;
+    }else
+        if ([superVC isKindOfClass:[UINavigationController class]]) {
+            
+            return ((UINavigationController*)superVC).viewControllers.lastObject;
+        }
+    return superVC;
+}
+
+- (UIWindow *)getKeyWindow
+{
+    UIWindow* window = nil;
+    
+   
+    if (@available(iOS 13.0, *))
+    {
+        for (UIWindowScene* windowScene in [UIApplication sharedApplication].connectedScenes)
+        {
+            if (windowScene.activationState == UISceneActivationStateForegroundActive)
+            {
+                window = windowScene.windows.firstObject;
+                
+                break;
+            }
+        }
+    } else {
+        window = [UIApplication sharedApplication].keyWindow;
+    }
+    
+    return window;
+}
 //保存视频到相册
 - (void)saveVideoToALAssetsLibrary:(NSURL *)outputFileURL
 { //PHPhotoLibrary
@@ -389,7 +433,8 @@
 }
 
 #pragma mark  -  分享视图
-- (void)shareVideo{
+- (void)shareVideo:(KKShareObject *)shareObject {
+    self.shareInfo = shareObject;
     KKShareView *view = [KKShareView new];
     view.shareInfos = [self createShareItems];
     view.frame = [[UIScreen mainScreen]bounds];
@@ -462,12 +507,12 @@
         }
             break;
         case KKShareTypeDown:{//保存到相册
-
+            [self startDownLoadVedioWithUrl:self.shareInfo.dataUrl];
         }
             break;
         case KKShareTypeCopyLink:{//复制链接
             UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-//            pasteboard.string =[NSString stringWithFormat:@"%@%@%@",self.heardItem.nickname,self.heardItem.video_desc, self.heardItem.video_url];
+            pasteboard.string =[NSString stringWithFormat:@"%@%@%@",self.shareInfo.title,self.shareInfo.desc, self.shareInfo.linkUrl];
             [MBManager showBriefAlert:@"复制成功"];
         }
             break;

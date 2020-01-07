@@ -7,8 +7,7 @@
 //
 
 #import "STChildrenViewController.h"
-//#import <AFNetworking.h>
-//#import ""
+
 @interface STChildrenViewController ()<SPAlertControllerDelegate>
 @property (strong, nonatomic) UIButton *btnView; // 视图
 
@@ -16,29 +15,37 @@
 
 @implementation STChildrenViewController
 @synthesize title;
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = KKRandomColor;
-    STChildrenModel *model = [[STChildrenModel alloc] init];
-    model.name = @"Jack!";
-    
-    NSLog(@"%@",model.description);
-
+//    STChildrenModel *model = [[STChildrenModel alloc] init];
+//    model.name = @"Jack!";
+//
+//    NSLog(@"%@",model.description);
+//
     [self customNavBarwithTitle:self.title andLeftView:@""];
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:button];
-    
-    button.frame = CGRectMake(10, 10, 200, 200);
-    button.center = self.view.center;
-    [button setTitle:@"123456" forState:UIControlStateNormal];
-    [button setImage:IMAGE_NAME(STSystemDefaultImageName) forState:UIControlStateNormal];
-    [button setTitleColor:kRedColor forState:UIControlStateNormal];
-    [button setBackgroundColor:kBlackColor];
-    [button setEdgeInsetsStyle:KKButtonEdgeInsetsStyleLeft imageTitlePadding:10];
-    [button addTarget:self action:@selector(spalertView) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.btnView = button;
+    self.navTitleView.backgroundColor = kBlackColor;
+    self.navTitleView.titleLabel.textColor = kWhiteColor;
+    self.navTitleView.splitView.backgroundColor = kClearColor;
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.view addSubview:button];
+//
+//    button.frame = CGRectMake(10, 10, 200, 200);
+//    button.center = self.view.center;
+//    [button setTitle:@"123456" forState:UIControlStateNormal];
+//    [button setImage:IMAGE_NAME(STSystemDefaultImageName) forState:UIControlStateNormal];
+//    [button setTitleColor:kRedColor forState:UIControlStateNormal];
+//    [button setBackgroundColor:kBlackColor];
+//    [button setEdgeInsetsStyle:KKButtonEdgeInsetsStyleLeft imageTitlePadding:10];
+//    [button addTarget:self action:@selector(spalertView) forControlEvents:UIControlEventTouchUpInside];
+//
+//    self.btnView = button;
 }
 
 - (void)spalertView {

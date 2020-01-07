@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "KKShareObject.h"
 @interface QYHTools : NSObject
 /*获取单例对象*/
 + (instancetype)sharedInstance;
@@ -65,6 +66,9 @@
 + (void)removeDirectoryPath:(NSString *)directoryPath;
 /// 获取当前VC
 - (UIViewController *)getCurrentVC;
+- (UIViewController *)getCurrentUIVC;
+/// 获取KeyWindows
+- (UIWindow *)getKeyWindow;
 /*对象转字符串*/
 -(NSString*)DataTOjsonString:(id)object;
 /// 保存视频到相册
@@ -73,7 +77,7 @@
 /// 评论弹窗
 - (void)showCommentView:(NSString *)uid;
 /// 分享更多
-- (void)shareVideo;
+- (void)shareVideo:(KKShareObject *)shareObject;
 /// 关注好友
 /// @param userId 用户ID
 - (void)followBtnClick:(int )userId andButton:(UIButton *)button;

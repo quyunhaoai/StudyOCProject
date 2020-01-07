@@ -19,7 +19,6 @@
 #import "STNoLikeMaskView.h"
 
 #import "SDRefreshHeader.h"
-#import "CustomGifHeader.h"
 #import "LFMessageAlertView.h"
 #import "STVideoChannelModl.h"
 @interface STVideoChannelViewController ()<UITableViewDelegate, UITableViewDataSource,KKCommonDelegate,SuperPlayerDelegate,JXCategoryListContentViewDelegate,SDCycleScrollViewDelegate>
@@ -47,7 +46,7 @@
     self.page = 1;
     [self requestUrl];
     XYWeakSelf;
-    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
         [weakSelf requestUrl];
         [weakSelf.tableView.mj_header endRefreshing];
         [weakSelf refreshData:YES shouldShowTips:YES];

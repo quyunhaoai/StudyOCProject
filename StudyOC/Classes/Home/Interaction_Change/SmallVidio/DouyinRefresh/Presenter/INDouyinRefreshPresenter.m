@@ -224,7 +224,8 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
 }
 //分享
 - (void)handleShareVideoModel:(SmallVideoModel *)smallVideoModel {
-    [[QYHTools sharedInstance] shareVideo];
+    KKShareObject *obj = [KKShareObject new];
+    [[QYHTools sharedInstance] shareVideo:obj];
 }
 //喜欢
 - (void)handleFavoriteVdieoModel:(SmallVideoModel *)smallVdeoModel {
@@ -237,6 +238,7 @@ static NSString * const STSmallPlayShopTableViewCellIdentifier = @"STSmallPlaySh
 //头像
 - (void)handleClickPersonIcon:(SmallVideoModel *)smallVideoModel {
     STChildrenViewController *vc = [STChildrenViewController new];
+    vc.title = @"个人主页";
     [self.controller.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark - Action

@@ -36,6 +36,7 @@ static NSString *CellIdentifier = @"STMyCircleViewController";
     [headerView.addButton setTitle:@"+个人" forState:UIControlStateNormal];
     [headerView.headerIconView addTapGestureWithBlock:^(UIView *gestureView) {
         STChildrenViewController *vc= [STChildrenViewController new];
+        vc.title = @"个人主页";
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     self.headerView = headerView;
@@ -62,7 +63,7 @@ static NSString *CellIdentifier = @"STMyCircleViewController";
 
     [self refreshData:YES shouldShowTips:YES];
 
-    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
        
         [weakSelf.tableView.mj_header endRefreshing];
     }];
@@ -76,7 +77,8 @@ static NSString *CellIdentifier = @"STMyCircleViewController";
     allphone = [allphone stringByReplacingOccurrencesOfString:@" "  withString:@""];
     NSString *content = [NSString stringWithFormat:@"%@('%@')",@"allPhone:",allphone];
     NSLog(@"---%@---",content);
-    STBaseTableViewController *tableVc = [STBaseTableViewController new];
+    STChildrenViewController *tableVc = [STChildrenViewController new];
+    tableVc.title = @"通讯录";
     [self.navigationController pushViewController:tableVc animated:YES];
     
 }
@@ -109,7 +111,7 @@ static NSString *CellIdentifier = @"STMyCircleViewController";
         [weakSelf.tipView removeFromSuperview];
     }];
 
-  [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
+//  [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
     
 }
 - (void)showRefreshTipParam:(NSArray *)array{
@@ -167,12 +169,14 @@ static NSString *CellIdentifier = @"STMyCircleViewController";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     STChildrenViewController *vc = [STChildrenViewController new];
+    vc.title = @"个人主页";
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark  -  cell代理
 - (void)jumpBtnClicked:(id)item {
     STChildrenViewController *vc = [STChildrenViewController new];
+    vc.title = @"个人主页";
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -52,7 +52,7 @@ static NSString *cellIdentifierPerson = @"STLocationChannelTableViewCellcellIden
     self.nData = [NSMutableArray arrayWithArray:dict[@"content"]];
     self.isLoadFinish = YES;
     XYWeakSelf;
-    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
         weakSelf.isLoadFinish = YES;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSDictionary *dict = testDataDict()[@"data"];
@@ -259,7 +259,8 @@ static NSString *cellIdentifierPerson = @"STLocationChannelTableViewCellcellIden
 
 #pragma mark  -  CellDelegate
 - (void)jumpBtnClicked:(id)item {
-    [[QYHTools sharedInstance] shareVideo];
+    KKShareObject *obj = [KKShareObject new];
+    [[QYHTools sharedInstance] shareVideo:obj];
     
 }
 - (void)didSelectWithView:(UIView *)view andCommonCell:(NSIndexPath *)index {

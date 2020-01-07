@@ -93,7 +93,6 @@
 #import "STChildrenViewController.h"
 #import "STBaseNav.h"
 #import "JXCategoryListContainerView.h"
-#import "CustomGifHeader.h"
 #import "STSearchView.h"
 #import "STLoginViewController.h"
 #import "KKAVPlayerView.h"
@@ -110,6 +109,7 @@
 //=================工具类====================
 #import "QYHTools.h"
 #import "KKThirdTools.h"
+#import "STCustomHeader.h"
 //==================z系统库====================
 #import <CoreLocation/CoreLocation.h>
 //==================小视频======================

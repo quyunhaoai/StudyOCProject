@@ -44,7 +44,7 @@
 {
     self = [super initWithBaseURL:url];
     if (self) {
-        // 请求超时设定
+        // 请求超时设定
         self.requestSerializer.timeoutInterval = 5;
         self.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
         [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -109,4 +109,26 @@
             break;
     }
 }
+- (void)UPLOADIMAGE:(NSString *)URL
+             params:(NSDictionary *)params
+        uploadImage:(UIImage *)image
+            success:(void (^)(id response))success
+            failure:(void (^)(NSError *error))Error
+{
+    NSMutableDictionary *dict = [params mutableCopy];
+    [self POST:URL parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
+        [formData appendPartWithFileData:imageData name:@"img" fileName:@"head.jpg" mimeType:@"image/jpeg"];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        CGFloat progress = uploadProgress.completedUnitCount/uploadProgress.totalUnitCount;
+        [WSProgressHUD showProgress:progress];
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+        [WSProgressHUD dismiss];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        Error(error);
+        [WSProgressHUD dismiss];
+    }];
+}
+
 @end

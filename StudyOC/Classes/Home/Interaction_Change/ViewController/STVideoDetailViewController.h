@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface STVideoDetailViewController : STBaseViewController
-//- (void)addVideoPlayView:(KKAVPlayerView *)playView;
+
 @end
 
 NS_ASSUME_NONNULL_END

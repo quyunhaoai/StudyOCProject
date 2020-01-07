@@ -21,9 +21,11 @@ static NSString *CellIdentifier = @"STFollowViewController";
 @end
 
 @implementation STFollowViewController
+
 - (UIView *)listView {
     return self.view;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     XYWeakSelf;
@@ -35,6 +37,7 @@ static NSString *CellIdentifier = @"STFollowViewController";
     }];
     [headerView.headerIconView addTapGestureWithBlock:^(UIView *gestureView) {
         STChildrenViewController *vc = [STChildrenViewController new];
+        vc.title = @"个人主页";
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
     headerView.titleLabArray = @[@"关注我的234",@"我关注的345",@"访问我的123"];
@@ -50,7 +53,7 @@ static NSString *CellIdentifier = @"STFollowViewController";
     self.tableView.tableHeaderView = view;
 
     [self refreshData:YES shouldShowTips:YES];
-    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
         [weakSelf.tableView.mj_header endRefreshing];
     }];
 }
@@ -84,12 +87,12 @@ static NSString *CellIdentifier = @"STFollowViewController";
         [weakSelf.tipView removeFromSuperview];
     }];
 
-  [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
+//  [self performSelector:@selector(showRefreshTipParam:) withObject:@[@(NO),@(YES)] afterDelay:2.0];
     
 }
 
 - (void)showRefreshTipParam:(NSArray *)array{
-    [self showRefreshTip:[[array safeObjectAtIndex:0]boolValue] animate:[[array safeObjectAtIndex:1]boolValue]];
+    [self showRefreshTip:[[array safeObjectAtIndex:0] boolValue] animate:[[array safeObjectAtIndex:1]boolValue]];
 }
 
 - (void)showRefreshTip:(BOOL)isShow animate:(BOOL)animate{
@@ -143,11 +146,14 @@ static NSString *CellIdentifier = @"STFollowViewController";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     STChildrenViewController *vc = [STChildrenViewController new];
+    vc.title = @"详情页";
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 #pragma mark  -  cell代理
 - (void)jumpBtnClicked:(id)item {
     STChildrenViewController *vc = [STChildrenViewController new];
+    vc.title = @"详情页";
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (STFollowTipView *)tipView {
@@ -170,4 +176,5 @@ static NSString *CellIdentifier = @"STFollowViewController";
     }
     return _recommonView;
 }
+
 @end

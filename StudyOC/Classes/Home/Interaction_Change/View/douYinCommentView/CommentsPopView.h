@@ -6,9 +6,13 @@
 //  Copyright © 2018年 Qiao Shi. All rights reserved.
 //
 
+typedef enum : NSUInteger {
+    commentType = 1,
+    replyCommentType = 2,
+} replayType;
 #import <UIKit/UIKit.h>
 #import <MCFireworksButton.h>
-
+#import "STBaseTableViewCell.h"
 @interface CommentsPopView:UIView
 
 @property (nonatomic, strong) UILabel           *label;
@@ -21,8 +25,8 @@
 @end
 
 
-//@class Comment;
-@interface CommentListCell : UITableViewCell
+@class CommentModel;
+@interface CommentListCell : STBaseTableViewCell
 
 @property (nonatomic, strong) UIImageView        *avatar;
 @property (nonatomic, strong) MCFireworksButton  *likeIcon;
@@ -32,13 +36,13 @@
 @property (nonatomic, strong) UILabel            *likeNum;
 @property (nonatomic, strong) UILabel            *date;
 @property (nonatomic, strong) UIView             *splitLine;
-
-//-(void)initData:(Comment *)comment;
-+(CGFloat)cellHeight:(id )comment;
+@property (strong, nonatomic) CommentModel       *model;
+-(void)initData:(CommentModel *)comment;
++(CGFloat)cellHeight:(CommentModel *)comment;
 
 @end
-//@class Comment;
-@interface CommentListReplyCell : UITableViewCell
+@class CommentModel;
+@interface CommentListReplyCell : STBaseTableViewCell
 
 @property (nonatomic, strong) UIImageView        *avatar;
 @property (nonatomic, strong) MCFireworksButton  *likeIcon;
@@ -48,28 +52,8 @@
 @property (nonatomic, strong) UILabel            *likeNum;
 @property (nonatomic, strong) UILabel            *date;
 @property (nonatomic, strong) UIView             *splitLine;
-
-//-(void)initData:(Comment *)comment;
-//+(CGFloat)cellHeight:(Comment *)comment;
-
-@end
-
-@protocol CommentTextViewDelegate
-
-@required
--(void)onSendText:(NSString *)text;
-
-@end
-
-
-@interface CommentTextView : UIView
-
-@property (nonatomic, strong) UIView                         *container;
-@property (nonatomic, strong) UITextView                     *textView;
-@property (nonatomic, strong) id<CommentTextViewDelegate>    delegate;
-
-- (void)show;
-- (void)dismiss;
+@property (strong, nonatomic) CommentModel       *model;
+-(void)initData:(CommentModel *)comment;
 
 @end
 
@@ -77,8 +61,5 @@
 
 @property (nonatomic, strong) UILabel            *content;
 @property (nonatomic, strong) UIView             *splitLine;
-
-//-(void)initData:(Comment *)comment;
-//+(CGFloat)cellHeight:(Comment *)comment;
 
 @end

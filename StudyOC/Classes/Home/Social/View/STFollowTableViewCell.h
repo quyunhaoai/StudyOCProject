@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <MCFireworksButton.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @interface STFollowTableViewCell : UITableViewCell
@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *userHeadIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UILabel *playCountLab;
+@property (weak, nonatomic) IBOutlet MCFireworksButton *likeBtn;
+@property (weak, nonatomic) IBOutlet UILabel *likeLab;
 @property(nonatomic,strong) CAGradientLayer *gradientLayer;
 @end
 

@@ -12,18 +12,12 @@
 @interface STSmallPlayShopTableViewCell ()
 @property (nonatomic, strong) FocusView        *focus;//关注
 @property (nonatomic, strong) UIImageView *coverImageView;
-
 @property (nonatomic, strong) UIImageView *share;
-@property (nonatomic, strong) UILabel *shareNum;
-
 @property (nonatomic, strong) UIImageView *comment;
 @property (nonatomic, strong) UILabel *commentNum;
-
 @property (nonatomic, strong) FavoriteView *favorite;//点赞
 @property (nonatomic, strong) UILabel *favoriteNum;
-
 @property (nonatomic, weak)IBOutlet UIImageView *avatar;
-
 @property (nonatomic, weak)IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak)IBOutlet UILabel *artistLabel;
 @property (strong, nonatomic) UILabel *detailLabel; //  标签
@@ -55,19 +49,6 @@
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    CAGradientLayer *gradientLayer = [CAGradientLayer new];
-    
-    gradientLayer.frame = CGRectMake(SCREEN_WIDTH - 100 , 0, 100 , SCREEN_HEIGHT);
-    //colors存放渐变的颜色的数组
-    gradientLayer.colors=@[(__bridge id)RGBA(0, 0, 0, 0.5).CGColor,(__bridge id)RGBA(0, 0, 0, 0.0).CGColor];
-//        gradientLayer.locations = @[@0.3, @0.5, @1.0];
-    /**
-     * 起点和终点表示的坐标系位置，(0,0)表示左上角，(1,1)表示右下角
-     */
-    gradientLayer.startPoint = CGPointMake(1, 0);
-    gradientLayer.endPoint = CGPointMake(0, 0);
-    //    layer.frame = self.messageLabel.bounds;
-    [self.contentView.layer addSublayer:gradientLayer];
 
     _share = [[UIImageView alloc]init];
     _share.contentMode = UIViewContentModeCenter;
@@ -82,7 +63,6 @@
     [self.contentView addSubview:_comment];
     
     _commentNum = [[UILabel alloc]init];
-    _commentNum.text = @"0";
     _commentNum.textColor = [UIColor whiteColor];//ColorWhite;
     _commentNum.font = [UIFont systemFontOfSize:12 ];//SmallFont;
     [self.contentView addSubview:_commentNum];
@@ -94,7 +74,6 @@
     [self.contentView addSubview:_favorite];
     
     _favoriteNum = [[UILabel alloc]init];
-    _favoriteNum.text = @"0";
     _favoriteNum.textColor = [UIColor whiteColor];//ColorWhite;
     _favoriteNum.font = [UIFont systemFontOfSize:12 ];//SmallFont;
     [self.contentView addSubview:_favoriteNum];
@@ -185,11 +164,6 @@
         make.centerY.equalTo(self.avatar.mas_centerY);
         make.width.height.mas_equalTo(14);
     }];
-//    [_focus whenTapped:^{
-//        @STstrongify(self);
-//        [self addConcern];
-//    }];
-//    [self.focus addTapGestureWithTarget:self action:@selector(addConcern)];
     [self.contentView bringSubviewToFront:self.liveIconBtn];
     
     [kNotificationCenter addObserver:self selector:@selector(ccc) name:STNotificationLikeStr object:nil];
@@ -202,12 +176,6 @@
     [self.favorite startChoose:YES animation:YES];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 -(void)prepareForReuse {
     [super prepareForReuse];
     [_favorite resetView];
@@ -216,31 +184,24 @@
 
 - (void)setModel:(SmallVideoModel *)model {
     _model = model;
-      self.nameLabel.text = model.name;
-      CGFloat width = [model.name widthWithFont:FONT_14 constrainedToHeight:17];
-      [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-          make.width.mas_equalTo(width);
-      }];
-      
-      self.artistLabel.text = model.artist;
-      self.detailLabel.text = @"最靓丽的视频就在这里，拍摄了几天，容摄了几摄了几众多";
-      if(model.aspect >= 1.4) {
-          self.coverImageView.contentMode = UIViewContentModeScaleAspectFill;
-      } else {
-          self.coverImageView.contentMode = UIViewContentModeScaleAspectFit;
-      }
-      
-      [self.coverImageView sd_setImageWithURL:[NSURL URLWithString: model.cover_url]];
-      [self.avatar sd_setImageWithURL:[NSURL URLWithString:model.head_url] placeholderImage:[UIImage imageNamed:STSystemDefaultImageName]];
-//    if (model.rid == 1) {
-//        self.focus.hidden = YES;
-//        self.favorite.isChoose = YES;
-//    } else {
-        self.focus.hidden = NO;
-        self.favorite.isChoose = NO;
-//    }
-
-
+    self.nameLabel.text = model.name;
+    CGFloat width = [model.name widthWithFont:FONT_14 constrainedToHeight:17];
+    [self.nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(width);
+    }];
+    self.artistLabel.text = model.artist;
+    self.detailLabel.text = @"最靓丽的视频就在这里，拍摄了几天，容摄了几摄了几众多";
+    if(model.aspect >= 1.4) {
+        self.coverImageView.contentMode = UIViewContentModeScaleAspectFill;
+    } else {
+        self.coverImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    self.favoriteNum.text = @"赞";
+    self.commentNum.text = @"评论";
+    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString: model.cover_url]];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:model.head_url] placeholderImage:[UIImage imageNamed:STSystemDefaultImageName]];
+    self.focus.hidden = NO;
+    self.favorite.isChoose = NO;
     
     UIView *shop1View = [self.leftStackview viewWithTag:101];
     UIView *shop2View = [self.leftStackview viewWithTag:102];
@@ -248,24 +209,10 @@
         shop1View.hidden = YES;
         shop2View.hidden = YES;
         self.liveIconBtn.hidden = YES;
-//        self.grybbb.hidden = YES;
-//        self.gryccc.hidden = YES;
-//        [self.leftStackview removeArrangedSubview:shop1View];
-//        [self.leftStackview removeArrangedSubview:shop2View];
-//        [shop2View removeFromSuperview];
-//        [shop1View removeFromSuperview];
     } else {
         shop1View.hidden = NO;
         shop2View.hidden = NO;
         self.liveIconBtn.hidden = NO;
-//        UIView *shop1View = [self.leftStackview viewWithTag:101];
-//        UIView *shop2View = [self.leftStackview viewWithTag:102];
-//        self.grybbb.hidden = NO;
-//        self.gryccc.hidden = NO;
-//        [self.leftStackview addSubview:shop2View];
-//        [self.leftStackview addSubview:shop1View];
-//        [self.leftStackview insertArrangedSubview:shop2View atIndex:0];
-//        [self.leftStackview insertArrangedSubview:shop1View atIndex:1];
     }
 }
 

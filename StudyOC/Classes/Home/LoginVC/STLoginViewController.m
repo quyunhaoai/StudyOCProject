@@ -385,6 +385,11 @@
                     [self->hud showWithString:@"登录成功" maskType:WSProgressHUDMaskTypeBlack];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self->hud dismiss];
+                        [self.view endEditing:YES];
+                        [self.navigationController popViewControllerAnimated:YES];
+                        [self dismissViewControllerAnimated:YES completion:^{
+                            
+                        }];
                     });
                 }else {
                     if (msg.length>0) {

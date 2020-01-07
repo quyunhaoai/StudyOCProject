@@ -36,7 +36,7 @@
     self.page = 1;
 //    [self requestUrl];
     XYWeakSelf;
-    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
 //        [weakSelf requestUrl];
         [weakSelf.tableView.mj_header endRefreshing];
 //        [weakSelf refreshData:YES shouldShowTips:YES];

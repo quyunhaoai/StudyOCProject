@@ -43,7 +43,7 @@ static NSString *CellIdentifier= @"STLocationTableViewController";
     [view addSubview:headView];
     self.tableView.tableHeaderView = view;
     [self.tableView registerNib:[STFollowTableViewCell loadNib] forCellReuseIdentifier:CellIdentifier];
-    self.tableView.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
         [weakSelf.tableView.mj_header endRefreshing];
     }];
     [self locationCity];
@@ -173,11 +173,13 @@ static NSString *CellIdentifier= @"STLocationTableViewController";
         return;
     }
     STChildrenViewController *vc = [STChildrenViewController new];
+    vc.title = @"详情页";
     [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark  -  cell代理
 - (void)jumpBtnClicked:(id)item {
     STChildrenViewController *vc = [STChildrenViewController new];
+    vc.title = @"详情页";
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (NSMutableArray *)themeArray {

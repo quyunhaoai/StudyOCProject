@@ -8,19 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "CommentModel.h"
-
+#import "CommentsPopView.h"
 @protocol BigCommentTableViewRefreshDelegate <NSObject>
 
--(void)moreBtnDidClickAndRefreshBigCommentTableView;
+-(void)didClickBigCommentTableViewCell:(CommentModel *)model andReplyType:(replayType)replyTTT;
 
+-(void)didMoreDataBigCommentTableViewCell:(NSInteger )indexRow;
 @end
 
 @interface BigCommentTableViewCell : UITableViewCell<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) CommentModel *bigCommentModel;
 @property (nonatomic,strong) UITableView *smallCommentTableView;
-@property (nonatomic,assign) BOOL unFold;
-@property (nonatomic,strong) NSMutableArray *sectionTagArray;
 @property (nonatomic) id<BigCommentTableViewRefreshDelegate> delegate;
-
+@property (assign, nonatomic) NSInteger indexRow;    
 @end

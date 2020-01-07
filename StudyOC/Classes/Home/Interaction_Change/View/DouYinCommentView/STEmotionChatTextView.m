@@ -26,7 +26,7 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
 @property (nonatomic, assign) int                              maxNumberOfLine;
 @property (nonatomic, assign) CGFloat                          textHeight;
 @property (nonatomic, assign) CGFloat                          containerBoardHeight;
-@property (nonatomic, retain) UILabel                          *placeholderLabel;
+
 @property (nonatomic, strong) UIButton                         *emotionBtn;
 @property (nonatomic, strong) UIButton                         *photoBtn;
 @property (nonatomic, strong) UIVisualEffectView               *visualEffectView;
@@ -41,7 +41,7 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
 -(instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self) {
-        self.backgroundColor = kClearColor;
+        self.backgroundColor = ColorBlackAlpha20;
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGuesture:)];
         tapGestureRecognizer.delegate = self;
         [self addGestureRecognizer:tapGestureRecognizer];
@@ -371,6 +371,7 @@ static const CGFloat kChatTextViewTopBottomInset = 15;
     [self setContainerBoardHeight:SafeAreaBottomHeight];
     [self updateSelectorFrame:YES];
     [self updateContainerFrame];
+    self.placeholderLabel.hidden = NO;
     [_textView resignFirstResponder];
     [_emotionBtn setSelected:NO];
     [_photoBtn setSelected:NO];

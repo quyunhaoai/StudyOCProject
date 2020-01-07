@@ -9,39 +9,46 @@
 #import <Foundation/Foundation.h>
 
 /*
-"ruid":"qq_A6B8CEFAB39EB910F6ADB8A55704FCD1",
-"uid":"qq_784C9E405FCD74E73165B07CB720060A",
-"tcomment":"歌名？",
-"upvote":3,
-"tname":"安稳🍂",
-"createtime":"2017-07-03 00:19:58",
-"rid":"23364500",
-"comment":"远走高飞",
-"thead_url":"http://cdnringbd.shoujiduoduo.com/ringres/userprofile/head_pic/49/user_head_20170628202949.jpg",
-"cid":"59591d2e7f8b9a82448b4591",
-"tuid":"phone_18362446031",
-"ddid":"655029",
-"tcid":"59591a107f8b9a240d8b456f",
-"head_url":"http://q.qlogo.cn/qqapp/100382066/784C9E405FCD74E73165B07CB720060A/100",
-"name":"ヅ一輩孓﹠_嘅諾訁呢ღ"
+ "add_time" = "2019-12-30 13:47:13";
+ "comment_id" = 3;
+ content = 0001;
+ "from_headimg" = "http://mp.youqucheng.com/addons/project/data/uploadfiles/headimg/5.jpg";
+ "from_nickname" = 666;
+ "from_uid" = 5;
+ "recent_replay" =             (
+ );
+ "topic_id" = 3;
+ "topic_title" = "\U6d4b\U8bd5\U89c6\U9891\U7684\U6b21\U90ce\U5148\U751f";
+ "topic_type" = 1;
 */
 
 @interface CommentModel : NSObject
-
-
-
+//视频ID
+@property (copy, nonatomic) NSString *topic_id;
 //当前的评论ID
-@property(nonatomic, copy) NSString *cid;
+@property(nonatomic, copy) NSString *comment_id;
 //当前评论内容
-@property(nonatomic, copy) NSString *comment;
+@property(nonatomic, copy) NSString *content;
 //当前评论日期
-@property(nonatomic, copy) NSString *createtime;
-
+@property(nonatomic, copy) NSString *add_time;
 //当前评论人名字
-@property(nonatomic, copy) NSString *name;
+@property(nonatomic, copy) NSString *from_nickname;
 //当前评论人头像地址
-@property(nonatomic, copy) NSString *head_url;
+@property(nonatomic, copy) NSString *from_headimg;
+//评论人ID
+@property (copy, nonatomic) NSString *from_uid;
+//被回复人ID
+@property (copy, nonatomic) NSString *to_uid;
+
 @property(nonatomic, assign) CGFloat height;
 
+@property (strong, nonatomic) NSMutableArray *recent_replay;
 
+@property (assign, nonatomic) NSInteger zan_volume;
+
+@property (assign, nonatomic) NSInteger indexRow;
+
+@property (assign, nonatomic) NSInteger first_hasmore;    // 1表示有更多，0没有 first_hasmore
+
+@property (assign, nonatomic) NSInteger zan_flag;
 @end

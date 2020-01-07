@@ -180,22 +180,7 @@
         [self.delegate clickImageWithItem:self.model rect:self.coverView.frame fromView:self.contentView image:self.coverView.image indexPath:self.indexPath];
     }
 }
-//- (void)setData {
-//    [self.headerIconView setCornerImageWithURL:[NSURL URLWithString:@""] placeholder:IMAGE_NAME(STSystemDefaultImageName)];
-//    self.titleLabel.text = @"最靓丽的视频就在这里，拍摄了几天，容纳了众多美女排";
-//    self.nameStringLabel.text = @"玩转粉号";
-//    self.subNameStringLabel.text = @"搞笑视频自媒体团体";
-//    NSRange dddd = NSMakeRange(4, 4);
-//    self.descLabel.text = @"本视频有光引科技赞助";
-//    SetRichTextLabel(self.descLabel, FONT_10,dddd, [UIColor colorWithRed:245.0f/255.0f
-//    green:207.0f/255.0f
-//     blue:56.0f/255.0f
-//    alpha:1.0f]);
-//    [self.coverView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:IMAGE_NAME(STSystemDefaultImageName)];
-//    self.videoTimeLabel.text = @"0次播放";
-//    self.likeLabel.text = @"156";
-//    self.commentLabel.text = @"0";
-//}
+
 - (void)refreshData:(STVideoChannelModl *)model {
     if (model) {
         self.model=model;
@@ -203,13 +188,6 @@
         
         self.titleLabel.text = model.video_title;
         self.nameStringLabel.text = model.nickname;
-//        NSDate *dat = [NSString getDateFormat:model.add_time Format:@"YYYY-MM-dd HH:mm"];//yyyy-MM-dd,今天,HH:mm
-//        NSString *sendTimeStr = [NSDate compareCurrentTime:dat];
-//        if (model.zuozhe_desc.length>0) {
-//            self.subNameStringLabel.text =[NSString stringWithFormat:@"%@·%@",sendTimeStr,model.zuozhe_desc];
-//        } else {
-//            self.subNameStringLabel.text =[NSString stringWithFormat:@"%@",sendTimeStr];
-//        }
         self.subNameStringLabel.text = model.zuozhe_desc;
         NSString *video_sponsor = @"";
         if (model.video_sponsor.count) {
@@ -226,8 +204,6 @@
                                                     blue:56.0f/255.0f
                                                    alpha:1.0f]);
         }
-
-        
         [self.coverView sd_setImageWithURL:[NSURL URLWithString:model.video_thumb] placeholderImage:STImageViewDefaultImageMacro];
         
         self.videoTimeLabel.text = [NSString stringWithFormat:@"%@次播放",[NSString tenThousandTfromInt:(int)model.play_volume]] ;
@@ -237,60 +213,21 @@
         } else {
             self.vipImageView.hidden = NO;
         }
-//        for (int i=0; i<model.video_team.count; i++) {
-//            if (model.video_team.count !=5) {
-//                break;
-//            }
-//            UIImageView *icon = [[UIImageView alloc] init];
-//            [self.headerIconListView addSubview:icon];//175-4*4
-//            icon.frame = CGRectMake((159/5 * i) , 0, 35, 35);
-//            ViewBorderRadius(icon, 17.5, 2, kWhiteColor);
-//            NSDictionary *dic = model.video_team[i];
-//            [icon setCornerImageWithURL:[NSURL URLWithString:[dic objectForKey:@"headimg"]] placeholder:IMAGE_NAME(STSystemDefaultImageName)];
-//        }
-        self.likeLabel.text = STRING_FROM_INTAGER(model.zan_volume);
-        self.commentLabel.text = STRING_FROM_INTAGER(model.comment_volume);
+        self.likeLabel.text = model.zan_volume?STRING_FROM_INTAGER(model.zan_volume):@"赞";
+        self.commentLabel.text = model.comment_volume?STRING_FROM_INTAGER(model.comment_volume):@"评论";
         //备注 headimg：发布者图像 nickname： 发布者姓名 is_v： 发布者是否加V 1是 0否 sex： 发布者性别 1男 0女 zuozhe_desc：发布者简介 video_title： 视频标题 video_thumb：视频缩略图 video_url：视频资源地址 play_volume：播放次数 zan_volume：点赞数 share_volume：分享数 comment_volume：评论数（不算回复的，只算直接评论） video_duration：视频时长 add_time：发布时间 video_type：视频标签类型 video_team：视频团队成员 video_sponsor：赞助商
         //备注 headimg：发布者图像 nickname： 发布者姓名 is_v： 发布者是否加V 1是 0否 sex： 发布者性别 1男 0女 zuozhe_desc：发布者简介 video_title： 视频标题 video_thumb：视频缩略图 video_url：视频资源地址 play_volume：播放次数 zan_volume：点赞数 share_volume：分享数 comment_volume：评论数（不算回复的，只算直接评论）
     }
 }
 
-//- (void)setIsShowWithdram:(BOOL)isShowWithdram {
-//    _isShowWithdram = isShowWithdram;
-//    if (_isShowWithdram) {
-//          _blurView = [[DRNRealTimeBlurView alloc] initWithFrame:CGRectMake(0, 0, (Window_W), (Window_W)*0.56)];
-//          TYAttributedLabel *tipLab = [[TYAttributedLabel alloc] init];
-//          tipLab.frame = _blurView.bounds;
-//          tipLab.text = [NSString stringWithFormat:@"%@\n%@\n刷新后将不在显示",checkNull(self.withdrawDic[@"content"]),checkNull(self.withdrawDic[@"channel"])];
-//          tipLab.textColor = kWhiteColor;
-//          tipLab.font = FONT_12;
-//          tipLab.textAlignment = kCTTextAlignmentCenter;
-//          tipLab.verticalAlignment = TYVerticalAlignmentCenter;
-//          tipLab.characterSpacing = 1;
-//          tipLab.linesSpacing = 20;
-//          tipLab.lineBreakMode = kCTLineBreakByTruncatingTail;
-//          tipLab.numberOfLines = 3;
-//          [_blurView addSubview:tipLab];
-//          [self.coverView addSubview:_blurView];
-//          [self.bgView addSubview:self.withdrawButton];
-//          [self.withdrawButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//              make.bottom.mas_equalTo(self.bgView.mas_bottom);
-//              make.top.mas_equalTo(self.coverView.mas_bottom);
-//              make.right.left.mas_equalTo(self.coverView);
-//          }];
-//    } else {
-//        [self.withdrawButton removeFromSuperview];
-//        [self.blurView removeFromSuperview];
-//    }
-//}
 - (void)moreBtnClicked:(UIButton *)button {
     if ([self.delegate respondsToSelector:@selector(jumpBtnClicked:)]) {
-        [self.delegate jumpBtnClicked:button];
+        [self.delegate jumpBtnClicked:self.model];
     }
 }
 - (void)commentBtnClick:(UIButton *)button {
     if ([self.delegate respondsToSelector:@selector(clickButtonWithType:item:)]) {
-        [self.delegate clickButtonWithType:KKBarButtonTypeComment item:button];
+        [self.delegate clickButtonWithType:KKBarButtonTypeComment item:self.model];
     }
 }
 #pragma  mark  --  addBtn 懒加载
@@ -317,44 +254,6 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(jumpToUserPage:)]) {
         [self.delegate jumpToUserPage:@""];
     }
-//    NSString *key = [kUserDefaults objectForKey:STUserRegisterInfokey];
-//    if ([key isNotBlank]) {
-//         NSDictionary *params = @{@"i":@(1),
-//                                  @"key":key,
-//                                  @"uid":@(self.model.uid),
-//        };
-//        [[STHttpResquest sharedManager] requestWithMethod:POST
-//                                                 WithPath:@"user_center/do_video_guanzhu"
-//                                               WithParams:params
-//                                         WithSuccessBlock:^(NSDictionary * _Nonnull dic){
-//            NSInteger status = [[dic objectForKey:@"state"] integerValue];
-//            NSString *msg = [[dic objectForKey:@"msg"] description];
-//            if(status == 200){
-//                NSDictionary *data = [dic objectForKey:@"data"];
-//                int flag_type = [[data objectForKey:@"flag_type"] intValue];
-//                if (flag_type == 1) {
-//                    button.layer.backgroundColor = [[UIColor colorWithRed:58.0f/255.0f green:58.0f/255.0f blue:68.0f/255.0f alpha:1.0f] CGColor];
-//                    [button setTitle:@"已订阅" forState:UIControlStateNormal];
-//                } else {
-//                    button.layer.backgroundColor = [[UIColor colorWithRed:255.0f/255.0f green:33.0f/255.0f blue:144.0f/255.0f alpha:1.0f] CGColor];
-//                    [button setTitle:@"订阅+" forState:UIControlStateNormal];
-//                }
-//            }else {
-//                if (msg.length>0) {
-//                    [MBManager showBriefAlert:msg];
-//                }
-//            }
-//        } WithFailurBlock:^(NSError * _Nonnull error) {
-//
-//        }];
-//    } else {
-//        STLoginViewController *vc = [STLoginViewController new];
-//        vc.barStyle = [UIApplication sharedApplication].statusBarStyle;
-//        STBaseNav *nav = [[STBaseNav alloc] initWithRootViewController:vc];
-//        [kRootViewController presentViewController:nav animated:YES completion:^{
-//
-//        }];
-//    }
 }
 
 - (MCFireworksButton *)likeBtn {
@@ -378,10 +277,12 @@
     if (sender.selected) {
         [sender popOutsideWithDuration:0.5];
         [sender setImage:[UIImage imageNamed:@"smallVideo_home_like_after"] forState:UIControlStateNormal];
+        self.likeLabel.textColor = KKColor(243, 55, 102, 1);
     }
     else {
         [sender popInsideWithDuration:0.4];
         [sender setImage:[UIImage imageNamed:@"like_icon_video"] forState:UIControlStateNormal];
+        self.likeLabel.textColor = color_textBg_C7C7D1;
     }
 }
 
@@ -397,16 +298,6 @@
     }
     return _commentButton;
 }
-//#pragma  mark  --  smallWindows 懒加载
-//- (UIView *)smallWindosView {
-//    if (!_smallWindosView) {
-//        _smallWindosView = ({
-//            UIView *view = [[UIView alloc]init];
-//            view;
-//        });
-//    }
-//    return _smallWindosView;
-//}
 
 #pragma  mark  --  shareLab 懒加载
 - (UILabel *)shareLab {

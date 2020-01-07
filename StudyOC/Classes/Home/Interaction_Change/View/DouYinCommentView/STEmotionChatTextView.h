@@ -33,9 +33,11 @@ typedef NS_ENUM(NSUInteger,ChatEditMessageType) {
 @property (nonatomic, strong) UITextView             *textView;
 @property (nonatomic, assign) ChatEditMessageType    editMessageType;
 @property (nonatomic, weak) id<ChatTextViewDelegate> delegate;
-
+@property (nonatomic, retain) UILabel                *placeholderLabel;
+//@property (nonatomic, copy) NSString *commentID;
+//@property (nonatomic, copy) NSString *toUserID;
 - (void)show;
 - (void)dismiss;
-
+- (void)hideContainerBoard;
 @end
 

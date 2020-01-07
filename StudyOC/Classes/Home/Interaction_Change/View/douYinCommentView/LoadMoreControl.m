@@ -1,9 +1,9 @@
 //
 //  LoadMoreControl.m
-//  Douyin
+//  JGDouyin
 //
-//  Created by Qiao Shi on 2018/7/30.
-//  Copyright © 2018年 Qiao Shi. All rights reserved.
+//  Created by 郭军 on 2019/6/10.
+//  Copyright © 2019 JG. All rights reserved.
 //
 
 #import "LoadMoreControl.h"
@@ -41,10 +41,13 @@
         
         _label = [[UILabel alloc]init];
         _label.text = @"正在加载...";
-        _label.textColor = color_text_AFAFB1;
-        _label.font = FONT_10;
+        _label.textColor = kGrayColor;
+        _label.font = FONT_12;
         _label.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_label];
+        
+        _superView = (UIScrollView *)[self superview];
+        [_superView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }

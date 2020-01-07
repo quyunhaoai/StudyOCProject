@@ -35,6 +35,11 @@ NSString * const kTextMessageCell   = @"TextMessageCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self customNavBarwithTitle:@"TEST" andLeftView:@""];
+    self.navTitleView.backgroundColor = kBlackColor;
+    self.navTitleView.titleLabel.textColor = kWhiteColor;
+    self.navTitleView.splitView.backgroundColor = kClearColor;
+    
     _data = [NSMutableArray array];
     
     _pageIndex = 0;
@@ -68,6 +73,7 @@ NSString * const kTextMessageCell   = @"TextMessageCell";
     _textView.delegate = self;
     
     [self loadData:_pageIndex pageSize:_pageSize];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveMessage:) name:@"" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,7 +102,6 @@ NSString * const kTextMessageCell   = @"TextMessageCell";
         [self scrollToBottom];
     }
 }
-
 
 //load data
 - (void)loadData:(NSInteger)pageIndex pageSize:(NSInteger)pageSize {
@@ -151,7 +156,6 @@ NSString * const kTextMessageCell   = @"TextMessageCell";
     if(indexPaths.count == 0) {
         return;
     }
-
 }
 
 - (void)scrollToBottom {
@@ -196,7 +200,6 @@ NSString * const kTextMessageCell   = @"TextMessageCell";
     }
     [self scrollToBottom];
 }
-
 
 - (void)onEditBoardHeightChange:(CGFloat)height {
     _tableView.contentInset = UIEdgeInsetsMake(0, 0, height, 0);

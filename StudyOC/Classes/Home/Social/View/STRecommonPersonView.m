@@ -132,6 +132,7 @@ static NSString *cellReuseIdentifier = @"STRecommonPersonCollectionViewCell";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     STChildrenViewController *vc = [STChildrenViewController new];
+    vc.title = @"个人主页";
     UIViewController *controller = [[QYHTools sharedInstance] getCurrentVC];
     [controller presentViewController:vc animated:YES completion:nil];
 }

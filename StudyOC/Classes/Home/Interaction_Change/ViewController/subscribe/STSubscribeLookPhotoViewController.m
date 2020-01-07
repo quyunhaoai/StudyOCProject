@@ -181,7 +181,7 @@ static CGFloat space = 0.5 ;
             view.indicatorStyle = UIScrollViewIndicatorStyleWhite;
             [view registerClass:[KKXiaoShiPingCell class] forCellWithReuseIdentifier:cellReuseIdentifier];
             XYWeakSelf;
-            view.mj_header = [CustomGifHeader headerWithRefreshingBlock:^{
+            view.mj_header = [STCustomHeader headerWithRefreshingBlock:^{
                 [weakSelf refreshData:YES shouldShowTips:YES];
             }];
             

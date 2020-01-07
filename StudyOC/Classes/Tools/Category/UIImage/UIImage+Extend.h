@@ -33,4 +33,7 @@
 // Create a UIImage from sample buffer data
 + (UIImage *) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer;
 
+- (UIImage *)drawRoundedRectImage:(CGFloat)cornerRadius width:(CGFloat)width height:(CGFloat)height;
+
+- (UIImage *)drawCircleImage;
 @end

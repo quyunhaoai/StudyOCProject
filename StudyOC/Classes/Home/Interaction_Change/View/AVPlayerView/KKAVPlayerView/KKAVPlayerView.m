@@ -203,11 +203,6 @@ static CGFloat gestureMinimumTranslation = 10.f;
         make.centerY.mas_equalTo(self.slider.mas_centerY).mas_offset(0.5);
         make.height.mas_equalTo(1.5);
     }];
-//    self.slider.progressView.trackTintColor    = [UIColor clearColor];
-//    self.slider.progressView.layer.masksToBounds = YES;
-//    self.slider.progressView.layer.cornerRadius  = 1;
-//
-//    [self.slider sendSubviewToBack:self.slider.progressView];
     [self.startTimeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.operatorView).mas_offset(kkPaddingNormal).priority(998);
         make.centerY.mas_equalTo(self.scalaBtn);

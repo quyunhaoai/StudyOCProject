@@ -58,7 +58,11 @@
 }
 /// 全屏改变通知
 - (void)superPlayerFullScreenChanged:(SuperPlayerView *)player {
-
+    if (player.isFullScreen) {
+        [UIApplication sharedApplication].statusBarHidden = YES;
+    } else {
+        [UIApplication sharedApplication].statusBarHidden = NO;
+    }
 }
 /// 播放开始通知
 - (void)superPlayerDidStart:(SuperPlayerView *)player {
